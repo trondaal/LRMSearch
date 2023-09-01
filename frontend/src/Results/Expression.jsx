@@ -178,38 +178,9 @@ export default function Expression(props){
                 <Typography color="primary.main" component="div" variant="etitle" align="left">{title}
                 {!isTranslation && <Typography color='grey.700' variant="wtitle" component="span"> ({worktitle})</Typography>}
                 </Typography>
-                {creators.map(creator => <Typography component="div" align="left" variant="body2" key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
-                {contributors.map(contributor => <Typography component="div" align="left" variant="body2" key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>) }
+                {creators.map(creator => <Typography component="span" align="left" variant="body2" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
+                {contributors.map(contributor => <Typography component="span" align="left" variant="body2" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>) }
                 {showUri && <Typography component="div" align="left" variant="body2">{props.expression.uri}</Typography>}
-                {showRelated  && <Typography component="div" align="left" variant="body2" >
-                <details>
-                    <summary>More</summary>
-                    {others.map(other => <Typography component="div" key={other[0] + other[1]}>
-                        <Typography component="span" variant={"relatedprefix"}>{other[0] + plurals(other[1]) + ": "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{other[1]}</Typography>
-                    </Typography>) }
-                    {isWorkRelatedToWork.edges.map(x => <Typography component="div"key={x.role + x.node.label}>
-                        <Typography component="span" variant={"relatedprefix"}>{capitalize(x.role) + ": "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
-                    </Typography>)}
-                    {partOf.edges.map(x => <Typography component="div"key={"is part of" + x.node.label}>
-                        <Typography component="span" variant={"relatedprefix"}>{"Is part of: "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
-                    </Typography>)}
-                    {hasSubjectWork.edges.map(x => <Typography component="div"key={"has subject work" + x.node.label}>
-                        <Typography component="span" variant={"relatedprefix"}>{"Has subject work: "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
-                    </Typography>)}
-                    {hasSubjectAgent.edges.map(x => <Typography component="div"key={"has subject agent" + x.node.label}>
-                        <Typography component="span" variant={"relatedprefix"}>{"Has subject agent: "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
-                    </Typography>)}
-                    {isExpressionRelatedToExpression.edges.map(x => <Typography component="div"key={x.role + x.node.label}>
-                        <Typography component="span" variant={"relatedprefix"}>{capitalize(x.role) + ": "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
-                    </Typography>)}
-                </details>
-                </Typography>}
         </React.Fragment>
     }
 
@@ -276,11 +247,7 @@ export default function Expression(props){
                         <div className={"expressionHeaderTitle"}>
                             {description()}
                         </div>
-                        <div className={"expressionHeaderTypes"}>
-                            {/*<Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Type of work: ' +  worktype.join(", ")}</Typography>*/}
-                                <Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Content type: ' +  content.join(", ")}</Typography>
-                                {(language.length !== 0) ? <Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Language: ' +  language.join(", ")}</Typography> : ""}
-                        </div>
+
                     </div>
                     <div className={"expressionManifestationListing"}>
                         <ul>
@@ -288,6 +255,40 @@ export default function Expression(props){
                         </ul>
                     </div>
                 </div>
+        <div className={"expressionHeaderTypes"}>
+            {/*<Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Type of work: ' +  worktype.join(", ")}</Typography>*/}
+            <Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Content type: ' +  content.join(", ")}</Typography>
+            {(language.length !== 0) ? <Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Language: ' +  language.join(", ")}</Typography> : ""}
+            {showRelated  && <Typography component="div" align="left" variant="body2" >
+                <details>
+                    <summary>Related works</summary>
+                    {others.map(other => <Typography component="div" key={other[0] + other[1]}>
+                        <Typography component="span" variant={"relatedprefix"}>{other[0] + plurals(other[1]) + ": "}</Typography>
+                        <Typography component="span" variant={"relatedlabel"}>{other[1]}</Typography>
+                    </Typography>) }
+                    {isWorkRelatedToWork.edges.map(x => <Typography component="div"key={x.role + x.node.label}>
+                        <Typography component="span" variant={"relatedprefix"}>{capitalize(x.role) + ": "}</Typography>
+                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
+                    </Typography>)}
+                    {partOf.edges.map(x => <Typography component="div"key={"is part of" + x.node.label}>
+                        <Typography component="span" variant={"relatedprefix"}>{"Is part of: "}</Typography>
+                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
+                    </Typography>)}
+                    {hasSubjectWork.edges.map(x => <Typography component="div"key={"has subject work" + x.node.label}>
+                        <Typography component="span" variant={"relatedprefix"}>{"Has subject work: "}</Typography>
+                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
+                    </Typography>)}
+                    {hasSubjectAgent.edges.map(x => <Typography component="div"key={"has subject agent" + x.node.label}>
+                        <Typography component="span" variant={"relatedprefix"}>{"Has subject agent: "}</Typography>
+                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
+                    </Typography>)}
+                    {isExpressionRelatedToExpression.edges.map(x => <Typography component="div"key={x.role + x.node.label}>
+                        <Typography component="span" variant={"relatedprefix"}>{capitalize(x.role) + ": "}</Typography>
+                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
+                    </Typography>)}
+                </details>
+            </Typography>}
+        </div>
             </div>
 
 }

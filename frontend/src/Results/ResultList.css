@@ -91,6 +91,10 @@
     flex-basis: 30%
 }
 
+.role+.role::before{
+    content: " ; ";
+}
+
 .rankingbuttons{
     display: flex;
     flex-direction: column;
