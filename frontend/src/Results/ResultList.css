@@ -1,0 +1,146 @@
+/*.expression:nth-child(2n) {
+    background-color: WhiteSmoke;
+}/*/
+
+.expression {
+
+}
+
+.ranked{
+    background-color: lightcyan !important;
+    filter: saturate(100%);
+}
+
+/*.expressiontitle{
+    color: blue;
+}*/
+
+/*.expressionheading{
+   width : 20%;
+   margin-right: 200px;
+}*/
+
+.worktitle{
+    color: dimgray;
+    font-style: italic;
+}
+
+.creatorname{
+    color: dimgray;
+    font-size: smaller;
+}
+
+.manifestation {
+    display: list-item;          /* This has to be "list-item"                                               */
+    list-style-type: circle;       /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
+    list-style-position: outside; /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position */
+    margin-bottom: 5px;
+}
+
+.related {
+    display: list-item;
+    color: dimgray;
+    font-size: smaller;
+}
+
+.selected {
+    display: list-item;          /* This has to be "list-item"                                               */
+    /*list-style-type: '\2714\0020';   */   /* 2714   2705  */
+    list-style-image:url('../checkmark.svg');
+    list-style-position: outside;
+    align-content: center;
+    /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position */
+}
+
+.expressionManifestationListing{
+    margin-top: -10px;
+}
+
+.expression{
+    background-color: WhiteSmoke;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+
+}
+
+.expressionLeft{
+    padding: 10px;
+    flex-basis: auto;
+}
+
+.expressionRight{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.expressionHeader{
+    padding-left: 25px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.expressionHeaderTitle{
+    flex-basis: 70%
+}
+
+.expressionHeaderTypes{
+    padding-left: 25px;
+    flex-basis: 30%
+}
+
+.rankingbuttons{
+    display: flex;
+    flex-direction: column;
+}
+
+.manifestationdetails{
+    text-align: left;
+}
+
+.manifestationdetails > .manifestationdetails:not(:first-child)::before{
+    content: " - ";
+}
+
+.manifestationdetails > .prefix{
+    font-style: italic;
+}
+
+/*details > summary {
+    list-style-type: none;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+details > summary::before {
+    content:"<";
+    transform:rotate(90deg)
+}
+
+details[open] > summary::before {
+    content: '>';
+}*/
+
+
+
+/*details > summary {
+    list-style-type: '> ';
+}
+
+details[open] > summary {
+    list-style-type: '< ';
+}*/
+
+/*details {
+    border: 1px solid gray;
+    border-radius: 0.2rem;
+    padding: 0.5rem;
+}
+
+details[open] > summary {
+    margin-bottom: 0.5rem;
+}*/
