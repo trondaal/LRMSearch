@@ -1,7 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import ResultList from "./Results/ResultView";
+import ResultList from "./Results/ResultList";
 import { useLazyQuery} from '@apollo/client';
 import {GET_EXPRESSIONS} from "./api/Queries";
 import SearchBar from "./Search/SearchBar";
@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import {filterState, showFiltersState, selectedState, configState} from './state/state';
 import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
 import {selectedVar} from "./api/Cache";
+import SubmitRanking from "./Search/SubmitRanking.jsx";
 
 function compareExpressions(a, b) {
     if (b.ranking === -1 && a.ranking === -1){
@@ -38,22 +39,26 @@ export default function MyApp() {
         console.log(error);
 
     return (
-        <React.Fragment>
+        <>
             <CssBaseline/>
-            <Grid container spacing={3} marginTop={1} paddingLeft={5} paddingRight={5} >
-                <Grid item xs={9}>
+            <Grid container spacing={3} marginTop={1} paddingLeft={20} paddingRight={20} >
+                {/* Adjusting size according to filters or not, not showing right column when filters are off */}
+                <Grid item xs={showFilters ? 7 : 9}>
                     <SearchBar search={search}/>
                 </Grid>
-                <Grid xs={3} item justifyContent="flex-end">
-                    {showFilters ? <Button variant="outlined" size="small" onClick={handleClearFilters}>Clear filters</Button> : ""}
+                <Grid item xs={3}>
+                    <SubmitRanking/>
                 </Grid>
-                <Grid item xs={showFilters ? 9 : 9}>
-                    {called && loading ? <Grid item xs={9}><CircularProgress /></Grid> : <ResultList results={data ? [...data.expressionsFulltextExpressions].sort(compareExpressions) : []}/>}
+                {showFilters && <Grid xs={3} item justifyContent="flex-end">
+                    {showFilters ? <Button variant="outlined" size="small" onClick={handleClearFilters}>Clear filters</Button> : ""}
+                </Grid> }
+                <Grid item xs={showFilters ? 9 : 12}>
+                    {called && loading ? <Grid item xs={9}><CircularProgress /></Grid> : <ResultList results={data ? data.expressionsFulltextExpressions : []}/>}
                 </Grid>
                 {showFilters ? <Grid item xs={3}>
                     <FilterList results={data ? data.expressionsFulltextExpressions : []}/>
                 </Grid> : ""}
             </Grid>
-        </React.Fragment>
+        </>
     );
 }

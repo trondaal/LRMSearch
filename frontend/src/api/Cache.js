@@ -2,8 +2,8 @@
 import {InMemoryCache, makeVar} from "@apollo/client";
 
 export const selectedVar = makeVar(new Set());
-
-export const rankingVar = makeVar([]);
+export const relevantVar = makeVar([]);
+export const irrelevantVar = makeVar([]);
 
 export const Cache = new InMemoryCache({
     typePolicies: {
@@ -11,7 +11,13 @@ export const Cache = new InMemoryCache({
             fields: {
                 ranking: {
                     read(_, { readField }) { // The read function for the isInCart field
-                        return rankingVar().indexOf(readField('uri', readField('expression')));
+                        if (relevantVar().includes(readField('uri', readField('expression')))){
+                            return 1;
+                        }else if (irrelevantVar().includes(readField('uri', readField('expression')))) {
+                            return -1;
+                        }else{
+                            return 0;
+                        }
                     }
                 }
             }
@@ -25,7 +31,13 @@ export const Cache = new InMemoryCache({
                 },
                 ranking: {
                     read(_, { readField }) { // The read function for the isInCart field
-                        return rankingVar().indexOf(readField('uri'));
+                        if (relevantVar().includes(readField('uri'))){
+                            return 1;
+                        }else if (irrelevantVar().includes(readField('uri'))) {
+                            return -1;
+                        }else{
+                            return 0;
+                        }
                     }
                 }
             }

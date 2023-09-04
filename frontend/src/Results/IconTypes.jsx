@@ -12,32 +12,32 @@ import AudiotrackTwoToneIcon from '@mui/icons-material/AudiotrackTwoTone';
 import GrainTwoToneIcon from '@mui/icons-material/GrainTwoTone';
 
 const IconTypes = props => {
-    const { type } = props;
+    const { type, color } = props;
     switch (type){
         case ('Maps'):
-            return <MapTwoToneIcon fontSize="large"/>;
+            return <MapTwoToneIcon fontSize="large" color={color}/>;
         case ('Software'):
-            return <ComputerTwoToneIcon fontSize="large"/>;
+            return <ComputerTwoToneIcon fontSize="large" color={color}/>;
         case ('Score'):
-            return <QueueMusicTwoToneIcon fontSize="large"/>;
+            return <QueueMusicTwoToneIcon fontSize="large" color ={color}/>;
         case ('Performed music'):
-            return <MusicNoteTwoToneIcon fontSize="large"/>;
+            return <MusicNoteTwoToneIcon fontSize="large" color={color}/>;
         case ('Audio book'):
-            return <HeadsetTwoToneIcon fontSize="large"/>;
+            return <HeadsetTwoToneIcon fontSize="large" color={color}/>;
         case ('Illustrations'):
-            return <PhotoTwoToneIcon fontSize="large"/>;
+            return <PhotoTwoToneIcon fontSize="large" color={color}/>;
         case ('Text'):
-            return <MenuBookTwoToneIcon fontSize="large"/>;
+            return <MenuBookTwoToneIcon fontSize="large" color={color}/>;
         case ('Movie (3D)'):
-            return <LocalMoviesTwoToneIcon fontSize="large"/>;
+            return <LocalMoviesTwoToneIcon fontSize="large" color={color}/>;
         case ('Movie'):
-            return <LocalMoviesTwoToneIcon fontSize="large"/>;
+            return <LocalMoviesTwoToneIcon fontSize="large" color={color}/>;
         case ('Music'):
-            return <AudiotrackTwoToneIcon fontSize="large"/>;
+            return <AudiotrackTwoToneIcon fontSize="large" className={color}/>;
         case ('Tactile text'):
-            return <GrainTwoToneIcon fontSize="large"/>;
+            return <GrainTwoToneIcon fontSize="large" color={color}/>;
         default:
-            return <QuestionMarkTwoToneIcon fontSize="large"/>;
+            return <QuestionMarkTwoToneIcon fontSize="large" color={color}/>;
     }
 };
 

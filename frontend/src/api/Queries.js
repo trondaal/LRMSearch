@@ -241,13 +241,15 @@ query($query: String!) {
 }
 `
 export const CREATE_RANKING = gql`
-    mutation ($date: String!, $query: String!, $respondent: String!, $ranking: [String!]!) {
+    mutation ($date: String!, $query: String!, $respondent: String!, $relevant: [String!]!, $irrelevant: [String!]!, $neutral: [String!]!) {
       createRankingResults (input: [
         {
           date: $date
           query: $query
           respondent: $respondent
-          ranking: $ranking
+          relevant: $relevant
+          irrelevant: $irrelevant
+          neutral: $neutral
         }
     
       ]) {
@@ -255,7 +257,9 @@ export const CREATE_RANKING = gql`
           date
           respondent
           query
-          ranking
+          relevant
+          irrelevant
+          neutral
         }
       }
     }

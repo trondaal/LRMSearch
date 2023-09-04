@@ -1,34 +1,18 @@
 import React from 'react';
-import List from '@mui/material/List';
 import Typography from "@mui/material/Typography";
-import ListItemText from "@mui/material/ListItemText";
 import IconTypes from "./IconTypes";
-import Paper from "@mui/material/Paper";
-import Popover from '@mui/material/Popover';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import "./ResultList.css";
 import {groupBy} from "lodash";
-import {ListItemSecondaryAction} from "@mui/material";
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItem from '@mui/material/ListItem';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import ClearIcon from '@mui/icons-material/Clear';
 import Manifestation from "./Manifestation";
 import {useRecoilState} from 'recoil';
 import {showUriState, clickableState, selectedState} from "../state/state";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import "./ResultList.css";
-import Related from "./Related"
-import {rankingVar} from "../api/Cache";
+import {relevantVar, irrelevantVar} from "../api/Cache";
 import Tooltip from '@mui/material/Tooltip';
 
 function moveLeft(arr, index) {
@@ -63,6 +47,16 @@ function plurals(str){
         return 's';
     }else{
         return ''
+    }
+}
+
+function relevantClass(ranking){
+    if (ranking === 1){
+        return "relevant";
+    }else if (ranking === -1){
+        return "irrelevant";
+    }else{
+        return "";
     }
 }
 
@@ -185,63 +179,60 @@ export default function Expression(props){
     }
 
     /* Moved expression-classname from paper to expression entry */
-    return <div style={{'--ranking': `${props.expression.ranking}`}} className={"expression"} key={props.expression.uri}>
-                <div className={(props.expression.ranking === - 1) ? "expressionLeft" : "expressionLeft ranked"}>
+    return <div className={"expression"} key={props.expression.uri}>
+                <div className={relevantClass(props.expression.ranking) + " expressionLeft"}>
                     <IconTypes type={content[0]}/>
                     <div className={"rankingbuttons"}>
-                        {rankingVar().indexOf(props.expression.uri) === -1 &&
-                        <Tooltip title={"Add to list of ranked"} placement={"right"}>
-                            <IconButton size="small" onClick={() => {
-                                //Adding or moving to the end so that up => highest index in the ranking array
-                                let arr = rankingVar();
-                                let index = arr.indexOf(props.expression.uri);
-                                if (index === -1) {
-                                    arr.unshift(props.expression.uri);
-                                }else {
-                                    arr.push(arr.splice(index, 1)[0]);
-                                }
-                                rankingVar([...arr]);
-                                localStorage.setItem(sessionStorage.getItem('query').toLowerCase(), JSON.stringify(rankingVar()));
-                            }}>
-                                <AddCircleOutlineIcon color="action" fontSize="small"/>
-                            </IconButton>
-                        </Tooltip> }
-                        {rankingVar().indexOf(props.expression.uri) > -1 && rankingVar().indexOf(props.expression.uri) < (rankingVar().length - 1) ?
-                            <Tooltip title={"Move up in the list of ranked"} placement={"right"}>
-                            <IconButton size="small" fontSize={"small"} onClick={() => {
-                                //Adding or moving to the end so that up => highest index in the ranking array
-                                let arr = moveRight(rankingVar(), rankingVar().indexOf(props.expression.uri));
-                                rankingVar([...arr]);
-                                localStorage.setItem(sessionStorage.getItem('query').toLowerCase(), JSON.stringify(rankingVar()));
-                            }}><ArrowCircleUpIcon color="action" fontSize="small"/></IconButton></Tooltip> : <span/>}
-                        {rankingVar().indexOf(props.expression.uri) > 0 ?
-                            <Tooltip title={"Move down in the list of ranked"} placement={"right"}>
-                            <IconButton size="small"  onClick={() => {
-                                //Adding or moving to the end so that up => highest index in the ranking array
-                                let arr = moveLeft(rankingVar(), rankingVar().indexOf(props.expression.uri));
-                                rankingVar([...arr]);
-                                localStorage.setItem(sessionStorage.getItem('query').toLowerCase(), JSON.stringify(rankingVar()));
-                            }}><ArrowCircleDownIcon color="action" fontSize="small"/></IconButton></Tooltip> : <span/>}
-                        {rankingVar().indexOf(props.expression.uri) > -1 ?
-                            <Tooltip title={"Remove from list of ranked"} placement={"right"}>
-                            <IconButton size="small" onClick={() => {
-                                //Adding or moving to the end so that up => highest index in the ranking array
-                                let arr = rankingVar();
-                                let index = arr.indexOf(props.expression.uri);
-                                if (index === -1) {
-                                    //do nothing
-                                } else {
-                                    arr.splice(index, 1);
-                                }
-                                rankingVar([...arr]);
-                                localStorage.setItem(sessionStorage.getItem('query').toLowerCase(), JSON.stringify(rankingVar()));
-                            }}>
-                                <RemoveCircleOutlineIcon color="action" fontSize="small"/>
-                            </IconButton>
-                        </Tooltip> : <span/>}
+                        { props.expression.ranking === 0  &&
+                            <><Tooltip title={"Mark as relevant"} placement={"right"}>
+                                <IconButton size="small" onClick={() => {
+                                    const arr = relevantVar();
+                                    if (arr.indexOf(props.expression.uri) === -1){
+                                        arr.push(props.expression.uri);
+                                    }
+                                    relevantVar([...arr]);
+                                    //console.log("Relevant: " + relevantVar());
+                                    //localStorage.setItem(sessionStorage.getItem('query').toLowerCase() + " : relevant", JSON.stringify(relevantVar()));
+                                }}><ArrowCircleUpIcon color="action" fontSize="small"/>
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title={"Mark as irrelevant"} placement={"right"}>
+                                <IconButton size="small" onClick={() => {
+                                    const arr = irrelevantVar();
+                                    if (arr.indexOf(props.expression.uri) === -1) {
+                                        arr.push(props.expression.uri);
+                                    }
+                                    irrelevantVar([...arr]);
+                                    //console.log("Irrelevant: " + irrelevantVar());
+                                    //localStorage.setItem(sessionStorage.getItem('query').toLowerCase()  + " : irrelevant", JSON.stringify(irrelevantVar()));
+                                }}><ArrowCircleDownIcon color="action" fontSize="small"/>
+                                </IconButton>
+                            </Tooltip></>
+                        }
+                        { props.expression.ranking !== 0  &&
+                            <Tooltip title={"Remove marking"} placement={"right"}>
+                                <IconButton size="small" onClick={() => {
+                                    if (relevantVar().includes(props.expression.uri)) {
+                                        const arr = relevantVar();
+                                        const index = arr.indexOf(props.expression.uri);
+                                        arr.splice(index, 1);
+                                        relevantVar([...arr]);
+                                        //localStorage.setItem(sessionStorage.getItem('query').toLowerCase() + " : relevant", JSON.stringify(relevantVar()));
+                                    }
+                                    if (irrelevantVar().includes(props.expression.uri)) {
+                                        const arr = irrelevantVar();
+                                        const index = arr.indexOf(props.expression.uri);
+                                        arr.splice(index, 1);
+                                        irrelevantVar([...arr]);
+                                        //localStorage.setItem(sessionStorage.getItem('query').toLowerCase() + " : irrelevant", JSON.stringify(irrelevantVar()));
+                                    }
+                                }}>
+                                    <RemoveCircleOutlineIcon color="action" fontSize="small"/>
+                                </IconButton>
+                            </Tooltip>
+                        }
                     </div>
                 </div>
-
                 <div className="resultitem expression expressionRight">
                     <div className={"expressionHeader"}>
                         <div className={"expressionHeaderTitle"}>
@@ -292,3 +283,43 @@ export default function Expression(props){
             </div>
 
 }
+
+
+
+/*
+
+
+                        {relevantVar().indexOf(props.expression.uri) > -1 && relevantVar().indexOf(props.expression.uri) < (relevantVar().length - 1) ?
+                            <Tooltip title={"Mark as relevant"} placement={"right"}>
+                            <IconButton size="small" fontSize={"small"} onClick={() => {
+                                //Adding or moving to the end so that up => highest index in the ranking array
+                                let arr = moveRight(relevantVar(), relevantVar().indexOf(props.expression.uri));
+                                relevantVar([...arr]);
+                                localStorage.setItem(sessionStorage.getItem('query').toLowerCase(), JSON.stringify(relevantVar()));
+                            }}><ArrowCircleUpIcon color="action" fontSize="small"/></IconButton></Tooltip> : <span/>}
+                        {relevantVar().indexOf(props.expression.uri) > 0 ?
+                            <Tooltip title={"Mark as irrelevant"} placement={"right"}>
+                            <IconButton size="small"  onClick={() => {
+                                //Adding or moving to the end so that up => highest index in the ranking array
+                                let arr = moveLeft(relevantVar(), relevantVar().indexOf(props.expression.uri));
+                                relevantVar([...arr]);
+                                localStorage.setItem(sessionStorage.getItem('query').toLowerCase(), JSON.stringify(relevantVar()));
+                            }}><ArrowCircleDownIcon color="action" fontSize="small"/></IconButton></Tooltip> : <span/>}
+                        {relevantVar().indexOf(props.expression.uri) > -1 ?
+                            <Tooltip title={"Remove from list of ranked"} placement={"right"}>
+                            <IconButton size="small" onClick={() => {
+                                //Adding or moving to the end so that up => highest index in the ranking array
+                                let arr = relevantVar();
+                                let index = arr.indexOf(props.expression.uri);
+                                if (index === -1) {
+                                    //do nothing
+                                } else {
+                                    arr.splice(index, 1);
+                                }
+                                relevantVar([...arr]);
+                                localStorage.setItem(sessionStorage.getItem('query').toLowerCase(), JSON.stringify(relevantVar()));
+                            }}>
+                                <RemoveCircleOutlineIcon color="action" fontSize="small"/>
+                            </IconButton>
+                        </Tooltip> : <span/>}
+ */

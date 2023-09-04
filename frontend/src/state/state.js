@@ -33,10 +33,10 @@ export const showFiltersState = selector({
         const config = get(configState);
         if (config.includes("Filters")){
             const params = new URLSearchParams(window.location.search)
-            if (params.get("filters") === "false"){
-                return false;
-            } else{
+            if (params.get("filters") === "true"){
                 return true;
+            } else{
+                return false;
             }
         }else{
             return true;
