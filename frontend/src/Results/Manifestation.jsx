@@ -54,11 +54,14 @@ export default function Manifestation(props){
             {edition && <Typography component="span" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>Edition: </span>{edition}</Typography>}
             {published.length > 0 && <Typography component="span" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>Published: </span>{published.join(", ")}</Typography>}
             {partnote && <Typography component="div" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>In: </span>{partnote}</Typography>}
-            {(expressions.length) > 1 && <Typography component="div" variant="caption">
+            {(expressions.length) > 1 && <Typography component="div" variant="caption" className={"contents"}>
+                <span>Contains: </span>
+                {expressions.filter(x => x.expressionrole === "part").map(x => <span className={"content"} key={x.titlepreferred}>{x.titlepreferred}</span>)}
+                {/*
                 <details>
                     <summary>Contents</summary>
-                    {expressions.map(x => <Typography component="div" variant="caption" key={x.title}>{x.title}</Typography>)}
-                </details>
+                    {expressions.filter(x => x.expressionrole === "part").map(x => <Typography component="div" variant="caption" key={x.titlepreferred}>{x.titlepreferred}</Typography>)}
+                </details>*/}
 
             </Typography>}
             </div>

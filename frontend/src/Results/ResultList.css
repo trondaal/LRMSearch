@@ -11,7 +11,7 @@
     filter: saturate(100%);
 }
 .irrelevant{
-    background-color: rgba(241, 96, 77, 0.5) !important;
+    background-color: rgba(239, 130, 118, 0.5) !important;
     filter: saturate(100%);
 }
 
@@ -43,13 +43,6 @@
     font-size: smaller;
 }
 
-.manifestation {
-    display: list-item;          /* This has to be "list-item"                                               */
-    list-style-type: circle;       /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
-    list-style-position: outside; /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position */
-    margin-bottom: 5px;
-}
-
 .related {
     display: list-item;
     color: dimgray;
@@ -66,7 +59,8 @@
 }
 
 .expressionManifestationListing{
-    margin-top: -10px;
+    padding-left: 25px;
+    padding-top: 10px;
 }
 
 .expression{
@@ -96,12 +90,12 @@
 }
 
 .expressionHeaderTitle{
-    flex-basis: 70%
+
 }
 
 .expressionHeaderTypes{
-    padding-left: 25px;
-    flex-basis: 30%
+    padding-left: 0px;
+    flex-basis: 5%
 }
 
 .role+.role::before{
@@ -113,6 +107,22 @@
     flex-direction: column;
 }
 
+.manifestation {
+    padding-left: 0;
+    display: list-item;          /* This has to be "list-item"                                               */
+    list-style-type: circle;       /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
+    list-style-position: inside; /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position */
+    margin-bottom: 5px;
+}
+
+.manifestationlist{
+    padding-left: 0;
+    margin-left: 0;
+    text-indent: 0;
+}
+
+
+
 .manifestationdetails{
     text-align: left;
 }
@@ -123,6 +133,10 @@
 
 .manifestationdetails > .prefix{
     font-style: italic;
+}
+
+.contents > .content:not(:last-child)::after{
+    content: " ; ";
 }
 
 /*details > summary {
@@ -161,3 +175,4 @@ details[open] > summary {
 details[open] > summary {
     margin-bottom: 0.5rem;
 }*/
+

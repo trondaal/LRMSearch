@@ -63,8 +63,11 @@ export default function SubmitRanking() {
 
     return (
         <Box display="flex" justifyContent="flex-end">
-
-            <Button variant="outlined" onClick={handleClickOpen} disabled={relevantVar().length === 0 && irrelevantVar().length === 0}>
+            <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
+                onClick={() => {relevantVar([]); irrelevantVar([]);}}>
+                Clear
+            </Button>
+            <Button variant="outlined" onClick={handleClickOpen} disabled={relevantVar().length === 0 && irrelevantVar().length === 0}  sx={{ mr: 2 }}>
                 Submit
             </Button>
             <Dialog

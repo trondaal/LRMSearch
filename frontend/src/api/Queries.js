@@ -220,6 +220,7 @@ query($query: String!) {
                 title,
                 titlepreferred,
                 titlevariant,
+                expressionrole,
                 work {
                     label
                 }

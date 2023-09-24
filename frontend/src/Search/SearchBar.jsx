@@ -12,7 +12,7 @@ import stopwords from './stopwords'
 
 function initialQuery() {
     const params = new URLSearchParams(window.location.search)
-    let q = "Tiger";
+    let q = "Tolkien Lord of the Rings";
     if (params.get("query")){
         q = params.get("query");
     }else if (sessionStorage.getItem('query')){

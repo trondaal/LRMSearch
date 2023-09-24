@@ -17,6 +17,10 @@ export const theme = createTheme({
             fontSize: '1.10rem',
             fontWeight: 450,
         },
+        eroles: {
+            fontSize: '1.00rem',
+            fontWeight: 400,
+        },
         wtitle: {
             fontSize: '1.10rem',
             fontWeight: 350,

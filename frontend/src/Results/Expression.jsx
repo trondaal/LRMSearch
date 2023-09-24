@@ -172,9 +172,11 @@ export default function Expression(props){
                 <Typography color="primary.main" component="div" variant="etitle" align="left">{title}
                 {!isTranslation && <Typography color='grey.700' variant="wtitle" component="span"> ({worktitle})</Typography>}
                 </Typography>
-                {creators.map(creator => <Typography component="span" align="left" variant="body2" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
-                {contributors.map(contributor => <Typography component="span" align="left" variant="body2" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>) }
-                {showUri && <Typography component="div" align="left" variant="body2">{props.expression.uri}</Typography>}
+                {creators.map(creator => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
+                {contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>) }
+                <Typography color="primary.main" component="div" variant="body2" align="left">{content.join(", ") + " ; " + language.join(", ")}
+                </Typography>
+                {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
         </React.Fragment>
     }
 
@@ -240,18 +242,24 @@ export default function Expression(props){
                         </div>
 
                     </div>
+
                     <div className={"expressionManifestationListing"}>
-                        <ul>
-                            {props.expression && props.expression.manifestations.slice(0,10).map(m => (<Manifestation manifestation={m} key={m.uri} checkboxes={props.checkboxes}/>))}
+                        <details className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-cu2xtv-MuiTypography-root"}>
+                            <summary className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-ipwc3n-MuiTypography-root"}>Publications with this content</summary>
+                        <ul className={"manifestationlist"}>
+                            {props.expression && props.expression.manifestations.slice(0,20).map(m => (<Manifestation manifestation={m} key={m.uri} checkboxes={props.checkboxes}/>))}
                         </ul>
+                        </details>
                     </div>
+
+
                 </div>
         <div className={"expressionHeaderTypes"}>
             {/*<Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Type of work: ' +  worktype.join(", ")}</Typography>*/}
-            <Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Content type: ' +  content.join(", ")}</Typography>
-            {(language.length !== 0) ? <Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Language: ' +  language.join(", ")}</Typography> : ""}
-            {showRelated  && <Typography component="div" align="left" variant="body2" >
-                <details>
+            {/*<Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Content type: ' +  content.join(", ")}</Typography>
+            {(language.length !== 0) ? <Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Language: ' +  language.join(", ")}</Typography> : ""}*/}
+            {/*showRelated  && <Typography component="div" align="left" variant="body2" >
+                <details className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-cu2xtv-MuiTypography-root"}>
                     <summary>Related works</summary>
                     {others.map(other => <Typography component="div" key={other[0] + other[1]}>
                         <Typography component="span" variant={"relatedprefix"}>{other[0] + plurals(other[1]) + ": "}</Typography>
@@ -278,7 +286,7 @@ export default function Expression(props){
                         <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
                     </Typography>)}
                 </details>
-            </Typography>}
+            </Typography>*/}
         </div>
             </div>
 
