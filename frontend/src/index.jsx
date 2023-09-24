@@ -20,7 +20,7 @@ import {
 console.log("URI = " + import.meta.env.VITE_NEO4J_BACKEND);
 
 const client = new ApolloClient({
-    uri: 'http://dijon.idi.ntnu.no:4444/graphql',
+    uri: 'http://dijon.idi.ntnu.no:8080/graphql',
     //uri: import.meta.env.VITE_NEO4J_BACKEND,
     cache: Cache
 });
