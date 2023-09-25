@@ -17,6 +17,7 @@ const typeDefs = `
         titles: String
         names: String
         expressionrole: String
+        contentsnote: String
         manifestations: [Manifestation!]! @relationship(type: "EMBODIES", direction: IN)
         work: [Work!]! @relationship(type: "REALIZES", direction: OUT)
         language: [Concept!]! @relationship(type: "LANGUAGE", direction: OUT)
