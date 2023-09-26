@@ -15,24 +15,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import Tooltip from '@mui/material/Tooltip';
 
+import { v4 as uuidv4 } from 'uuid';
+
 export default function SubmitRanking() {
 
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
-
-    /*return (
-        <Box display="flex" justifyContent="flex-end">
-            <Button variant="outlined" size="small"
-                    onClick={() => {mutateFunction({
-                        variables: {
-                            date: Date.now().toString(),
-                            query: sessionStorage.getItem('query'),
-                            respondent: "unknown",
-                            relevant: relevantVar(),
-                            irrelevant: irrelevantVar(),
-                            neutral: []
-                        }
-                    })}}>Submit</Button>
-        </Box>*/
 
     const [open, setOpen] = React.useState(false);
 
@@ -50,7 +37,7 @@ export default function SubmitRanking() {
             variables: {
                 date: Date.now().toString(),
                 query: sessionStorage.getItem('query'),
-                respondent: "unknown",
+                respondent: uuidv4(),
                 relevant: relevantVar(),
                 irrelevant: irrelevantVar(),
                 neutral: []

@@ -16,7 +16,6 @@ import {
 } from 'recoil';
 
 
-
 console.log("URI = " + import.meta.env.VITE_NEO4J_BACKEND);
 
 const client = new ApolloClient({

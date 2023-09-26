@@ -174,8 +174,8 @@ export default function Expression(props){
                 </Typography>
                 {creators.map(creator => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
                 {contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>) }
-                <Typography color="primary.main" component="div" variant="body2" align="left">{content.join(", ") + " ; " + language.join(", ")}
-                </Typography>
+                {/*<Typography color="primary.main" component="div" variant="body2" align="left">{content.join(", ") + " ; " + language.join(", ")}</Typography>   */}
+                {props.expression.contentsnote && <Typography color="primary.main" component="div" variant="body2" align="left">{"Includes: " + props.expression.contentsnote}</Typography>}
                 {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
         </React.Fragment>
     }
@@ -198,18 +198,17 @@ export default function Expression(props){
                                 }}><ArrowCircleUpIcon color="action" fontSize="small"/>
                                 </IconButton>
                             </Tooltip>
-                            <Tooltip title={"Mark as irrelevant"} placement={"right"}>
+                            {<Tooltip title={"Mark as irrelevant"} placement={"right"}>
                                 <IconButton size="small" onClick={() => {
                                     const arr = irrelevantVar();
                                     if (arr.indexOf(props.expression.uri) === -1) {
                                         arr.push(props.expression.uri);
                                     }
                                     irrelevantVar([...arr]);
-                                    //console.log("Irrelevant: " + irrelevantVar());
-                                    //localStorage.setItem(sessionStorage.getItem('query').toLowerCase()  + " : irrelevant", JSON.stringify(irrelevantVar()));
                                 }}><ArrowCircleDownIcon color="action" fontSize="small"/>
                                 </IconButton>
-                            </Tooltip></>
+                            </Tooltip>}
+                            </>
                         }
                         { props.expression.ranking !== 0  &&
                             <Tooltip title={"Remove marking"} placement={"right"}>
@@ -235,7 +234,7 @@ export default function Expression(props){
                         }
                     </div>
                 </div>
-                <div className="resultitem expression expressionRight">
+                <div className="resultitem expressionRight">
                     <div className={"expressionHeader"}>
                         <div className={"expressionHeaderTitle"}>
                             {description()}
@@ -245,16 +244,16 @@ export default function Expression(props){
 
                     <div className={"expressionManifestationListing"}>
                         <details className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-cu2xtv-MuiTypography-root"}>
-                            <summary className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-ipwc3n-MuiTypography-root"}>Published as:</summary>
+                            <summary className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-ipwc3n-MuiTypography-root"}>Available as:</summary>
                         <ul className={"manifestationlist"}>
-                            {props.expression && props.expression.manifestations.slice(0,20).map(m => (<Manifestation manifestation={m} key={m.uri} checkboxes={props.checkboxes}/>))}
+                            {props.expression && props.expression.manifestations.slice(0,20).map(m => (<Manifestation manifestation={m} expressionrole= {props.expression.expressionrole} key={m.uri} checkboxes={props.checkboxes}/>))}
                         </ul>
                         </details>
                     </div>
 
 
                 </div>
-        <div className={"expressionHeaderTypes"}>
+        {/*<div className={"expressionHeaderTypes"}>*/}
             {/*<Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Type of work: ' +  worktype.join(", ")}</Typography>*/}
             {/*<Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Content type: ' +  content.join(", ")}</Typography>
             {(language.length !== 0) ? <Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Language: ' +  language.join(", ")}</Typography> : ""}*/}
@@ -287,7 +286,7 @@ export default function Expression(props){
                     </Typography>)}
                 </details>
             </Typography>*/}
-        </div>
+        {/*</div>*/}
             </div>
 
 }

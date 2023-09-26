@@ -9,13 +9,15 @@ query($query: String!) {
     score,
     ranking @client,
     expression {
-      label,
-      checked @client,
-      ranking @client,
-      title,
+        label,
+        checked @client,
+        ranking @client,
+        title,
         titlepreferred,
         titlevariant,
         uri,
+        expressionrole,
+        contentsnote
         language{
             label,
             uri
@@ -221,6 +223,7 @@ query($query: String!) {
                 titlepreferred,
                 titlevariant,
                 expressionrole,
+                contentsnote,
                 work {
                     label
                 }

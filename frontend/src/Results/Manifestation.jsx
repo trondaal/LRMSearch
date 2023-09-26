@@ -16,6 +16,7 @@ export default function Manifestation(props){
     const [clickable] = useRecoilState(clickableState)
     const {title, subtitle, numbering, part, responsibility, extent, edition, uri, partnote} = props.manifestation;
     const {distribution, production, publication, manufacture, expressions} = props.manifestation;
+    const parentrole = props.expressionrole;
     //console.log(expressions)
     const statement = [];
     if (!isEmpty(title) && !isEmpty(subtitle)){
@@ -49,21 +50,15 @@ export default function Manifestation(props){
     const description = () => {
         return <React.Fragment>
             <Typography component="div" color="primary.main" align="left" variant="mtitle.light" className={"mtitle"}>{statement.join(" / ")}</Typography>
+            {(expressions.length) > 1 && parentrole === "part" && <Typography component="div" variant="body2" className={"contents"}>
+                <span className={"prefix"}>Includes: </span>
+                {expressions.filter(x => x.expressionrole === "collection" || x.expressionrole === "parent").map(x => <span className={"content"} key={x.contenstnote}>{x.contentsnote}</span>)}
+            </Typography>}
             <div className={"manifestationdetails"}>
-                {extent && <Typography component="span" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>Extent: </span>{extent}</Typography>}
+            {extent && <Typography component="span" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>Extent: </span>{extent}</Typography>}
             {edition && <Typography component="span" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>Edition: </span>{edition}</Typography>}
             {published.length > 0 && <Typography component="span" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>Published: </span>{published.join(", ")}</Typography>}
             {partnote && <Typography component="div" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>In: </span>{partnote}</Typography>}
-            {(expressions.length) > 1 && <Typography component="div" variant="caption" className={"contents"}>
-                <span>Contains: </span>
-                {expressions.filter(x => x.expressionrole === "part").map(x => <span className={"content"} key={x.titlepreferred}>{x.titlepreferred}</span>)}
-                {/*
-                <details>
-                    <summary>Contents</summary>
-                    {expressions.filter(x => x.expressionrole === "part").map(x => <Typography component="div" variant="caption" key={x.titlepreferred}>{x.titlepreferred}</Typography>)}
-                </details>*/}
-
-            </Typography>}
             </div>
             </React.Fragment>
     }
@@ -72,7 +67,8 @@ export default function Manifestation(props){
                             {description()}
                         </ListItemButton>
                         :
-                        <li className={"manifestation"}>
+                        <div className={"manifestation"}>
                             {description()}
-                        </li>
+                            <hr width={"50%"} align={"left"}/>
+                        </div>
 }
