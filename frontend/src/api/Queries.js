@@ -16,7 +16,7 @@ query($query: String!) {
         titlepreferred,
         titlevariant,
         uri,
-        expressionrole,
+        form,
         contentsnote
         language{
             label,
@@ -39,6 +39,7 @@ query($query: String!) {
         work{
             label,
             title,
+            form,
             type{
                 label,
                 uri
@@ -222,7 +223,7 @@ query($query: String!) {
                 title,
                 titlepreferred,
                 titlevariant,
-                expressionrole,
+                form,
                 contentsnote,
                 work {
                     label
