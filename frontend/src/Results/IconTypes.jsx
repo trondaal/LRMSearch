@@ -10,6 +10,7 @@ import MapTwoToneIcon from '@mui/icons-material/MapTwoTone';
 import QuestionMarkTwoToneIcon from '@mui/icons-material/QuestionMarkTwoTone';
 import AudiotrackTwoToneIcon from '@mui/icons-material/AudiotrackTwoTone';
 import GrainTwoToneIcon from '@mui/icons-material/GrainTwoTone';
+import ArticleTwoToneIcon from '@mui/icons-material/ArticleTwoTone';
 
 const IconTypes = props => {
     const { type, color } = props;

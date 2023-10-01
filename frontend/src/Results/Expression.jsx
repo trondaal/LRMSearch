@@ -133,6 +133,7 @@ export default function Expression(props){
     const hasSubjectWork = props.expression.work[0].hasSubjectWorkConnection;
     const hasSubjectAgent = props.expression.work[0].hasSubjectAgentConnection;
     const isExpressionRelatedToExpression = props.expression.relatedToConnection;
+    const partOfExpression = props.expression.partOfConnection;
 
     if (isWorkRelatedToWork.totalCount > 0){
         showRelated = true;
@@ -170,12 +171,14 @@ export default function Expression(props){
     const description = () => {
         return <React.Fragment>
                 <Typography color="primary.main" component="div" variant="etitle" align="left">{title}
-                {!isTranslation && <Typography color='grey.700' variant="wtitle" component="span"> ({worktitle})</Typography>}
+                {/*!isTranslation && <Typography color='grey.700' variant="wtitle" component="span"> (translation of: {worktitle})</Typography>*/}
+                {/*!isTranslation && <Typography color='grey.700' variant="wtitle" component="span"> (translation of: {worktitle})</Typography>*/}
                 </Typography>
                 {creators.map(creator => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
                 {contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>) }
                 {/*<Typography color="primary.main" component="div" variant="body2" align="left">{content.join(", ") + " ; " + language.join(", ")}</Typography>   */}
                 {props.expression.contentsnote && <Typography color="primary.main" component="div" variant="body2" align="left">{"Includes: " + props.expression.contentsnote}</Typography>}
+                {partOfExpression.totalCount > 0 && <Typography color="primary.main" component="div" variant="body2" align="left">{"Part of: " + partOfExpression.edges.map(x => x.node.titlepreferred).join(", ")}</Typography>}
                 {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
         </React.Fragment>
     }
@@ -246,7 +249,7 @@ export default function Expression(props){
                         <details className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-cu2xtv-MuiTypography-root"}>
                             <summary className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-ipwc3n-MuiTypography-root"}>Available as:</summary>
                         <ul className={"manifestationlist"}>
-                            {props.expression && props.expression.manifestations.slice(0,20).map(m => (<Manifestation manifestation={m} expressionrole= {props.expression.expressionrole} key={m.uri} checkboxes={props.checkboxes}/>))}
+                            {props.expression && props.expression.manifestations.slice(0,20).map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes}/>))}
                         </ul>
                         </details>
                     </div>
