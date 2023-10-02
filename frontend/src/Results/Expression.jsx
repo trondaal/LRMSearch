@@ -119,6 +119,7 @@ export default function Expression(props){
     content.sort();
     content.reverse();
     const worktype = props.expression.work[0].type.map(c => c.label);
+    const workform = props.expression.work[0].form;
 
 
     //const isRelatedToMap = groupBy(props.expression.work[0].relatedToConnection.edges, a => a.role);
@@ -171,7 +172,7 @@ export default function Expression(props){
     const description = () => {
         return <React.Fragment>
                 <Typography color="primary.main" component="div" variant="etitle" align="left">{title}
-                {/*!isTranslation && <Typography color='grey.700' variant="wtitle" component="span"> (translation of: {worktitle})</Typography>*/}
+                {workform && <Typography color='grey.700' variant="wtitle" component="span">({workform})</Typography>}
                 {/*!isTranslation && <Typography color='grey.700' variant="wtitle" component="span"> (translation of: {worktitle})</Typography>*/}
                 </Typography>
                 {creators.map(creator => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
