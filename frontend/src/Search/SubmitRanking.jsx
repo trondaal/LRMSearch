@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import { useMutation } from '@apollo/client';
 import {CREATE_RANKING} from "../api/Queries";
 import {relevantVar, irrelevantVar} from "../api/Cache";
-
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -11,17 +10,17 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import Tooltip from '@mui/material/Tooltip';
-
 import { v4 as uuidv4 } from 'uuid';
+import ExpertiseRating from "./ExpertiseRating.jsx";
 
 export default function SubmitRanking() {
 
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
-
     const [open, setOpen] = React.useState(false);
+    const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
+    const [searchExpertise, setSearchExpertise] = React.useState(3);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -40,7 +39,9 @@ export default function SubmitRanking() {
                 respondent: uuidv4(),
                 relevant: relevantVar(),
                 irrelevant: irrelevantVar(),
-                neutral: []
+                neutral: [],
+                bibliographicExpertise: bibliographicExpertise,
+                searchExpertise: searchExpertise,
             }
         });
         let obj = {relevant: relevantVar(), irrelevant: irrelevantVar()};
@@ -64,6 +65,11 @@ export default function SubmitRanking() {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
+                    {"Rate your knowledge..."}
+                </DialogTitle>
+                <ExpertiseRating title={"of this author or work"} value={searchExpertise} setValue={setSearchExpertise}/>
+                <ExpertiseRating title={"of bibliographic data and models"} value={bibliographicExpertise} setValue={setBibliographicExpertise}/>
+                <DialogTitle id="alert-dialog-title">
                     {"Submit your ranking?"}
                 </DialogTitle>
                 <DialogContent>
@@ -71,7 +77,9 @@ export default function SubmitRanking() {
                         Saving rankings for query: {sessionStorage.getItem('query')}. <br/>
                         You have marked {relevantVar().length + " relevant and " + irrelevantVar().length + " irrelevant."}.<br/>
                         By submitting you accept that data will be used in research.
+                        No personal data is stored.
                     </DialogContentText>
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>No</Button>

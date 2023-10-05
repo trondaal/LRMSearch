@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import {selectedVar, relevantVar, irrelevantVar} from '../api/Cache';
 import stopwords from './stopwords'
@@ -17,6 +17,8 @@ function initialQuery() {
         q = params.get("query");
     }else if (sessionStorage.getItem('query')){
         q = sessionStorage.getItem('query');
+    }else if (localStorage.getItem('query')){
+        q = localStorage.getItem('query');
     }
     return q;
 }
@@ -24,7 +26,6 @@ function initialQuery() {
 export default function SearchBar(props) {
     const [query, setQuery] = useState(initialQuery());
     const {search} = props;
-
     //const data = JSON.parse(localStorage.getItem(query.toLowerCase()));
 
     //const [relevant, setRelevant] = useState(data.relevant ?? []);
@@ -79,9 +80,10 @@ export default function SearchBar(props) {
     };
 
     useEffect(() => {
-        sessionStorage.setItem('query', query);
+        //makes sure we run a query on first load
+        //sessionStorage.setItem('query', query);
         search({ variables: { query: query.split(" ").join(" AND ") } });
-        }, [search]
+        }, []
 
     );
 

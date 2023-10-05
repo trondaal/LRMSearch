@@ -246,7 +246,7 @@ query($query: String!) {
 }
 `
 export const CREATE_RANKING = gql`
-    mutation ($date: String!, $query: String!, $respondent: String!, $relevant: [String!]!, $irrelevant: [String!]!, $neutral: [String!]!) {
+    mutation ($date: String!, $query: String!, $respondent: String!, $relevant: [String!]!, $irrelevant: [String!]!, $neutral: [String!]!, $bibliographicExpertise: Int!, $searchExpertise: Int!
       createRankingResults (input: [
         {
           date: $date
@@ -255,6 +255,8 @@ export const CREATE_RANKING = gql`
           relevant: $relevant
           irrelevant: $irrelevant
           neutral: $neutral
+          bibliographicExpertise: $bibliographicExpertise
+          searchExpertise: $searchExpertise
         }
     
       ]) {
@@ -265,6 +267,8 @@ export const CREATE_RANKING = gql`
           relevant
           irrelevant
           neutral
+          bibliographicExpertise
+          searchExpertise
         }
       }
     }

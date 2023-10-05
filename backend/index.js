@@ -104,6 +104,8 @@ const typeDefs = `
         relevant: [String]
         irrelevant: [String]
         neutral: [String]
+        bibliographicExpertise: Int
+        searchExpertise: Int
     }
 `;
 

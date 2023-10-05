@@ -8,7 +8,6 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { ApolloProvider, ApolloClient, } from '@apollo/client';
 import {Cache} from "./api/Cache"
-//import {HashRouter as Router, Routes, Route} from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import {theme} from "./theme";
 import {
