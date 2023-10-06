@@ -71,15 +71,8 @@ export default function SearchBar({search, expanded, setExpanded}) {
                 onChange={changeHandler}
             />
         </Grid>
-        <Grid item xs={3}>
-            <Box display="flex" justifyContent="flex-start">
-                <Button variant="outlined" onClick={() => setExpanded(!expanded)} sx={{ mr: 2 }}>
-                    {expanded ? "Hide publications" : "Show publications"}
-                </Button>
-            </Box>
-        </Grid>
-        <Grid item xs={3}>
-            <SubmitRanking query={query}/>
+        <Grid item xs={6}>
+            <SubmitRanking query={query} expanded={expanded} setExpanded={setExpanded}/>
         </Grid>
 
     </Grid>

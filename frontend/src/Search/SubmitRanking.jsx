@@ -15,7 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
 
-export default function SubmitRanking({query}) {
+export default function SubmitRanking({query, expanded, setExpanded}) {
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
     const [open, setOpen] = React.useState(false);
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
@@ -36,6 +36,9 @@ export default function SubmitRanking({query}) {
         let response = uuidv4();
         if (params.get("response")){
             response = params.get("response");
+        }else{
+            params.set("response", response);
+            window.location.search = params.toString()
         }
         mutateFunction({
             variables: {
@@ -57,6 +60,9 @@ export default function SubmitRanking({query}) {
 
     return (
         <Box display="flex" justifyContent="flex-end">
+            <Button variant="outlined" onClick={() => setExpanded(!expanded)} sx={{ mr: 2 }}>
+                {expanded ? "Hide items" : "Show items"}
+            </Button>
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
                 onClick={() => {relevantVar([]); irrelevantVar([]);}}>
                 Clear ranking
