@@ -12,15 +12,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import Tooltip from '@mui/material/Tooltip';
-import { v4 as uuidv4 } from 'uuid';
 import ExpertiseRating from "./ExpertiseRating.jsx";
 
-export default function SubmitRanking() {
-
+export default function SubmitRanking({query, uuid}) {
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
     const [open, setOpen] = React.useState(false);
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
     const [searchExpertise, setSearchExpertise] = React.useState(3);
+    const [queries, setQueries] = React.useState([]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -35,18 +34,19 @@ export default function SubmitRanking() {
         mutateFunction({
             variables: {
                 date: Date.now().toString(),
-                query: sessionStorage.getItem('query'),
-                respondent: uuidv4(),
+                query: query,
+                respondent: uuid,
                 relevant: relevantVar(),
                 irrelevant: irrelevantVar(),
                 neutral: [],
                 bibliographicExpertise: bibliographicExpertise,
-                searchExpertise: searchExpertise,
+                searchExpertise: searchExpertise
             }
         });
         let obj = {relevant: relevantVar(), irrelevant: irrelevantVar()};
         let json = JSON.stringify(obj);
-        localStorage.setItem(sessionStorage.getItem('query'), json);
+        setQueries([...queries, query]);
+        localStorage.setItem(query, json);
     };
 
     return (

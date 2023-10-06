@@ -3,76 +3,38 @@ import {useState, useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import {selectedVar, relevantVar, irrelevantVar} from '../api/Cache';
 import stopwords from './stopwords'
-
-/* interface Rankings {
-  relevant: string[]
-  irrelevant: string[]
-// } */
-
+import Grid from "@mui/material/Grid";
+import SubmitRanking from "./SubmitRanking.jsx";
+import {useRecoilState} from 'recoil';
+import {queryState} from "../state/state";
 
 function initialQuery() {
     const params = new URLSearchParams(window.location.search)
     let q = "Tolkien Lord of the Rings";
     if (params.get("query")){
         q = params.get("query");
+        return q;
     }else if (sessionStorage.getItem('query')){
         q = sessionStorage.getItem('query');
-    }else if (localStorage.getItem('query')){
-        q = localStorage.getItem('query');
+        params.set("query", q);
+        window.location.search = params.toString()
     }
     return q;
 }
 
-export default function SearchBar(props) {
+export default function SearchBar({search, uuid}) {
+    //const [query, setQuery] = useRecoilState(queryState);
+    //setQuery(initialQuery());
     const [query, setQuery] = useState(initialQuery());
-    const {search} = props;
-    //const data = JSON.parse(localStorage.getItem(query.toLowerCase()));
-
-    //const [relevant, setRelevant] = useState(data.relevant ?? []);
-    //const [irrelevant, setIrrelevant] = useState(data.irrelevant ?? []);
-
- /*   localStorage.setItem(query, JSON.stringify(
-        {
-            relevant: [],
-            irrelevant: [],
-        }
-    ))*/
-
-
-
-
-    /*const relevant = JSON.parse(localStorage.getItem(query.toLowerCase() + " : relevant"));
-    if (relevant){
-        relevantVar([...relevant]);
-    }else{
-        relevantVar([]);
-    }
-
-    const irrelevant = JSON.parse(localStorage.getItem(query.toLowerCase() + " : irrelevant"));
-    if (irrelevant){
-        irrelevantVar([...irrelevant]);
-    }else{
-        irrelevantVar([]);
-    }*/
-
     const changeHandler = (event) => {
+        //runs a query when enter is pressed, otherwise updates the query
         if (event.key === 'Enter') {
             selectedVar(new Set());
-            props.search({ variables: { query: query.split(" ").filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") } })
-            //for prev queries retrieve existing ranking from localstorage and insert into rankingVar
-            //or set to empty array if no ranking exists
-            /*const relevant = JSON.parse(localStorage.getItem(query.toLowerCase() + " : relevant"));
-            if (relevant){
-                relevantVar([...relevant]);
-            }else{
-                relevantVar([]);
-            }
-            const irrelevant = JSON.parse(localStorage.getItem(query.toLowerCase() + " : irrelevant") );
-            if (irrelevant){
-                irrelevantVar([...irrelevant]);
-            }else{
-                irrelevantVar([]);
-            }*/
+            search({ variables: { query: query.split(" ").filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") } })
+            //console.log(query)
+            const params = new URLSearchParams(window.location.search);
+            params.set("query", event.target.value);
+            window.location.search = params.toString()
             sessionStorage.setItem('query', query);
         }else{
             setQuery(event.target.value)
@@ -80,28 +42,34 @@ export default function SearchBar(props) {
     };
 
     useEffect(() => {
-        //makes sure we run a query on first load
-        //sessionStorage.setItem('query', query);
-        search({ variables: { query: query.split(" ").join(" AND ") } });
+            //makes sure we run a query on first load
+            console.log("Query=" + query);
+            sessionStorage.setItem('query', query);
+            search({ variables: { query: query.split(" ").join(" AND ") } });
         }, []
-
     );
 
-    return <>
 
-    <TextField
-        id="filled-search"
-        size="small"
-        fullWidth
-        label="Search field"
-        type="search"
-        variant="filled"
-        value={query}
-        onKeyPress={changeHandler}
-        onChange={changeHandler}
-    />
+    return <Grid container spacing={3} marginTop={1} >
+        <Grid item xs={9}>
+            <TextField
+                id="filled-search"
+                size="small"
+                fullWidth
+                label="Search field"
+                type="search"
+                variant="filled"
+                value={query}
+                onKeyPress={changeHandler}
+                onChange={changeHandler}
+            />
+        </Grid>
 
-    </>
+        <Grid item xs={3}>
+            <SubmitRanking uuid={uuid} query={query}/>
+        </Grid>
+
+    </Grid>
 
 
 }

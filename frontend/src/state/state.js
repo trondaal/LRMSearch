@@ -27,6 +27,11 @@ export const configState = atom({
     default: ["Filters", "Clickable", "Formatting", "ShowURIs"]
 });
 
+export const queryState = atom({
+    key: 'query',
+    default: ""
+});
+
 export const showFiltersState = selector({
     key: 'showFilters',
     get: ({get}) => {

@@ -10,12 +10,13 @@ import { ApolloProvider, ApolloClient, } from '@apollo/client';
 import {Cache} from "./api/Cache"
 import { ThemeProvider } from '@mui/material/styles';
 import {theme} from "./theme";
+
 import {
     RecoilRoot,
 } from 'recoil';
 
 
-console.log("URI = " + import.meta.env.VITE_NEO4J_BACKEND);
+//console.log("URI = " + import.meta.env.VITE_NEO4J_BACKEND);
 
 const client = new ApolloClient({
     uri: 'http://dijon.idi.ntnu.no:8080/graphql',

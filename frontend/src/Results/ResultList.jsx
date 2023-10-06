@@ -1,4 +1,3 @@
-import React from "react";
 import {selectedVar} from "../api/Cache";
 import Expression from "./Expression";
 

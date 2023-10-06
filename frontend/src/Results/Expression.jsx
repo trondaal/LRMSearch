@@ -247,7 +247,7 @@ export default function Expression(props){
                     </div>
 
                     <div className={"expressionManifestationListing"}>
-                        <details className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-cu2xtv-MuiTypography-root"}>
+                        <details open className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-cu2xtv-MuiTypography-root"}>
                             <summary className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-ipwc3n-MuiTypography-root"}>Available as:</summary>
                         <ul className={"manifestationlist"}>
                             {props.expression && props.expression.manifestations.slice(0,20).map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes}/>))}
