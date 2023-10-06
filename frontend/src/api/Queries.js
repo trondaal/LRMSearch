@@ -12,6 +12,7 @@ query($query: String!) {
         label,
         checked @client,
         ranking @client,
+        expanded @client,
         title,
         titlepreferred,
         titlevariant,

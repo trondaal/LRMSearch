@@ -11,7 +11,7 @@ import {filterState, showFiltersState, selectedState, configState} from './state
 import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
 import {selectedVar} from "./api/Cache";
 import SubmitRanking from "./Search/SubmitRanking.jsx";
-import { v4 as uuidv4 } from 'uuid';
+import {useState} from 'react';
 
 
 export default function MyApp() {
@@ -27,7 +27,7 @@ export default function MyApp() {
     }
 
     const [search, { loading, data, error, called }] = useLazyQuery(GET_EXPRESSIONS);
-    const uuid = uuidv4();
+    const [expanded, setExpanded] = useState(true);
 
     if (error)
         console.log(error);
@@ -38,13 +38,13 @@ export default function MyApp() {
             <Grid container spacing={3} marginTop={1} paddingLeft={20} paddingRight={20} >
                 {/* Adjusting size according to filters or not, not showing right column when filters are off */}
                 <Grid item xs={showFilters ? 9 : 12}>
-                    <SearchBar search={search} uuid={uuid}/>
+                    <SearchBar search={search} expanded={expanded} setExpanded={setExpanded}/>
                 </Grid>
                 {showFilters && <Grid xs={3} item justifyContent="flex-end">
                     {showFilters ? <Button variant="outlined" size="small" onClick={handleClearFilters}>Clear filters</Button> : ""}
                 </Grid> }
                 <Grid item xs={showFilters ? 9 : 12}>
-                    {called && loading ? <Grid item xs={9}><CircularProgress /></Grid> : <ResultList results={data ? data.expressionsFulltextExpressions : []}/>}
+                    {called && loading ? <Grid item xs={9}><CircularProgress /></Grid> : <ResultList results={data ? data.expressionsFulltextExpressions : []} expanded={expanded}/>}
                 </Grid>
                 {showFilters ? <Grid item xs={3}>
                     <FilterList results={data ? data.expressionsFulltextExpressions : []}/>

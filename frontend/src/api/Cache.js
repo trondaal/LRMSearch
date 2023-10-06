@@ -5,6 +5,8 @@ export const selectedVar = makeVar(new Set());
 export const relevantVar = makeVar([]);
 export const irrelevantVar = makeVar([]);
 
+export const expandedVar = makeVar([]);
+
 export const Cache = new InMemoryCache({
     typePolicies: {
         ExpressionFulltextResult: {
@@ -37,6 +39,15 @@ export const Cache = new InMemoryCache({
                             return -1;
                         }else{
                             return 0;
+                        }
+                    }
+                },
+                expanded: {
+                    read(_, { readField }) { // The read function for the isInCart field
+                        if (expandedVar().includes(readField('uri'))){
+                            return true;
+                        }else{
+                            return false;
                         }
                     }
                 }

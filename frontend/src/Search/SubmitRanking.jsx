@@ -13,8 +13,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import Tooltip from '@mui/material/Tooltip';
 import ExpertiseRating from "./ExpertiseRating.jsx";
+import { v4 as uuidv4 } from 'uuid';
 
-export default function SubmitRanking({query, uuid}) {
+export default function SubmitRanking({query}) {
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
     const [open, setOpen] = React.useState(false);
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
@@ -31,11 +32,16 @@ export default function SubmitRanking({query, uuid}) {
 
     const handleSave = () => {
         setOpen(false);
+        const params = new URLSearchParams(window.location.search)
+        let response = uuidv4();
+        if (params.get("response")){
+            response = params.get("response");
+        }
         mutateFunction({
             variables: {
                 date: Date.now().toString(),
                 query: query,
-                respondent: uuid,
+                respondent: response,
                 relevant: relevantVar(),
                 irrelevant: irrelevantVar(),
                 neutral: [],
@@ -46,14 +52,14 @@ export default function SubmitRanking({query, uuid}) {
         let obj = {relevant: relevantVar(), irrelevant: irrelevantVar()};
         let json = JSON.stringify(obj);
         setQueries([...queries, query]);
-        localStorage.setItem(query, json);
+        localStorage.setItem(query.toLowerCase(), json);
     };
 
     return (
         <Box display="flex" justifyContent="flex-end">
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
                 onClick={() => {relevantVar([]); irrelevantVar([]);}}>
-                Clear
+                Clear ranking
             </Button>
             <Button variant="outlined" onClick={handleClickOpen} disabled={relevantVar().length === 0 && irrelevantVar().length === 0}  sx={{ mr: 2 }}>
                 Submit
@@ -86,7 +92,7 @@ export default function SubmitRanking({query, uuid}) {
                     <Button onClick={handleSave} autoFocus>Yes</Button>
                 </DialogActions>
             </Dialog>
-            <Tooltip title={localStorage.getItem(sessionStorage.getItem('query')) ? "Done!" : "Not submitted yet"} placement={"right"}>
+            <Tooltip title={localStorage.getItem(sessionStorage.getItem('query')) ? "You have completed ranking this query." : "Not submitted yet"} placement={"right"}>
                 <CheckCircleOutlineSharpIcon color={localStorage.getItem(sessionStorage.getItem('query')) ? "success" : "action"} sx={{fontSize: 40}}/>
             </Tooltip>
         </Box>

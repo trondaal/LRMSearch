@@ -7,6 +7,9 @@ import Grid from "@mui/material/Grid";
 import SubmitRanking from "./SubmitRanking.jsx";
 import {useRecoilState} from 'recoil';
 import {queryState} from "../state/state";
+import Button from "@mui/material/Button";
+import * as React from "react";
+import Box from '@mui/material/Box';
 
 function initialQuery() {
     const params = new URLSearchParams(window.location.search)
@@ -22,7 +25,7 @@ function initialQuery() {
     return q;
 }
 
-export default function SearchBar({search, uuid}) {
+export default function SearchBar({search, expanded, setExpanded}) {
     //const [query, setQuery] = useRecoilState(queryState);
     //setQuery(initialQuery());
     const [query, setQuery] = useState(initialQuery());
@@ -42,16 +45,20 @@ export default function SearchBar({search, uuid}) {
     };
 
     useEffect(() => {
-            //makes sure we run a query on first load
-            console.log("Query=" + query);
-            sessionStorage.setItem('query', query);
+            //retrieves rankings from local storage if they exist
+            if (localStorage.getItem(query.toLowerCase())) {
+                const rankings = JSON.parse(localStorage.getItem(query.toLowerCase()))
+                relevantVar([...rankings.relevant]);
+                irrelevantVar([...rankings.irrelevant]);
+            }
+            sessionStorage.setItem('query', query.toLowerCase());
             search({ variables: { query: query.split(" ").join(" AND ") } });
         }, []
     );
 
 
     return <Grid container spacing={3} marginTop={1} >
-        <Grid item xs={9}>
+        <Grid item xs={6}>
             <TextField
                 id="filled-search"
                 size="small"
@@ -64,9 +71,15 @@ export default function SearchBar({search, uuid}) {
                 onChange={changeHandler}
             />
         </Grid>
-
         <Grid item xs={3}>
-            <SubmitRanking uuid={uuid} query={query}/>
+            <Box display="flex" justifyContent="flex-start">
+                <Button variant="outlined" onClick={() => setExpanded(!expanded)} sx={{ mr: 2 }}>
+                    {expanded ? "Hide publications" : "Show publications"}
+                </Button>
+            </Box>
+        </Grid>
+        <Grid item xs={3}>
+            <SubmitRanking query={query}/>
         </Grid>
 
     </Grid>
