@@ -50,7 +50,6 @@ query($query: String!) {
                 edges{
                     node{
                         name,
-                        label,
                         uri
                     },
                     role

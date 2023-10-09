@@ -77,16 +77,21 @@ export default function Expression(props){
     const isTranslation = titles.find(element => element.toLowerCase().replace(/[^a-z]/g, '').includes(worktitle.toLowerCase().replace(/[^a-z]/g, '')))
 
     //roles that should default be displayed, in the order they should be presented, contains both work and expression roles
-    const primaryroles = ['Author', 'Creator', 'Artist', 'Director', 'Producer', 'Composer', 'Lyricist', 'Interviewer', 'Interviewee', 'Honouree', 'Compiler', 'Translator', 'Narrator', 'Abridger', 'Editor'];
+    const primaryroles = ['Author', 'Creator', 'Artist', 'Director', 'Producer', 'Composer', 'Lyricist', 'Interviewer', 'Interviewee', 'Honouree', 'Compiler', 'Translator', 'Narrator', 'Abridger', 'Editor', 'Instrumentalist'];
 
+    //selecting from work
     const creatorsmap = groupBy(props.expression.work[0].creatorsConnection.edges, a => a.role);
     const creators = [];
+    if (props.expression.title === "Chronopolis"){
+        console.log(props.expression);
+    }
     for (const r in creatorsmap){
         if (primaryroles.includes(r)) {
             creatorsmap[r] && creators.push([r, (creatorsmap[r].map(a => a.node.name)).join(" ; ")]);
         }
     }
 
+    //selecting from expression
     const contributorsmap = groupBy(props.expression.creatorsConnection.edges, a => a.role);
     const contributors = [];
     for (const r in contributorsmap){
@@ -178,8 +183,8 @@ export default function Expression(props){
                 {creators.map(creator => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
                 {contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>) }
                 {/*<Typography color="primary.main" component="div" variant="body2" align="left">{content.join(", ") + " ; " + language.join(", ")}</Typography>   */}
-                {props.expression.contentsnote && <Typography color="primary.main" component="div" variant="body2" align="left">{"Includes: " + props.expression.contentsnote}</Typography>}
-                {partOfExpression.totalCount > 0 && <Typography color="primary.main" component="div" variant="body2" align="left">{"Part of: " + partOfExpression.edges.map(x => x.node.titlepreferred).join(", ")}</Typography>}
+                {props.expression.contentsnote && <Typography color="primary.main" component="div" variant="body2" align="left">{"Includes: " + ((props.expression.contentsnote.length < 300) ? props.expression.contentsnote : (props.expression.contentsnote.substring(0, 300)) + "...")}</Typography>}
+                {partOfExpression.totalCount > 0 && <Typography color="primary.main" component="div" variant="body2" align="left">{"Part of: " + partOfExpression.edges.map(x => x.node.titlepreferred ? x.node.titlepreferred : x.node.titlevariant).join(", ")}</Typography>}
                 {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
         </React.Fragment>
     }

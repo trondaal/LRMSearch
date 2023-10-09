@@ -27,7 +27,7 @@ export default function MyApp() {
     }
 
     const [search, { loading, data, error, called }] = useLazyQuery(GET_EXPRESSIONS);
-    const [expanded, setExpanded] = useState(true);
+    const [expanded, setExpanded] = useState(false);
 
     if (error)
         console.log(error);
