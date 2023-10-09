@@ -15,7 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
 
-export default function SubmitRanking({query, expanded, setExpanded}) {
+export default function SubmitRanking({query, expanded, setExpanded, results}) {
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
     const [open, setOpen] = React.useState(false);
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
@@ -47,7 +47,7 @@ export default function SubmitRanking({query, expanded, setExpanded}) {
                 respondent: response,
                 relevant: relevantVar(),
                 irrelevant: irrelevantVar(),
-                neutral: [],
+                neutral: results.map(x => x.expression.uri),
                 bibliographicExpertise: bibliographicExpertise,
                 searchExpertise: searchExpertise
             }
@@ -88,8 +88,8 @@ export default function SubmitRanking({query, expanded, setExpanded}) {
                     <DialogContentText id="alert-dialog-description">
                         Saving rankings for query: {sessionStorage.getItem('query')}. <br/>
                         You have marked {relevantVar().length + " relevant and " + irrelevantVar().length + " irrelevant."}.<br/>
-                        By submitting you accept that data will be used in research.
-                        No personal data is stored.
+                        By submitting you accept that data will be used in research.<br/>
+                        No personal data is stored in this survey.
                     </DialogContentText>
 
                 </DialogContent>

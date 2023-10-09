@@ -25,7 +25,14 @@ function initialQuery() {
     return q;
 }
 
-export default function SearchBar({search, expanded, setExpanded}) {
+function createQuery(q){
+    //let x = q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ")
+    //console.log("Query = " + x)
+    return q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ")
+}
+
+export default function SearchBar({search, expanded, setExpanded, results}) {
+    //console.log(results);
     //const [query, setQuery] = useRecoilState(queryState);
     //setQuery(initialQuery());
     const [query, setQuery] = useState(initialQuery());
@@ -33,8 +40,7 @@ export default function SearchBar({search, expanded, setExpanded}) {
         //runs a query when enter is pressed, otherwise updates the query
         if (event.key === 'Enter') {
             selectedVar(new Set());
-            search({ variables: { query: query.split(" ").filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") } })
-            //console.log(query)
+            search({ variables: { query: createQuery(query) } })
             const params = new URLSearchParams(window.location.search);
             params.set("query", event.target.value);
             window.location.search = params.toString()
@@ -52,7 +58,7 @@ export default function SearchBar({search, expanded, setExpanded}) {
                 irrelevantVar([...rankings.irrelevant]);
             }
             sessionStorage.setItem('query', query.toLowerCase());
-            search({ variables: { query: query.split(" ").join(" AND ") } });
+            search({ variables: { query: createQuery(query) } });
         }, []
     );
 
@@ -72,7 +78,7 @@ export default function SearchBar({search, expanded, setExpanded}) {
             />
         </Grid>
         <Grid item xs={6}>
-            <SubmitRanking query={query} expanded={expanded} setExpanded={setExpanded}/>
+            <SubmitRanking query={query} expanded={expanded} setExpanded={setExpanded} results={results}/>
         </Grid>
 
     </Grid>

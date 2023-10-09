@@ -82,9 +82,7 @@ export default function Expression(props){
     //selecting from work
     const creatorsmap = groupBy(props.expression.work[0].creatorsConnection.edges, a => a.role);
     const creators = [];
-    if (props.expression.title === "Chronopolis"){
-        console.log(props.expression);
-    }
+
     for (const r in creatorsmap){
         if (primaryroles.includes(r)) {
             creatorsmap[r] && creators.push([r, (creatorsmap[r].map(a => a.node.name)).join(" ; ")]);

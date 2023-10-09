@@ -38,7 +38,7 @@ export default function MyApp() {
             <Grid container spacing={3} marginTop={1} paddingLeft={20} paddingRight={20} >
                 {/* Adjusting size according to filters or not, not showing right column when filters are off */}
                 <Grid item xs={showFilters ? 9 : 12}>
-                    <SearchBar search={search} expanded={expanded} setExpanded={setExpanded}/>
+                    <SearchBar search={search} expanded={expanded} setExpanded={setExpanded} results={data ? data.expressionsFulltextExpressions : []}/>
                 </Grid>
                 {showFilters && <Grid xs={3} item justifyContent="flex-end">
                     {showFilters ? <Button variant="outlined" size="small" onClick={handleClearFilters}>Clear filters</Button> : ""}
