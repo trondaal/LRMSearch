@@ -19,7 +19,7 @@ export default function MyApp() {
     const showFilters = useRecoilValue(showFiltersState);
     const setChecked = useSetRecoilState(filterState);
    // const setSelected = useSetRecoilState(selectedState);
-    //const params = new URLSearchParams(window.location.search)
+    const params = new URLSearchParams(window.location.search)
 
     const handleClearFilters = (event) => {
         setChecked([]);
@@ -28,6 +28,7 @@ export default function MyApp() {
 
     const [search, { loading, data, error, called }] = useLazyQuery(GET_EXPRESSIONS);
     const [expanded, setExpanded] = useState(false);
+    const [noAggregates, setNoAggregates] = useState(params.get("noaggregates") === "true" ? true : false)
 
     if (error)
         console.log(error);
@@ -44,7 +45,7 @@ export default function MyApp() {
                     {showFilters ? <Button variant="outlined" size="small" onClick={handleClearFilters}>Clear filters</Button> : ""}
                 </Grid> }
                 <Grid item xs={showFilters ? 9 : 12}>
-                    {called && loading ? <Grid item xs={9}><CircularProgress /></Grid> : <ResultList results={data ? data.expressionsFulltextExpressions : []} expanded={expanded}/>}
+                    {called && loading ? <Grid item xs={9}><CircularProgress /></Grid> : <ResultList results={data ? data.expressionsFulltextExpressions : []} expanded={expanded} noAggregates={noAggregates}/>}
                 </Grid>
                 {showFilters ? <Grid item xs={3}>
                     <FilterList results={data ? data.expressionsFulltextExpressions : []}/>

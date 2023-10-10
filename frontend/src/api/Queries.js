@@ -246,17 +246,19 @@ query($query: String!) {
 }
 `
 export const CREATE_RANKING = gql`
-    mutation ($date: String!, $query: String!, $respondent: String!, $relevant: [String!]!, $irrelevant: [String!]!, $neutral: [String!]!, $bibliographicExpertise: Int!, $searchExpertise: Int!) {
+    mutation ($uri: String!, $date: String!, $query: String!, $respondent: String!, $relevant: [String!]!, $irrelevant: [String!]!, $results: [String!]!, $bibliographicExpertise: Int!, $searchExpertise: Int!, $taskConfidence: Int!) {
       createRankingResults (input: [
         {
+          uri: $uri
           date: $date
           query: $query
           respondent: $respondent
           relevant: $relevant
           irrelevant: $irrelevant
-          neutral: $neutral
+          results: $results
           bibliographicExpertise: $bibliographicExpertise
           searchExpertise: $searchExpertise
+          taskConfidence: $taskConfidence
         }
     
       ]) {
@@ -266,9 +268,10 @@ export const CREATE_RANKING = gql`
           query
           relevant
           irrelevant
-          neutral
+          results
           bibliographicExpertise
           searchExpertise
+          taskConfidence
         }
       }
     }

@@ -20,6 +20,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results}) {
     const [open, setOpen] = React.useState(false);
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
     const [searchExpertise, setSearchExpertise] = React.useState(3);
+    const [taskConfidence, setTaskConfidence] = React.useState(3);
     const [queries, setQueries] = React.useState([]);
 
     const handleClickOpen = () => {
@@ -77,10 +78,11 @@ export default function SubmitRanking({query, expanded, setExpanded, results}) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Rate your knowledge..."}
+                    {"Rate your ..."}
                 </DialogTitle>
-                <ExpertiseRating title={"of this author or work"} value={searchExpertise} setValue={setSearchExpertise}/>
-                <ExpertiseRating title={"of bibliographic data and models"} value={bibliographicExpertise} setValue={setBibliographicExpertise}/>
+                <ExpertiseRating title={"knowledge of this author or work"} value={searchExpertise} setValue={setSearchExpertise}/>
+                <ExpertiseRating title={"knowledge of bibliographic data"} value={bibliographicExpertise} setValue={setBibliographicExpertise}/>
+                <ExpertiseRating title={"confidence in solving the task"} value={taskConfidence} setValue={setTaskConfidence}/>
                 <DialogTitle id="alert-dialog-title">
                     {"Submit your ranking?"}
                 </DialogTitle>

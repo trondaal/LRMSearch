@@ -98,14 +98,16 @@ const typeDefs = `
         role: String
     }
     type RankingResult{
+        uri: String
         query: String
         respondent: String
         date: String
         relevant: [String]
         irrelevant: [String]
-        neutral: [String]
+        results: [String]
         bibliographicExpertise: Int
         searchExpertise: Int
+        taskConfidence: Int
     }
 `;
 
