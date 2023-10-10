@@ -53,7 +53,7 @@ export default function Manifestation(props){
             <Typography component="div" color="primary.main" align="left" variant="mtitle.light" className={"mtitle"}>{statement.join(" / ")}</Typography>
             {(expressions.length) > 1 && parentform === "part" && <Typography component="div" variant="body2" className={"contents"}>
                 <span className={"prefix"}>Includes: </span>
-                {expressions.filter(x => x.form === "collection" || x.form === "parent").map(x => TruncateText({text: x.contentsnote, maxLength: 250}))}
+                {TruncateText({text: expressions.filter(x => x.form === "collection" || x.form === "parent")[0].contentsnote, maxLength: 250})}
             </Typography>}
             <div className={"manifestationdetails"}>
             {extent && <Typography component="span" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>Extent: </span>{extent}</Typography>}

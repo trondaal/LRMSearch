@@ -34,23 +34,25 @@ export default function SubmitRanking({query, expanded, setExpanded, results}) {
     const handleSave = () => {
         setOpen(false);
         const params = new URLSearchParams(window.location.search)
-        let response = uuidv4();
-        if (params.get("response")){
-            response = params.get("response");
+        let respondent = uuidv4();
+        if (params.get("respondent")){
+            respondent = params.get("respondent");
         }else{
-            params.set("response", response);
+            params.set("respondent", respondent);
             window.location.search = params.toString()
         }
         mutateFunction({
             variables: {
+                uri: window.location.toString(),
                 date: Date.now().toString(),
                 query: query,
-                respondent: response,
+                respondent: respondent,
                 relevant: relevantVar(),
                 irrelevant: irrelevantVar(),
-                neutral: results.map(x => x.expression.uri),
+                results: results.map(x => x.expression.uri),
                 bibliographicExpertise: bibliographicExpertise,
-                searchExpertise: searchExpertise
+                searchExpertise: searchExpertise,
+                taskConfidence: taskConfidence
             }
         });
         let obj = {relevant: relevantVar(), irrelevant: irrelevantVar()};
