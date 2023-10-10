@@ -64,7 +64,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results}) {
                 {expanded ? "Hide items" : "Show items"}
             </Button>
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
-                onClick={() => {relevantVar([]); irrelevantVar([]);}}>
+                onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(query.toLowerCase());}}>
                 Clear ranking
             </Button>
             <Button variant="outlined" onClick={handleClickOpen} disabled={relevantVar().length === 0 && irrelevantVar().length === 0}  sx={{ mr: 2 }}>
