@@ -20,9 +20,16 @@
     filter: saturate(100%);
 }
 .irrelevanttext{
-   color: rgb(248, 39, 6) !important;
+    color: rgb(248, 39, 6) !important;
     filter: saturate(100%);
 }
+
+.truncateText{
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+}
+
 
 /*.expressiontitle{
     color: blue;

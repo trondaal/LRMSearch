@@ -6,6 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItem from '@mui/material/ListItem';
 import {selectedState, clickableState} from '../state/state';
 import {useRecoilState} from 'recoil';
+import TruncateText from "./TruncateText.jsx";
 
 function isEmpty(str) {
     return (!str || str.length === 0 );
@@ -52,7 +53,7 @@ export default function Manifestation(props){
             <Typography component="div" color="primary.main" align="left" variant="mtitle.light" className={"mtitle"}>{statement.join(" / ")}</Typography>
             {(expressions.length) > 1 && parentform === "part" && <Typography component="div" variant="body2" className={"contents"}>
                 <span className={"prefix"}>Includes: </span>
-                {expressions.filter(x => x.form === "collection" || x.form === "parent").map(x => <span className={"content"} key={x.contentsnote}>{(x.contentsnote.length < 500 ? x.contentsnote : (x.contentsnote.substring(0,500) + "..." ))}</span>)}
+                {expressions.filter(x => x.form === "collection" || x.form === "parent").map(x => TruncateText({text: x.contentsnote, maxLength: 250}))}
             </Typography>}
             <div className={"manifestationdetails"}>
             {extent && <Typography component="span" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>Extent: </span>{extent}</Typography>}

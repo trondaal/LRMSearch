@@ -14,24 +14,8 @@ import {showUriState, clickableState, selectedState} from "../state/state";
 import "./ResultList.css";
 import {relevantVar, irrelevantVar} from "../api/Cache";
 import Tooltip from '@mui/material/Tooltip';
+import TruncateText from "./TruncateText.jsx";
 
-function moveLeft(arr, index) {
-    if (index > 0 && index < arr.length) {
-        const temp = arr[index];
-        arr[index] = arr[index - 1];
-        arr[index - 1] = temp;
-    }
-    return arr;
-}
-
-function moveRight(arr, index) {
-    if (index >= 0 && index < arr.length - 1) {
-        const temp = arr[index];
-        arr[index] = arr[index + 1];
-        arr[index + 1] = temp;
-    }
-    return arr;
-}
 
 function isEmpty(str) {
     return (!str || str.length === 0 );
@@ -65,7 +49,7 @@ export default function Expression(props){
     const [selected, setSelectedState] = useRecoilState(selectedState);
     const [clickable] = useRecoilState(clickableState);
     const {uri, manifestations} = props.expression;
-    const worktitle = !isEmpty(props.expression.work[0].title) ? props.expression.work[0].title : "";
+    const worktitle = !(props.expression.work[0]) ? "" : props.expression.work[0].title;
     const titles = [];
     if (!isEmpty(props.expression.titlepreferred)){
         titles.push(props.expression.titlepreferred);
@@ -77,18 +61,16 @@ export default function Expression(props){
     const isTranslation = titles.find(element => element.toLowerCase().replace(/[^a-z]/g, '').includes(worktitle.toLowerCase().replace(/[^a-z]/g, '')))
 
     //roles that should default be displayed, in the order they should be presented, contains both work and expression roles
-    const primaryroles = ['Author', 'Creator', 'Artist', 'Director', 'Producer', 'Composer', 'Lyricist', 'Interviewer', 'Interviewee', 'Honouree', 'Compiler', 'Translator', 'Narrator', 'Abridger', 'Editor', 'Instrumentalist'];
+    const primaryroles = ['Author', 'Creator', 'Artist', 'Director', 'Producer', 'Composer', 'Lyricist', 'Interviewer', 'Interviewee', 'Honouree', 'Compiler', 'Translator', 'Narrator', 'Abridger', 'Editor', 'Instrumentalist', 'Performer'];
 
     //selecting from work
     const creatorsmap = groupBy(props.expression.work[0].creatorsConnection.edges, a => a.role);
     const creators = [];
-
     for (const r in creatorsmap){
         if (primaryroles.includes(r)) {
             creatorsmap[r] && creators.push([r, (creatorsmap[r].map(a => a.node.name)).join(" ; ")]);
         }
     }
-
     //selecting from expression
     const contributorsmap = groupBy(props.expression.creatorsConnection.edges, a => a.role);
     const contributors = [];
@@ -130,10 +112,10 @@ export default function Expression(props){
     //console.log(props.expression.work[0].relatedToConnection)
 
     const isWorkRelatedToWork = props.expression.work[0].relatedToConnection;
-    const hasRelated = props.expression.work[0].relatedFromConnection;
+    //const hasRelated = props.expression.work[0].relatedFromConnection;
     const partOf = props.expression.work[0].partOfConnection;
-    const hasPart = props.expression.work[0].hasPartConnection;
-    const isSubjectWork = props.expression.work[0].isSubjectWorkConnection;
+    //const hasPart = props.expression.work[0].hasPartConnection;
+    //const isSubjectWork = props.expression.work[0].isSubjectWorkConnection;
     const hasSubjectWork = props.expression.work[0].hasSubjectWorkConnection;
     const hasSubjectAgent = props.expression.work[0].hasSubjectAgentConnection;
     const isExpressionRelatedToExpression = props.expression.relatedToConnection;
@@ -181,7 +163,9 @@ export default function Expression(props){
                 {creators.map(creator => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
                 {contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>) }
                 {/*<Typography color="primary.main" component="div" variant="body2" align="left">{content.join(", ") + " ; " + language.join(", ")}</Typography>   */}
-                {props.expression.contentsnote && <Typography color="primary.main" component="div" variant="body2" align="left">{"Includes: " + ((props.expression.contentsnote.length < 300) ? props.expression.contentsnote : (props.expression.contentsnote.substring(0, 300)) + "...")}</Typography>}
+                {/*props.expression.contentsnote && <Typography color="primary.main" component="div" variant="body2" align="left">{"Includes: " + ((props.expression.contentsnote.length < 500) ? props.expression.contentsnote : (props.expression.contentsnote.substring(0, 500)) + "...")}</Typography>*/}
+                {props.expression.contentsnote && <Typography color="primary.main" component="div" variant="body2" align="left"><TruncateText text={"Includes: " + props.expression.contentsnote} maxLength={120}/></Typography>}
+                {props.expression.relatedToConnection.totalCount > 0 && props.expression.relatedToConnection.edges.filter(e => e.role === "is translation of").map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.titlepreferred}>{"Is translation of: " + e.node.titlepreferred}</Typography>)}
                 {partOfExpression.totalCount > 0 && <Typography color="primary.main" component="div" variant="body2" align="left">{"Part of: " + partOfExpression.edges.map(x => x.node.titlepreferred ? x.node.titlepreferred : x.node.titlevariant).join(", ")}</Typography>}
                 {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
         </React.Fragment>
@@ -253,7 +237,7 @@ export default function Expression(props){
                         <details open={props.expanded} className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-cu2xtv-MuiTypography-root"}>
                             <summary className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-ipwc3n-MuiTypography-root"}>Available as:</summary>
                         <ul className={"manifestationlist"}>
-                            {props.expression && props.expression.manifestations.slice(0,20).map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes}/>))}
+                            {props.expression && props.expression.manifestations.map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes}/>))}
                         </ul>
                         </details>
                     </div>
