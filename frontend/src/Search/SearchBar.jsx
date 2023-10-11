@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 
 function initialQuery() {
     const params = new URLSearchParams(window.location.search)
-    let q = "Tolkien Lord of the Rings";
+    let q = "enter query here";
     if (params.get("query")){
         q = params.get("query");
         return q;
