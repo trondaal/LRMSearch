@@ -35,6 +35,18 @@ export default function Manifestation(props){
     if (!isEmpty(distribution)) published.push(distribution);
     if (!isEmpty(manufacture)) published.push(manufacture);
 
+    let contentsnote = null;
+    if (!isEmpty(expressions)) {
+        for (let i = 0; i < expressions.length; i++) {
+            if (expressions[i].form === "collection" || expressions[i].form === "parent") {
+                if (!isEmpty(expressions[i].contentsnote)) {
+                    contentsnote = expressions[i].contentsnote;
+                    break;
+                }
+            }
+        }
+    }
+
     //if (!isEmpty(identifier)) published.push(identifier);
     //if (!isEmpty(uri)) published.push(uri);
 
@@ -52,8 +64,12 @@ export default function Manifestation(props){
         return <React.Fragment>
             <Typography component="div" color="primary.main" align="left" variant="mtitle.light" className={"mtitle"}>{statement.join(" / ")}</Typography>
             {(expressions.length) > 1 && parentform === "part" && <Typography component="div" variant="body2" className={"contents"}>
+                {contentsnote === null ? "" : <>
+
                 <span className={"prefix"}>Includes: </span>
-                {TruncateText({text: expressions.filter(x => x.form === "collection" || x.form === "parent")[0].contentsnote, maxLength: 250})}
+                    <TruncateText text={expressions.filter(x => x.form === "collection" || x.form === "parent")[0].contentsnote} maxLength={250}/>
+                </>
+                }
             </Typography>}
             <div className={"manifestationdetails"}>
             {extent && <Typography component="span" align="left"  variant="body2" className={"manifestationdetails"}><span className={"prefix"}>Extent: </span>{extent}</Typography>}
