@@ -11,6 +11,7 @@ import QuestionMarkTwoToneIcon from '@mui/icons-material/QuestionMarkTwoTone';
 import AudiotrackTwoToneIcon from '@mui/icons-material/AudiotrackTwoTone';
 import GrainTwoToneIcon from '@mui/icons-material/GrainTwoTone';
 import ArticleTwoToneIcon from '@mui/icons-material/ArticleTwoTone';
+import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
 
 const IconTypes = props => {
     const { type, color } = props;
@@ -22,7 +23,7 @@ const IconTypes = props => {
         case ('Score'):
             return <QueueMusicTwoToneIcon fontSize="large" color ={color}/>;
         case ('Performed music'):
-            return <MusicNoteTwoToneIcon fontSize="large" color={color}/>;
+            return <InterpreterModeIcon fontSize="large" color={color}/>;
         case ('Audio book'):
             return <HeadsetTwoToneIcon fontSize="large" color={color}/>;
         case ('Illustrations'):
@@ -36,6 +37,8 @@ const IconTypes = props => {
         case ('Music'):
             return <AudiotrackTwoToneIcon fontSize="large" className={color}/>;
         case ('Tactile text'):
+            return <GrainTwoToneIcon fontSize="large" color={color}/>;
+        case ('Still image'):
             return <GrainTwoToneIcon fontSize="large" color={color}/>;
         default:
             return <QuestionMarkTwoToneIcon fontSize="large" color={color}/>;
