@@ -15,7 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
 
-export default function SubmitRanking({query, expanded, setExpanded, results}) {
+export default function SubmitRanking({query, expanded, setExpanded, results, display, setDisplay}) {
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
     const [open, setOpen] = React.useState(false);
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
@@ -30,6 +30,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results}) {
     const handleClose = () => {
         setOpen(false);
     };
+
 
     const handleSave = () => {
         setOpen(false);
@@ -65,6 +66,9 @@ export default function SubmitRanking({query, expanded, setExpanded, results}) {
         <Box display="flex" justifyContent="flex-end">
             <Button variant="outlined" onClick={() => setExpanded(!expanded)} sx={{ mr: 2 }}>
                 {expanded ? "Hide items" : "Show items"}
+            </Button>
+            <Button variant="outlined" onClick={() => setDisplay(display % 3 + 1)} sx={{ mr: 2 }}>
+                {"Toggle displays"}
             </Button>
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
                 onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(query.toLowerCase());}}>

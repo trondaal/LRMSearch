@@ -27,8 +27,8 @@ export default function MyApp() {
     }
 
     const [search, { loading, data, error, called }] = useLazyQuery(GET_EXPRESSIONS);
-    const [expanded, setExpanded] = useState(false);
-    const [noAggregates, setNoAggregates] = useState(params.get("noaggregates") === "true" ? true : false)
+    const [expanded, setExpanded] = useState(true);
+    const [display, setDisplay] = useState(2)
 
     if (error)
         console.log(error);
@@ -39,13 +39,13 @@ export default function MyApp() {
             <Grid container spacing={3} marginTop={1} paddingLeft={20} paddingRight={20} >
                 {/* Adjusting size according to filters or not, not showing right column when filters are off */}
                 <Grid item xs={showFilters ? 9 : 12}>
-                    <SearchBar search={search} expanded={expanded} setExpanded={setExpanded} results={data ? data.expressionsFulltextExpressions : []}/>
+                    <SearchBar search={search} expanded={expanded} setExpanded={setExpanded} results={data ? data.expressionsFulltextExpressions : []} display={display} setDisplay={setDisplay}/>
                 </Grid>
                 {showFilters && <Grid xs={3} item justifyContent="flex-end">
                     {showFilters ? <Button variant="outlined" size="small" onClick={handleClearFilters}>Clear filters</Button> : ""}
                 </Grid> }
                 <Grid item xs={showFilters ? 9 : 12}>
-                    {called && loading ? <Grid item xs={9}><CircularProgress /></Grid> : <ResultList results={data ? data.expressionsFulltextExpressions : []} expanded={expanded} noAggregates={noAggregates}/>}
+                    {called && loading ? <Grid item xs={9}><CircularProgress /></Grid> : <ResultList results={data ? data.expressionsFulltextExpressions : []} expanded={expanded} display={display}/>}
                 </Grid>
                 {showFilters ? <Grid item xs={3}>
                     <FilterList results={data ? data.expressionsFulltextExpressions : []}/>

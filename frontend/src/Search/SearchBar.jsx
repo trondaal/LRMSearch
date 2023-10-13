@@ -31,7 +31,7 @@ function createQuery(q){
     return q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ")
 }
 
-export default function SearchBar({search, expanded, setExpanded, results}) {
+export default function SearchBar({search, expanded, setExpanded, results, display, setDisplay}) {
     //console.log(results);
     //const [query, setQuery] = useRecoilState(queryState);
     //setQuery(initialQuery());
@@ -78,7 +78,7 @@ export default function SearchBar({search, expanded, setExpanded, results}) {
             />
         </Grid>
         <Grid item xs={6}>
-            <SubmitRanking query={query} expanded={expanded} setExpanded={setExpanded} results={results}/>
+            <SubmitRanking query={query} expanded={expanded} setExpanded={setExpanded} results={results} display={display} setDisplay={setDisplay}/>
         </Grid>
 
     </Grid>
