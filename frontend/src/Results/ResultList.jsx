@@ -15,7 +15,7 @@ export default function ResultView({results, checkboxes, expanded, display}) {
     }else if (display === 2){
         return (
             <div className={"expressionList"}>
-                {results.filter(x => x.expression.form !== "collection").map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded}/>))}
+                {results.filter(x => x.expression.form !== "aggregate").map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded}/>))}
             </div>)
     }else if (display === 3){
         return (
