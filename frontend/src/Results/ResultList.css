@@ -123,6 +123,7 @@
     padding-left: 0;
     margin-left: 0;
     text-indent: 0;
+    margin-top: 5px;
 }
 
 .manifestationdetails{
@@ -140,6 +141,12 @@
 .contents > .content:not(:last-child)::after{
     content: " ; ";
 }
+
+details > summary {
+    fontWeight: 100;
+    color: dimgrey;
+}
+
 
 /*details > summary {
     list-style-type: none;

@@ -81,6 +81,7 @@ export default function Expression(props){
     }
 
     const others = [];
+
     for (const k in creatorsmap){
         if (!primaryroles.includes(k)){
             others.push([k, (creatorsmap[k].map(a => a.node.name)).join(" ; ")]);
@@ -234,8 +235,8 @@ export default function Expression(props){
                     </div>
 
                     <div className={"expressionManifestationListing"}>
-                        <details open={props.expanded} className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-cu2xtv-MuiTypography-root"}>
-                            <summary className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-ipwc3n-MuiTypography-root"}>Available as:</summary>
+                        <details open={props.expanded}>
+                            <summary>Available as:</summary>
                         <ul className={"manifestationlist"}>
                             {props.expression && props.expression.manifestations.map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes}/>))}
                         </ul>
