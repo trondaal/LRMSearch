@@ -80,6 +80,7 @@ const typeDefs = `
         series: String
         seriesnumbering: String
         partnote: String
+        contentsnote: String
         carrier: [Concept!]! @relationship(type: "CARRIER", direction: OUT)
         media: [Concept!]! @relationship(type: "MEDIATYPE", direction: OUT)
         creators: [Agent!]! @relationship(type: "CREATOR", properties: "roleType", direction: OUT)

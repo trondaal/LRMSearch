@@ -199,6 +199,7 @@ query($query: String!) {
             series,
             seriesnumbering,
             partnote,
+            contentsnote
             carrier{
                 uri,
                 label
