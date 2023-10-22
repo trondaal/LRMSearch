@@ -1,20 +1,14 @@
 import React from 'react';
 import Typography from "@mui/material/Typography";
 import IconTypes from "./IconTypes";
-import IconButton from '@mui/material/IconButton';
 import "./ResultList.css";
 import {groupBy} from "lodash";
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import Manifestation from "./Manifestation";
+import Manifestation, {manifestationStatement, PublicationData, ManifestationTitle, ContentsNote} from "./Manifestation";
 import {useRecoilState} from 'recoil';
 import {showUriState, clickableState, selectedState} from "../state/state";
 import "./ResultList.css";
-import {relevantVar, irrelevantVar} from "../api/Cache";
-import Tooltip from '@mui/material/Tooltip';
 import TruncateText from "./TruncateText.jsx";
+import RankingButtons from "./RankingButtons.jsx";
 
 
 function isEmpty(str) {
@@ -35,6 +29,7 @@ function plurals(str){
 }
 
 function relevantClass(ranking){
+    //Check if an entry is marked as relevant or not
     if (ranking === 1){
         return "relevant";
     }else if (ranking === -1){
@@ -44,25 +39,27 @@ function relevantClass(ranking){
     }
 }
 
+function expressionTitle(expression) {
+    const titles = [];
+    if (expression.form !== "part" && expression.manifestations.length === 1){
+        titles.push(manifestationStatement(expression.manifestations[0]));
+        console.log(manifestationStatement(expression.manifestations[0]));
+    }
+    if (!isEmpty(expression.titlepreferred)){
+        titles.push(expression.titlepreferred);
+    }else{
+        if (!isEmpty(expression.title)) titles.push(expression.title);
+    }
+    return titles[0];
+}
+
 export default function Expression(props){
     const [showUri] = useRecoilState(showUriState);
     const [selected, setSelectedState] = useRecoilState(selectedState);
-    const [clickable] = useRecoilState(clickableState);
     const {uri, manifestations} = props.expression;
-    const worktitle = !(props.expression.work[0]) ? "" : props.expression.work[0].title;
-    const titles = [];
-    if (!isEmpty(props.expression.titlepreferred)){
-        titles.push(props.expression.titlepreferred);
-    }else{
-        if (!isEmpty(props.expression.title)) titles.push(props.expression.title);
-    }
-
-    const title = titles[0];
-    //const isTranslation = titles.find(element => element.toLowerCase().replace(/[^a-z]/g, '').includes(worktitle.toLowerCase().replace(/[^a-z]/g, '')))
 
     //roles that should default be displayed, in the order they should be presented, contains both work and expression roles
     const primaryroles = ['Author', 'Creator', 'Artist', 'Director', 'Producer', 'Composer', 'Lyricist', 'Interviewer', 'Interviewee', 'Honouree', 'Compiler', 'Translator', 'Narrator', 'Abridger', 'Editor', 'Instrumentalist', 'Performer'];
-
     //selecting from work
     const creatorsmap = groupBy(props.expression.work[0].creatorsConnection.edges, a => a.role);
     const creators = [];
@@ -94,6 +91,8 @@ export default function Expression(props){
         }
     }
 
+    //console.log(others);
+
     let showRelated = false;
 
     if (others.length > 0){
@@ -104,9 +103,8 @@ export default function Expression(props){
     const content = props.expression.content.map(c => c.label);
     content.sort();
     content.reverse();
-    const worktype = props.expression.work[0].type.map(c => c.label);
+    //const worktype = props.expression.work[0].type.map(c => c.label);
     const workform = props.expression.work[0].form;
-
 
     //const isRelatedToMap = groupBy(props.expression.work[0].relatedToConnection.edges, a => a.role);
     //console.log(isRelatedToMap);
@@ -155,170 +153,145 @@ export default function Expression(props){
         //console.log(itemsSelected);
     };
 
-    const description = () => {
-        return <React.Fragment>
-                <Typography color="primary.main" component="div" variant="etitle" align="left">{title}
-                {workform && <Typography color='grey.700' variant="wtitle" component="span">({workform})</Typography>}
-                {/*!isTranslation && <Typography color='grey.700' variant="wtitle" component="span"> (translation of: {worktitle})</Typography>*/}
-                </Typography>
-                {creators.map(creator => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
-                {contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>) }
-                {/*<Typography color="primary.main" component="div" variant="body2" align="left">{content.join(", ") + " ; " + language.join(", ")}</Typography>   */}
-                {/*props.expression.contentsnote && <Typography color="primary.main" component="div" variant="body2" align="left">{"Includes: " + ((props.expression.contentsnote.length < 500) ? props.expression.contentsnote : (props.expression.contentsnote.substring(0, 500)) + "...")}</Typography>*/}
-                {!(props.expression.contentsnote === null)&& <Typography color="primary.main" component="div" variant="body2" align="left"><TruncateText text={"Includes: " + props.expression.contentsnote} maxLength={120}/></Typography>}
-                {props.expression.relatedToConnection.totalCount > 0 && props.expression.relatedToConnection.edges.filter(e => e.role === "is translation of").map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.titlepreferred}>{"Is translation of: " + e.node.titlepreferred}</Typography>)}
-                {partOfExpression.totalCount > 0 && <Typography color="primary.main" component="div" variant="body2" align="left">{"Part of: " + partOfExpression.edges.map(x => x.node.titlepreferred ? x.node.titlepreferred : x.node.titlevariant).join(", ")}</Typography>}
-                {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
-        </React.Fragment>
+    const ExpressionTitle = ({eTitle, wform}) => {
+        return (
+            <Typography color="primary.main" component="div" variant="etitle" align="left">
+                {eTitle}
+                {wform && <Typography color='grey.700' variant="wtitle" component="span">({wform})</Typography>}
+            </Typography>)
     }
 
-    /* Moved expression-classname from paper to expression entry */
+    const Agents = () => {
+        return <>
+        {<div>{creators.map(creator => <Typography color="primary.main" component="span" align="left" variant="agentname" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }</div> }
+        {<div>{contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>)}</div> }
+        {<div>{others.map(other => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={other[0] + other[1]}>{other[0] + plurals(other[1]) + ": " + other[1]}</Typography>)}</div> }
+        </>
+    }
+
+    /*const ContentsNote = () => {
+        return <>
+            {!(props.expression.contentsnote === null) && <Typography color="primary.main" component="div" variant="contents" align="left"><TruncateText text={"Includes: " + props.expression.contentsnote} maxLength={120}/></Typography>}
+        </>
+    }*/
+
+    const Related = () => {
+        return <>
+            {props.expression.relatedToConnection.totalCount > 0 && props.expression.relatedToConnection.edges.filter(e => e.role === "is translation of").map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.titlepreferred}>{"Is translation of: " + e.node.titlepreferred}</Typography>)}
+            {partOfExpression.totalCount > 0 && <Typography color="primary.main" component="div" variant="body2" align="left">{"Part of: " + partOfExpression.edges.map(x => x.node.titlepreferred ? x.node.titlepreferred : x.node.titlevariant).join(", ")}</Typography>}
+        </>
+    }
+
+    const description = () => {
+        return <>
+                <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                <Agents/>
+                {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
+                <Related/>
+                {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+            </>
+    }
+
+    const ExpressionDetails = () => {
+        if (props.expression.manifestations.length === 1){
+            //Dislay expression and manifestation details in one line
+            if (props.expression.form === "part"){
+                return <>
+                    <div className={"expressionHeader"}>
+                        <div className={"expressionHeaderTitle"}>
+                            <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                            <Agents/>
+                            <ManifestationTitle manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
+                            <PublicationData manifestation={props.expression.manifestations[0]}/>
+                            {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote}/>}
+                            {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                        </div>
+                    </div>
+                </>
+            }else{
+                return <>
+                    <div className={"expressionHeader"}>
+                        <div className={"expressionHeaderTitle"}>
+                            <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                            <Agents/>
+                            <PublicationData manifestation={props.expression.manifestations[0]}/>
+                            {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
+                            {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                        </div>
+                    </div>
+                </>
+            }
+        }
+        if (props.expression.manifestations.length > 1){
+        return <>
+            <div className={"expressionHeader"}>
+                <div className={"expressionHeaderTitle"}>
+                    <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                    <Agents/>
+                    {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
+                    <Related/>
+                    {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                </div>
+            </div>
+            <div className={"expressionManifestationListing"}>
+                    <details open={props.expanded}>
+                        <summary>{props.expression.manifestations.length} resources available</summary>
+                        <ul className={"manifestationlist"}>
+                            {props.expression && props.expression.manifestations.map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes} contentsDisplayed={props.expression.contents === null}/>))}
+                        </ul>
+                    </details>
+            </div>
+        </>
+        }else if (props.expression.manifestations.length === 1 && props.expression.form === "standalone"){
+            return <>
+                <div className={"expressionHeader"}>
+                    <div className={"expressionHeaderTitle"}>
+                        <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                        <Agents/>
+                        <PublicationData manifestation={props.expression.manifestations[0]}/>
+                        {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
+                        <Related/>
+                        {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                    </div>
+                </div>
+            </>
+        }else if (props.expression.manifestations.length === 1 && props.expression.form === "part"){
+            return <>
+                <div className={"expressionHeader"}>
+                    <div className={"expressionHeaderTitle"}>
+                        <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                        <Agents/>
+                         <ManifestationTitle manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
+                        <PublicationData manifestation={props.expression.manifestations[0]}/>
+                        {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote}/>}
+                        <Related/>
+                        {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                    </div>
+                </div>
+            </>
+        }else{
+            return <>
+                <div className={"expressionHeader"}>
+                    <div className={"expressionHeaderTitle"}>
+                        <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                        <Agents/>
+                        <PublicationData manifestation={props.expression.manifestations[0]}/>
+                        {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
+                        {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                    </div>
+                </div>
+            </>
+        }
+    }
+
+    // Return the expression component
     return <div className={"expression"} key={props.expression.uri}>
                 <div className={relevantClass(props.expression.ranking) + " expressionLeft"}>
                     <IconTypes type={content[0]}/>
-                    <div className={"rankingbuttons"}>
-                        { props.expression.ranking === 0  &&
-                            <><Tooltip title={"Mark as relevant"} placement={"right"}>
-                                <IconButton size="small" onClick={() => {
-                                    const arr = relevantVar();
-                                    if (arr.indexOf(props.expression.uri) === -1){
-                                        arr.push(props.expression.uri);
-                                    }
-                                    relevantVar([...arr]);
-                                    //console.log("Relevant: " + relevantVar());
-                                    //localStorage.setItem(sessionStorage.getItem('query').toLowerCase() + " : relevant", JSON.stringify(relevantVar()));
-                                }}><ArrowCircleUpIcon color="action" fontSize="small"/>
-                                </IconButton>
-                            </Tooltip>
-                            {<Tooltip title={"Mark as irrelevant"} placement={"right"}>
-                                <IconButton size="small" onClick={() => {
-                                    const arr = irrelevantVar();
-                                    if (arr.indexOf(props.expression.uri) === -1) {
-                                        arr.push(props.expression.uri);
-                                    }
-                                    irrelevantVar([...arr]);
-                                }}><ArrowCircleDownIcon color="action" fontSize="small"/>
-                                </IconButton>
-                            </Tooltip>}
-                            </>
-                        }
-                        { props.expression.ranking !== 0  &&
-                            <Tooltip title={"Remove marking"} placement={"right"}>
-                                <IconButton size="small" onClick={() => {
-                                    if (relevantVar().includes(props.expression.uri)) {
-                                        const arr = relevantVar();
-                                        const index = arr.indexOf(props.expression.uri);
-                                        arr.splice(index, 1);
-                                        relevantVar([...arr]);
-                                        //localStorage.setItem(sessionStorage.getItem('query').toLowerCase() + " : relevant", JSON.stringify(relevantVar()));
-                                    }
-                                    if (irrelevantVar().includes(props.expression.uri)) {
-                                        const arr = irrelevantVar();
-                                        const index = arr.indexOf(props.expression.uri);
-                                        arr.splice(index, 1);
-                                        irrelevantVar([...arr]);
-                                        //localStorage.setItem(sessionStorage.getItem('query').toLowerCase() + " : irrelevant", JSON.stringify(irrelevantVar()));
-                                    }
-                                }}>
-                                    <RemoveCircleOutlineIcon color="action" fontSize="small"/>
-                                </IconButton>
-                            </Tooltip>
-                        }
-                    </div>
+                    <RankingButtons expression={props.expression}/>
                 </div>
                 <div className="resultitem expressionRight">
-                    <div className={"expressionHeader"}>
-                        <div className={"expressionHeaderTitle"}>
-                            {description()}
-                        </div>
-
-                    </div>
-
-                    <div className={"expressionManifestationListing"}>
-                        <details open={props.expanded}>
-                            <summary>Available as:</summary>
-                        <ul className={"manifestationlist"}>
-                            {props.expression && props.expression.manifestations.map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes}/>))}
-                        </ul>
-                        </details>
-                    </div>
-
-
+                    <ExpressionDetails/>
                 </div>
-        {/*<div className={"expressionHeaderTypes"}>*/}
-            {/*<Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Type of work: ' +  worktype.join(", ")}</Typography>*/}
-            {/*<Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Content type: ' +  content.join(", ")}</Typography>
-            {(language.length !== 0) ? <Typography color={"dimgray"} component="div" align="left" variant={"body2"}>{'Language: ' +  language.join(", ")}</Typography> : ""}*/}
-            {/*showRelated  && <Typography component="div" align="left" variant="body2" >
-                <details className={"MuiTypography-root MuiTypography-body2 MuiTypography-alignLeft css-cu2xtv-MuiTypography-root"}>
-                    <summary>Related works</summary>
-                    {others.map(other => <Typography component="div" key={other[0] + other[1]}>
-                        <Typography component="span" variant={"relatedprefix"}>{other[0] + plurals(other[1]) + ": "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{other[1]}</Typography>
-                    </Typography>) }
-                    {isWorkRelatedToWork.edges.map(x => <Typography component="div"key={x.role + x.node.label}>
-                        <Typography component="span" variant={"relatedprefix"}>{capitalize(x.role) + ": "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
-                    </Typography>)}
-                    {partOf.edges.map(x => <Typography component="div"key={"is part of" + x.node.label}>
-                        <Typography component="span" variant={"relatedprefix"}>{"Is part of: "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
-                    </Typography>)}
-                    {hasSubjectWork.edges.map(x => <Typography component="div"key={"has subject work" + x.node.label}>
-                        <Typography component="span" variant={"relatedprefix"}>{"Has subject work: "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
-                    </Typography>)}
-                    {hasSubjectAgent.edges.map(x => <Typography component="div"key={"has subject agent" + x.node.label}>
-                        <Typography component="span" variant={"relatedprefix"}>{"Has subject agent: "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
-                    </Typography>)}
-                    {isExpressionRelatedToExpression.edges.map(x => <Typography component="div"key={x.role + x.node.label}>
-                        <Typography component="span" variant={"relatedprefix"}>{capitalize(x.role) + ": "}</Typography>
-                        <Typography component="span" variant={"relatedlabel"}>{x.node.label}</Typography>
-                    </Typography>)}
-                </details>
-            </Typography>*/}
-        {/*</div>*/}
             </div>
-
 }
-
-
-
-/*
-
-
-                        {relevantVar().indexOf(props.expression.uri) > -1 && relevantVar().indexOf(props.expression.uri) < (relevantVar().length - 1) ?
-                            <Tooltip title={"Mark as relevant"} placement={"right"}>
-                            <IconButton size="small" fontSize={"small"} onClick={() => {
-                                //Adding or moving to the end so that up => highest index in the ranking array
-                                let arr = moveRight(relevantVar(), relevantVar().indexOf(props.expression.uri));
-                                relevantVar([...arr]);
-                                localStorage.setItem(sessionStorage.getItem('query').toLowerCase(), JSON.stringify(relevantVar()));
-                            }}><ArrowCircleUpIcon color="action" fontSize="small"/></IconButton></Tooltip> : <span/>}
-                        {relevantVar().indexOf(props.expression.uri) > 0 ?
-                            <Tooltip title={"Mark as irrelevant"} placement={"right"}>
-                            <IconButton size="small"  onClick={() => {
-                                //Adding or moving to the end so that up => highest index in the ranking array
-                                let arr = moveLeft(relevantVar(), relevantVar().indexOf(props.expression.uri));
-                                relevantVar([...arr]);
-                                localStorage.setItem(sessionStorage.getItem('query').toLowerCase(), JSON.stringify(relevantVar()));
-                            }}><ArrowCircleDownIcon color="action" fontSize="small"/></IconButton></Tooltip> : <span/>}
-                        {relevantVar().indexOf(props.expression.uri) > -1 ?
-                            <Tooltip title={"Remove from list of ranked"} placement={"right"}>
-                            <IconButton size="small" onClick={() => {
-                                //Adding or moving to the end so that up => highest index in the ranking array
-                                let arr = relevantVar();
-                                let index = arr.indexOf(props.expression.uri);
-                                if (index === -1) {
-                                    //do nothing
-                                } else {
-                                    arr.splice(index, 1);
-                                }
-                                relevantVar([...arr]);
-                                localStorage.setItem(sessionStorage.getItem('query').toLowerCase(), JSON.stringify(relevantVar()));
-                            }}>
-                                <RemoveCircleOutlineIcon color="action" fontSize="small"/>
-                            </IconButton>
-                        </Tooltip> : <span/>}
- */

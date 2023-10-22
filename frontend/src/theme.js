@@ -14,15 +14,16 @@ export const theme = createTheme({
     },
     typography: {
         etitle: {
-            fontSize: '1.10rem',
+            fontSize: '1.00rem',
             fontWeight: 450,
         },
         eroles: {
             fontSize: '1.00rem',
             fontWeight: 400,
+            fontStyle: 'italic'
         },
         wtitle: {
-            fontSize: '1.10rem',
+            fontSize: '1.00rem',
             fontWeight: 350,
             fontStyle: 'italic'
         },
@@ -31,14 +32,31 @@ export const theme = createTheme({
             fontWeight: 450,
         },
         description: {
-            fontSize: '0.8rem',
+            fontSize: '0.9rem',
+        },
+        agentprefix: {
+            fontSize: '1.00rem',
+            fontWeight: 400,
+            fontStyle: 'italic'
+        },
+        agentname: {
+            fontSize: '1.00rem',
+            fontWeight: 400,
+            fontStyle: 'italic'
         },
         relatedprefix: {
-            fontSize: '0.8rem',
+            fontSize: '0.9rem',
             fontStyle: 'italic'
         },
         relatedlabel: {
-            fontSize: '0.8rem',
+            fontSize: '0.9rem',
+        },
+        contentsprefix: {
+            fontSize: '0.9rem',
+        },
+        contents: {
+            fontSize: '0.9rem',
+            fontStyle: 'italic'
         }
     }
 });

@@ -27,7 +27,7 @@ const TruncateText = ({ text, maxLength }) => {
       {renderText()}
             {text.length > maxLength && (
                 <>
-                    {isTruncated ? '... ' : ' '}
+                    {isTruncated ? '... ' : '...'}
                     <a className={'truncateText'}
                         href="#!"
                         onClick={(e) => {

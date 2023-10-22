@@ -30,4 +30,4 @@ export default function ResultView({results, checkboxes, expanded, display}) {
 /*selectedVar().size === 0 ?
                 results ? results.map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded}/>)) : [] :
                 results ? results.filter(exp => exp.checked).map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded}/>)) : []
-            */
+*/

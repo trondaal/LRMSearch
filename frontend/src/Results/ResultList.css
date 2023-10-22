@@ -25,9 +25,9 @@
 }
 
 .truncateText{
-    text-decoration: none;
+    text-decoration: underline;
     color: inherit;
-    font-weight: bold;
+
 }
 
 
