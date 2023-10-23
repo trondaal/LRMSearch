@@ -10,6 +10,9 @@ import "./ResultList.css";
 import TruncateText from "./TruncateText.jsx";
 import RankingButtons from "./RankingButtons.jsx";
 
+function renameRole(role){
+    return capitalize(role.replace(/is |has | work/g, ""));
+}
 
 function isEmpty(str) {
     return (!str || str.length === 0 );
@@ -175,14 +178,23 @@ export default function Expression(props){
         </>
     }*/
 
+
     const Related = () => {
+        console.log(isWorkRelatedToWork);
         return <>
-            {props.expression.relatedToConnection.totalCount > 0 && props.expression.relatedToConnection.edges.filter(e => e.role === "is translation of").map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.titlepreferred}>{"Is translation of: " + e.node.titlepreferred}</Typography>)}
+            {props.expression.relatedToConnection.totalCount > 0 && props.expression.relatedToConnection.edges.filter(e => e.role === "is translation of").map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.titlepreferred}>{renameRole(e.role) + ": " + e.node.titlepreferred}</Typography>)}
+            {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.title}>{renameRole(w.role) + ": " + w.node.label}</Typography>)}
+        </>
+    }
+
+    const PartOf = () => {
+        console.log(isWorkRelatedToWork);
+        return <>
             {partOfExpression.totalCount > 0 && <Typography color="primary.main" component="div" variant="body2" align="left">{"Part of: " + partOfExpression.edges.map(x => x.node.titlepreferred ? x.node.titlepreferred : x.node.titlevariant).join(", ")}</Typography>}
         </>
     }
 
-    const description = () => {
+    /*const description = () => {
         return <>
                 <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
                 <Agents/>
@@ -190,17 +202,19 @@ export default function Expression(props){
                 <Related/>
                 {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
             </>
-    }
+    }*/
 
     const ExpressionDetails = () => {
         if (props.expression.manifestations.length === 1){
             //Dislay expression and manifestation details in one line
             if (props.expression.form === "part"){
+                // This is a part and part of is indicated with a prefix to title
                 return <>
                     <div className={"expressionHeader"}>
                         <div className={"expressionHeaderTitle"}>
                             <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
                             <Agents/>
+                            <Related/>
                             <ManifestationTitle manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
                             <PublicationData manifestation={props.expression.manifestations[0]}/>
                             {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote}/>}
@@ -214,6 +228,7 @@ export default function Expression(props){
                         <div className={"expressionHeaderTitle"}>
                             <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
                             <Agents/>
+                            <Related/>
                             <PublicationData manifestation={props.expression.manifestations[0]}/>
                             {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
                             {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
