@@ -9,6 +9,7 @@ require('dotenv').config()
 // noinspection GraphQLMissingType
 const typeDefs = `
     type Expression @fulltext(indexes: [{ indexName: "expressions", fields: ["titles", "names"] }]) {
+        _id: ID!
         label: String
         uri: String
         title: String
@@ -29,6 +30,7 @@ const typeDefs = `
         relatedFrom: [Expression!]! @relationship(type: "RELATED", properties: "roleType", direction: IN)
     }
     type Work @fulltext(indexes: [{ indexName: "works", fields: ["titles", "names"] }]) {
+        _id: ID!
         label: String
         uri: String
         title: String
@@ -49,6 +51,7 @@ const typeDefs = `
 
     }
     type Manifestation {
+        _id: ID!
         label: String
         uri: String
         identifier: String
@@ -87,10 +90,12 @@ const typeDefs = `
         expressions: [Expression!]! @relationship(type: "EMBODIES", direction: OUT)
     }
     type Concept{
+        _id: ID!
         label: String,
         uri: String
     }
     type Agent {
+        _id: ID!
         label: String
         name: String
         uri: String

@@ -249,7 +249,7 @@ export default function Expression(props){
                 </div>
             </div>
             <div className={"expressionManifestationListing"}>
-                    <details open={props.expanded}>
+                    <details open={props.expanded}>Y
                         <summary>{props.expression.manifestations.length} resources available</summary>
                         <ul className={"manifestationlist"}>
                             {props.expression && props.expression.manifestations.map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes} contentsDisplayed={props.expression.contents === null}/>))}
