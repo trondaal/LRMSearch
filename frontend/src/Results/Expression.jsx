@@ -182,13 +182,13 @@ export default function Expression(props){
     const Related = () => {
         console.log(isWorkRelatedToWork);
         return <>
-            {props.expression.relatedToConnection.totalCount > 0 && props.expression.relatedToConnection.edges.filter(e => e.role === "is translation of").map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.titlepreferred}>{renameRole(e.role) + ": " + e.node.titlepreferred}</Typography>)}
-            {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.title}>{renameRole(w.role) + ": " + w.node.label}</Typography>)}
+            {props.expression.relatedToConnection.totalCount > 0 && props.expression.relatedToConnection.edges.filter(e => e.role === "is translation of").map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.titlepreferred}>{renameRole(e.role) + ": "} <a href={"/?query=" + e.node.titlepreferred + " (" + e.node.id +")"}>{e.node.titlepreferred}</a></Typography>)}
+            {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.title}>{renameRole(w.role) + ": "}<a href={"/?query=" + w.node.title + " (" + w.node.id +")"}>{w.node.label}</a></Typography>)}
         </>
     }
 
     const PartOf = () => {
-        console.log(isWorkRelatedToWork);
+        //console.log(isWorkRelatedToWork);
         return <>
             {partOfExpression.totalCount > 0 && <Typography color="primary.main" component="div" variant="body2" align="left">{"Part of: " + partOfExpression.edges.map(x => x.node.titlepreferred ? x.node.titlepreferred : x.node.titlevariant).join(", ")}</Typography>}
         </>
@@ -249,7 +249,7 @@ export default function Expression(props){
                 </div>
             </div>
             <div className={"expressionManifestationListing"}>
-                    <details open={props.expanded}>Y
+                    <details open={props.expanded}>
                         <summary>{props.expression.manifestations.length} resources available</summary>
                         <ul className={"manifestationlist"}>
                             {props.expression && props.expression.manifestations.map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes} contentsDisplayed={props.expression.contents === null}/>))}

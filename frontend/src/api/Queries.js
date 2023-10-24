@@ -9,6 +9,7 @@ query($query: String!) {
     score,
     ranking @client,
     expression {
+        id,
         label,
         checked @client,
         ranking @client,
@@ -31,6 +32,7 @@ query($query: String!) {
           totalCount,
             edges{
                 node{
+                    id, 
                     name,
                     uri
                 },
@@ -38,6 +40,7 @@ query($query: String!) {
             }
         }
         work{
+            id,
             label,
             title,
             form,
@@ -49,6 +52,7 @@ query($query: String!) {
               totalCount,
                 edges{
                     node{
+                        id,
                         name,
                         uri
                     },
@@ -91,6 +95,7 @@ query($query: String!) {
                 edges{
                     role,
                     node{
+                        id,
                         label,
                         title,
                         titlevariant,
@@ -103,6 +108,7 @@ query($query: String!) {
                 edges{
                     role,
                     node{
+                        id,
                         label,
                         title,
                         titlevariant,
@@ -114,6 +120,7 @@ query($query: String!) {
                 totalCount,
                 edges{
                     node{
+                        id,
                         label,
                         title,
                         titlevariant,
@@ -125,6 +132,7 @@ query($query: String!) {
                 totalCount,
                 edges{
                     node{
+                        id,
                         label,
                         title,
                         titlevariant,
@@ -137,6 +145,7 @@ query($query: String!) {
             totalCount,
             edges{
                 node{
+                    id,
                     label,
                     title,
                     titlevariant,
@@ -148,6 +157,7 @@ query($query: String!) {
             totalCount,
             edges{
                 node{
+                    id,
                     label,
                     title,
                     titlevariant,
@@ -160,6 +170,7 @@ query($query: String!) {
             edges{
                 role,
                 node{
+                    id,
                     label,
                     title,
                     titlevariant,
@@ -172,6 +183,7 @@ query($query: String!) {
             edges{
                 role,
                 node{
+                    id,
                     label,
                     title,
                     titlevariant,
@@ -180,6 +192,7 @@ query($query: String!) {
             }
         },
         manifestations{
+            id,
             label,
             uri,
             identifier,
@@ -211,6 +224,7 @@ query($query: String!) {
             creatorsConnection{
                 edges{
                     node{
+                        id,
                         label,
                         name,
                         uri
@@ -219,6 +233,7 @@ query($query: String!) {
                 }
             },
             expressions{
+                id,
                 label,
                 uri,
                 title,
@@ -233,6 +248,7 @@ query($query: String!) {
                     totalCount,
                     edges{
                         node{
+                            id,
                             label,
                             title,
                             titlevariant,

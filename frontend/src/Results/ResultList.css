@@ -30,6 +30,21 @@
 
 }
 
+/* unvisited link */
+a:link {
+    color: #01579b;
+}
+
+/* visited link */
+a:visited {
+    color: #4f83cc;
+}
+
+/* mouse over link */
+a:hover {
+    color: #002f6c;
+}
+
 
 /*.expressiontitle{
     color: blue;
