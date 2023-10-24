@@ -182,8 +182,8 @@ export default function Expression(props){
     const Related = () => {
         console.log(isWorkRelatedToWork);
         return <>
-            {props.expression.relatedToConnection.totalCount > 0 && props.expression.relatedToConnection.edges.filter(e => e.role === "is translation of").map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.titlepreferred}>{renameRole(e.role) + ": "} <a href={"/?query=" + e.node.titlepreferred + " (" + e.node.id +")"}>{e.node.titlepreferred}</a></Typography>)}
-            {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.title}>{renameRole(w.role) + ": "}<a href={"/?query=" + w.node.title + " (" + w.node.id +")"}>{w.node.label}</a></Typography>)}
+            {props.expression.relatedToConnection.totalCount > 0 && props.expression.relatedToConnection.edges.filter(e => e.role === "is translation of").map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.titlepreferred}>{renameRole(e.role) + ": "} <a href={"?query=" + e.node.titlepreferred + " (" + e.node.id +")"}>{e.node.titlepreferred}</a></Typography>)}
+            {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.title}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.title + " (" + w.node.id +")"}>{w.node.label}</a></Typography>)}
         </>
     }
 
