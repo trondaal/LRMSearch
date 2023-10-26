@@ -9,6 +9,9 @@ import {showUriState, clickableState, selectedState} from "../state/state";
 import "./ResultList.css";
 import TruncateText from "./TruncateText.jsx";
 import RankingButtons from "./RankingButtons.jsx";
+import Highlighter from "react-highlight-words";
+import stopwords from "../Search/stopwords.js";
+
 
 function renameRole(role){
     return capitalize(role.replace(/is |has | work/g, ""));
@@ -46,7 +49,7 @@ function expressionTitle(expression) {
     const titles = [];
     if (expression.form !== "part" && expression.manifestations.length === 1){
         titles.push(manifestationStatement(expression.manifestations[0]));
-        console.log(manifestationStatement(expression.manifestations[0]));
+        //console.log(manifestationStatement(expression.manifestations[0]));
     }
     if (!isEmpty(expression.titlepreferred)){
         titles.push(expression.titlepreferred);
@@ -57,6 +60,7 @@ function expressionTitle(expression) {
 }
 
 export default function Expression(props){
+    console.log(props);
     const [showUri] = useRecoilState(showUriState);
     const [selected, setSelectedState] = useRecoilState(selectedState);
     const {uri, manifestations} = props.expression;
@@ -156,11 +160,18 @@ export default function Expression(props){
         //console.log(itemsSelected);
     };
 
+
+
     const ExpressionTitle = ({eTitle, wform}) => {
         return (
             <Typography color="primary.main" component="div" variant="etitle" align="left">
-                {eTitle}
-                {wform && <Typography color='grey.700' variant="wtitle" component="span">({wform})</Typography>}
+                <Highlighter
+                    highlightClassName="YourHighlightClass"
+                    searchWords={sessionStorage.getItem('query').trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase()))}
+                    autoEscape={true}
+                    textToHighlight={eTitle}
+                />
+                {/*wform && <Typography color='grey.700' variant="wtitle" component="span"> ({wform})</Typography>*/}
             </Typography>)
     }
 
@@ -180,29 +191,17 @@ export default function Expression(props){
 
 
     const Related = () => {
-        console.log(isWorkRelatedToWork);
         return <>
-            {props.expression.relatedToConnection.totalCount > 0 && props.expression.relatedToConnection.edges.filter(e => e.role === "is translation of").map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.titlepreferred}>{renameRole(e.role) + ": "} <a href={"?query=" + e.node.titlepreferred + " (" + e.node.id +")"}>{e.node.titlepreferred}</a></Typography>)}
+            {isExpressionRelatedToExpression.totalCount > 0 && isExpressionRelatedToExpression.edges.map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.title}>{renameRole(e.role) + ": "}<a href={"?query=" + e.node.title + " (" + e.node.id +")"}>{e.node.title}</a></Typography>)}
             {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.title}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.title + " (" + w.node.id +")"}>{w.node.label}</a></Typography>)}
         </>
     }
 
     const PartOf = () => {
-        //console.log(isWorkRelatedToWork);
         return <>
             {partOfExpression.totalCount > 0 && <Typography color="primary.main" component="div" variant="body2" align="left">{"Part of: " + partOfExpression.edges.map(x => x.node.titlepreferred ? x.node.titlepreferred : x.node.titlevariant).join(", ")}</Typography>}
         </>
     }
-
-    /*const description = () => {
-        return <>
-                <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
-                <Agents/>
-                {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
-                <Related/>
-                {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
-            </>
-    }*/
 
     const ExpressionDetails = () => {
         if (props.expression.manifestations.length === 1){

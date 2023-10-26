@@ -10,7 +10,6 @@ import Button from '@mui/material/Button';
 import {filterState, showFiltersState, selectedState, configState} from './state/state';
 import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
 import {selectedVar} from "./api/Cache";
-import SubmitRanking from "./Search/SubmitRanking.jsx";
 import {useState} from 'react';
 
 
@@ -19,37 +18,32 @@ export default function MyApp() {
     const showFilters = useRecoilValue(showFiltersState);
     const setChecked = useSetRecoilState(filterState);
    // const setSelected = useSetRecoilState(selectedState);
-    const params = new URLSearchParams(window.location.search)
+    //const params = new URLSearchParams(window.location.search)
 
     const handleClearFilters = (event) => {
         setChecked([]);
         selectedVar(new Set([]));
     }
 
+
+
     const [search, { loading, data, error, called }] = useLazyQuery(GET_EXPRESSIONS);
     const [expanded, setExpanded] = useState(false);
-    const [display, setDisplay] = useState(1)
+    const [display, setDisplay] = useState(1);
 
     if (error)
-        console.log(error);
+        console.log(error.message);
 
     return (
         <>
             <CssBaseline/>
             <Grid container spacing={3} marginTop={1} paddingLeft={20} paddingRight={20} >
-                {/* Adjusting size according to filters or not, not showing right column when filters are off */}
-                <Grid item xs={showFilters ? 9 : 12}>
+                <Grid item xs={12}>
                     <SearchBar search={search} expanded={expanded} setExpanded={setExpanded} results={data ? data.expressionsFulltextExpressions : []} display={display} setDisplay={setDisplay}/>
                 </Grid>
-                {showFilters && <Grid xs={3} item justifyContent="flex-end">
-                    {showFilters ? <Button variant="outlined" size="small" onClick={handleClearFilters}>Clear filters</Button> : ""}
-                </Grid> }
-                <Grid item xs={showFilters ? 9 : 12}>
-                    {called && loading ? <Grid item xs={9}><CircularProgress /></Grid> : <ResultList results={data ? data.expressionsFulltextExpressions : []} expanded={expanded} display={display}/>}
+                <Grid item xs={12}>
+                    {called && loading ? <Grid item xs={6}><CircularProgress /></Grid> : <ResultList results={data ? data.expressionsFulltextExpressions : []} expanded={expanded} display={display}/>}
                 </Grid>
-                {showFilters ? <Grid item xs={3}>
-                    <FilterList results={data ? data.expressionsFulltextExpressions : []}/>
-                </Grid> : ""}
             </Grid>
         </>
     );

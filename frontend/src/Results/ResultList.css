@@ -145,7 +145,11 @@ a:hover {
     text-align: left;
 }
 
-.manifestationdetails > .manifestationdetails:not(:first-child)::before{
+.manifestationdetails > .manifestationdetails:not(:first-of-type)::before{
+    content: " - ";
+}
+
+.expressionHeaderTitle > .manifestationdetails:not(:first-of-type)::before{
     content: " - ";
 }
 

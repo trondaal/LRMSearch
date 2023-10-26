@@ -1,7 +1,7 @@
 import {selectedVar} from "../api/Cache";
 import Expression from "./Expression";
 
-export default function ResultView({results, checkboxes, expanded, display}) {
+export default function ResultList({results, checkboxes, expanded, display, terms}) {
 
     if (results === undefined){
         return <div>No results</div>
@@ -10,7 +10,7 @@ export default function ResultView({results, checkboxes, expanded, display}) {
     }else if (display === 1){
         //return all items in resultset
         return (<div className={"expressionList"}>
-            {results.map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded}/>))}
+            {results.map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded} terms={terms}/>))}
         </div>)
     }else if (display === 2){
         return (
