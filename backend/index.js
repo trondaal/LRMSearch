@@ -47,7 +47,7 @@ const typeDefs = `
         partOf: [Work!]! @relationship(type: "PARTOF", direction: OUT)
         hasPart: [Work!]! @relationship(type: "PARTOF", direction: IN)
         relatedTo: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: OUT)
-        relatedFrom: [Rersource!]! @relationship(type: "RELATED", properties: "roleType", direction: IN)
+        relatedFrom: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: IN)
 
     }
     type Manifestation {
