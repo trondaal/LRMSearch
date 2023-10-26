@@ -26,8 +26,8 @@ const typeDefs = `
         creators: [Agent!]! @relationship(type: "CREATOR", properties: "roleType", direction: OUT)
         partOf: [Expression!]! @relationship(type: "PARTOF", direction: OUT)
         hasPart: [Expression!]! @relationship(type: "PARTOF", direction: IN)
-        relatedTo: [Expression!]! @relationship(type: "RELATED", properties: "roleType", direction: OUT)
-        relatedFrom: [Expression!]! @relationship(type: "RELATED", properties: "roleType", direction: IN)
+        relatedTo: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: OUT)
+        relatedFrom: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: IN)
     }
     type Work @fulltext(indexes: [{ indexName: "works", fields: ["titles", "names"] }]) {
         id: String
@@ -46,8 +46,8 @@ const typeDefs = `
         hasSubjectAgent: [Agent!]! @relationship(type: "SUBJECT", direction: OUT)
         partOf: [Work!]! @relationship(type: "PARTOF", direction: OUT)
         hasPart: [Work!]! @relationship(type: "PARTOF", direction: IN)
-        relatedTo: [Work!]! @relationship(type: "RELATED", properties: "roleType", direction: OUT)
-        relatedFrom: [Work!]! @relationship(type: "RELATED", properties: "roleType", direction: IN)
+        relatedTo: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: OUT)
+        relatedFrom: [Rersource!]! @relationship(type: "RELATED", properties: "roleType", direction: IN)
 
     }
     type Manifestation {
@@ -88,6 +88,15 @@ const typeDefs = `
         media: [Concept!]! @relationship(type: "MEDIATYPE", direction: OUT)
         creators: [Agent!]! @relationship(type: "CREATOR", properties: "roleType", direction: OUT)
         expressions: [Expression!]! @relationship(type: "EMBODIES", direction: OUT)
+    }
+    type Resource{
+        id: String
+        label: String,
+        uri: String,
+        title: String
+        titlepreferred: String
+        titlevariant: String
+        creators: [Agent!]! @relationship(type: "CREATOR", properties: "roleType", direction: OUT)
     }
     type Concept{
         id: String
