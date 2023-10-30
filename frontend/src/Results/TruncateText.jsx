@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Highlighter from "react-highlight-words";
 
-const TruncateText = ({ text, maxLength }) => {
+const TruncateText = ({ text, maxLength, terms }) => {
     const [isTruncated, setIsTruncated] = useState(true);
 
     const toggleIsTruncated = () => {
@@ -24,7 +25,12 @@ const TruncateText = ({ text, maxLength }) => {
 
     return (
         <span>
-      {renderText()}
+      {<Highlighter
+          highlightClassName="highlighted-content"
+          searchWords={terms}
+          autoEscape={true}
+          textToHighlight={renderText()}
+      />}
             {text.length > maxLength && (
                 <>
                     {isTruncated ? '... ' : '...'}

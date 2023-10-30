@@ -67,9 +67,9 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
             <Button variant="outlined" onClick={() => setExpanded(!expanded)} sx={{ mr: 2 }}>
                 {expanded ? "Hide items" : "Show items"}
             </Button>
-            <Button variant="outlined" onClick={() => setDisplay(display % 3 + 1)} sx={{ mr: 2 }}>
+            {/*<Button variant="outlined" onClick={() => setDisplay(display % 3 + 1)} sx={{ mr: 2 }}>
                 {"Toggle displays"}
-            </Button>
+            </Button>*/}
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
                 onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(query.toLowerCase());}}>
                 Clear ranking

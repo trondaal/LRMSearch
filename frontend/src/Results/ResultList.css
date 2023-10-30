@@ -162,10 +162,20 @@ a:hover {
 }
 
 details > summary {
-    fontWeight: 100;
-    color: dimgrey;
+    color: #002f6c;
 }
 
+.highlighted{
+    background-color: inherit;
+    color: rgba(0, 47, 108, 0.9);
+    font-weight: bold;
+}
+
+.highlighted-content{
+    background-color: inherit;
+    color: rgba(0, 47, 108, 0.9);
+    font-weight: bold;
+}
 
 /*details > summary {
     list-style-type: none;

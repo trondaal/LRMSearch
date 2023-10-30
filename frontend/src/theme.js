@@ -15,12 +15,11 @@ export const theme = createTheme({
     typography: {
         etitle: {
             fontSize: '1.00rem',
-            fontWeight: 450,
+            fontWeight: 420,
         },
         eroles: {
             fontSize: '1.00rem',
-            fontWeight: 400,
-            fontStyle: 'italic'
+            fontWeight: 420,
         },
         wtitle: {
             fontSize: '1.00rem',
@@ -41,8 +40,7 @@ export const theme = createTheme({
         },
         agentname: {
             fontSize: '1.00rem',
-            fontWeight: 400,
-            fontStyle: 'italic'
+            fontWeight: 400
         },
         relatedprefix: {
             fontSize: '0.9rem',

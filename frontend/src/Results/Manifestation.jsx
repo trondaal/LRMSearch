@@ -9,6 +9,7 @@ import {useRecoilState} from 'recoil';
 import TruncateText from "./TruncateText.jsx";
 import {groupBy} from "lodash";
 import {TrendingUp} from "@mui/icons-material";
+import Highlighter from "react-highlight-words";
 
 function isEmpty(str) {
     return (!str || str.length === 0 );
@@ -55,22 +56,32 @@ export function manifestationStatement(manifestation){
     return statement.join(" / ")
 }
 
-export function ManifestationTitle({manifestation, prefix = ""}){
-    return <Typography component="div" color="primary.main" align="left" variant="mtitle.light" className={"mtitle"}>{prefix + manifestationStatement(manifestation)}</Typography>
+export function ManifestationTitle({manifestation, prefix = "", terms = []}){
+    return (
+    <Typography
+    component="div" color="primary.main" align="left" variant="mtitle.light" className={"mtitle"}>
+    {prefix}
+    <Highlighter
+        highlightClassName="highlighted"
+        searchWords={terms}
+        autoEscape={true}
+        textToHighlight={manifestationStatement(manifestation)}/>
+    </Typography>)
 }
 
-export function ContentsNote({contents, prefix = "Includes: "}){
+export function ContentsNote({contents, prefix = "Includes: ", terms = []}){
     return <div>
     <Typography component="span" variant="contentsprefix">{prefix}</Typography>
-    <Typography component="span" variant="contents"><TruncateText text={contents} maxLength={80}/></Typography>
+    <Typography component="span" variant="contents"><TruncateText text={contents} terms={terms} maxLength={80}/></Typography>
     </div>
 }
 
 export default function Manifestation(props){
+    console.log(props.terms);
     const [selected, setSelected] = useRecoilState(selectedState)
     const [clickable] = useRecoilState(clickableState)
     //const {title, subtitle, numbering, part, responsibility, extent, edition, uri, partnote} = props.manifestation;
-    const {distribution, production, publication, manufacture, expressions, uri} = props.manifestation;
+    const {distribution, production, publication, manufacture, expressions, uri, terms} = props.manifestation;
     const parentform = props.form;
 
     const published = [];
@@ -78,21 +89,6 @@ export default function Manifestation(props){
     if (!isEmpty(production)) published.push(production);
     if (!isEmpty(distribution)) published.push(distribution);
     if (!isEmpty(manufacture)) published.push(manufacture);
-
-    /*let contentsnote = null;
-    if (!isEmpty(expressions)) {
-        for (let i = 0; i < expressions.length; i++) {
-            if (expressions[i].form === "aggregate" || expressions[i].form === "parent") {
-                if (!isEmpty(expressions[i].contentsnote)) {
-                    contentsnote = expressions[i].contentsnote;
-                    break;
-                }
-            }
-        }
-    }*/
-
-    //if (!isEmpty(identifier)) published.push(identifier);
-    //if (!isEmpty(uri)) published.push(uri);
 
     const handleClick = () => {
         //console.log(selected);
@@ -126,12 +122,12 @@ export default function Manifestation(props){
 
     const description = () => {
         return <React.Fragment>
-            <ManifestationTitle manifestation={props.manifestation}/>
+            <ManifestationTitle manifestation={props.manifestation} terms={props.terms}/>
             {creators.map(creator => <Typography color="primary.main" component="span" align="left" variant="body2" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
             {others.map(creator => <Typography color="primary.main" component="span" align="left" variant="body2" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
             <div className={"manifestationdetails"}>
             <PublicationData manifestation={props.manifestation}/>
-            {!props.contentsDisplayed && props.manifestation.contentsnote ? <ContentsNote contents={props.manifestation.contentsnote}/> : <></>}
+            {!props.contentsDisplayed && props.manifestation.contentsnote ? <ContentsNote contents={props.manifestation.contentsnote} terms={props.terms}/> : <></>}
 
             {/*(expressions.length) > 1 && parentform === "part" && <Typography component="div" variant="body2" className={"contents"}>
                 {contentsnote === null ? "" : <>

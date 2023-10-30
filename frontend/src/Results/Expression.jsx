@@ -13,8 +13,12 @@ import Highlighter from "react-highlight-words";
 import stopwords from "../Search/stopwords.js";
 
 
-function renameRole(role){
-    return capitalize(role.replace(/is |has | work/g, ""));
+function renameRole(role, language){
+    if (role.includes('translation')){
+        return language[0].label + " translation of"
+    }else{
+        return capitalize(role.replace(/is |has | work/g, ""));
+    }
 }
 
 function isEmpty(str) {
@@ -166,8 +170,8 @@ export default function Expression(props){
         return (
             <Typography color="primary.main" component="div" variant="etitle" align="left">
                 <Highlighter
-                    highlightClassName="YourHighlightClass"
-                    searchWords={sessionStorage.getItem('query').trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase()))}
+                    highlightClassName="highlighted"
+                    searchWords={props.terms}
                     autoEscape={true}
                     textToHighlight={eTitle}
                 />
@@ -177,7 +181,14 @@ export default function Expression(props){
 
     const Agents = () => {
         return <>
-        {<div>{creators.map(creator => <Typography color="primary.main" component="span" align="left" variant="agentname" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }</div> }
+        {<div>{creators.map(creator =>
+            <Typography color="primary.main" component="span" align="left" variant="agentname" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": "}
+            <Highlighter
+                highlightClassName="highlighted"
+                searchWords={props.terms}
+                autoEscape={true}
+                textToHighlight={creator[1]
+            }/></Typography>) }</div> }
         {<div>{contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>)}</div> }
         {<div>{others.map(other => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={other[0] + other[1]}>{other[0] + plurals(other[1]) + ": " + other[1]}</Typography>)}</div> }
         </>
@@ -192,8 +203,8 @@ export default function Expression(props){
 
     const Related = () => {
         return <>
-            {isExpressionRelatedToExpression.totalCount > 0 && isExpressionRelatedToExpression.edges.map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.title}>{renameRole(e.role) + ": "}<a href={"?query=" + e.node.title + " (" + e.node.id +")"}>{e.node.title}</a></Typography>)}
-            {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.title}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.title + " (" + w.node.id +")"}>{w.node.label}</a></Typography>)}
+            {isExpressionRelatedToExpression.totalCount > 0 && isExpressionRelatedToExpression.edges.map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.label}>{renameRole(e.role, props.expression.language) + ": "}<a href={"?query=" + (e.node.titlepreferred ? e.node.titlepreferred : e.node.label) + " (" + e.node.id +")"}>{e.node.titlepreferred ? e.node.titlepreferred : e.node.label}</a></Typography>)}
+            {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.label}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.label}>{w.node.label}</a></Typography>)}
         </>
     }
 
@@ -214,9 +225,9 @@ export default function Expression(props){
                             <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
                             <Agents/>
                             <Related/>
-                            <ManifestationTitle manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
+                            <ManifestationTitle terms={props.terms} manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
                             <PublicationData manifestation={props.expression.manifestations[0]}/>
-                            {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote}/>}
+                            {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote} terms={props.terms}/>}
                             {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
                         </div>
                     </div>
@@ -229,7 +240,7 @@ export default function Expression(props){
                             <Agents/>
                             <Related/>
                             <PublicationData manifestation={props.expression.manifestations[0]}/>
-                            {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
+                            {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote} terms={props.terms}/>}
                             {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
                         </div>
                     </div>
@@ -242,16 +253,16 @@ export default function Expression(props){
                 <div className={"expressionHeaderTitle"}>
                     <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
                     <Agents/>
-                    {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
+                    {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
                     <Related/>
                     {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
                 </div>
             </div>
             <div className={"expressionManifestationListing"}>
                     <details open={props.expanded}>
-                        <summary>{props.expression.manifestations.length} resources available</summary>
+                        <summary>{props.expression.manifestations.length} publications available</summary>
                         <ul className={"manifestationlist"}>
-                            {props.expression && props.expression.manifestations.map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes} contentsDisplayed={props.expression.contents === null}/>))}
+                            {props.expression && props.expression.manifestations.map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes} contentsDisplayed={props.expression.contents === null} terms={props.terms}/>))}
                         </ul>
                     </details>
             </div>
@@ -263,7 +274,7 @@ export default function Expression(props){
                         <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
                         <Agents/>
                         <PublicationData manifestation={props.expression.manifestations[0]}/>
-                        {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
+                        {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
                         <Related/>
                         {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
                     </div>
@@ -277,7 +288,7 @@ export default function Expression(props){
                         <Agents/>
                          <ManifestationTitle manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
                         <PublicationData manifestation={props.expression.manifestations[0]}/>
-                        {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote}/>}
+                        {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote}  terms={props.terms}/>}
                         <Related/>
                         {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
                     </div>
@@ -290,7 +301,7 @@ export default function Expression(props){
                         <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
                         <Agents/>
                         <PublicationData manifestation={props.expression.manifestations[0]}/>
-                        {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}/>}
+                        {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
                         {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
                     </div>
                 </div>

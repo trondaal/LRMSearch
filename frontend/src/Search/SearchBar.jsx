@@ -22,7 +22,22 @@ function initialQuery() {
 }
 
 function createQuery(q){
-    return q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ")
+    const params = new URLSearchParams(window.location.search);
+    let conditions = "";
+    if (params.get("content")){
+        conditions += " AND (content: " + params.get("content") + ")";
+    }
+    if (params.get("language")){
+        conditions += " AND (language: " + params.get("language") + ")";
+    }
+    if (params.get("form")){
+        conditions += " AND (form: " + params.get("form") + ")";
+    }
+    if (params.get("types")){
+        conditions += " AND (types: " + params.get("types") + ")";
+    }
+    console.log(q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") + conditions)
+    return q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ")  + conditions;
 }
 
 export default function SearchBar({search, expanded, setExpanded, results, display, setDisplay}) {

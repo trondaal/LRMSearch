@@ -1,8 +1,9 @@
 import {selectedVar} from "../api/Cache";
 import Expression from "./Expression";
+import stopwords from "../Search/stopwords.js";
 
-export default function ResultList({results, checkboxes, expanded, display, terms}) {
-
+export default function ResultList({results, checkboxes, expanded, display}) {
+    const terms = sessionStorage.getItem('query') ? sessionStorage.getItem('query').trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())) : [];
     if (results === undefined){
         return <div>No results</div>
     }else if (results.length === 0){
