@@ -25,7 +25,7 @@ function plurals(str){
 }
 
 export const PublicationData = ({manifestation}) => {
-    const {extent, edition, partnote, distribution, production, publication, manufacture} = manifestation;
+    const {extent, edition, partnote, distribution, production, publication, manufacture, identifier, series, seriesnumbering} = manifestation;
 
     const published = [];
     if (!isEmpty(publication)) published.push(publication);
@@ -37,6 +37,8 @@ export const PublicationData = ({manifestation}) => {
         {extent && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}>Extent: </span>{extent}</Typography>}
         {edition && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}>Edition: </span>{edition}</Typography>}
         {published.length > 0 && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}>Published: </span>{published.join(", ")}</Typography>}
+        {series  && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}></span>{series + (seriesnumbering ? "; " + seriesnumbering : "")}</Typography>}
+        {identifier  && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}></span>{identifier}</Typography>}
         {partnote && <Typography component="div" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}>In: </span>{partnote}</Typography>}
     </>
 
@@ -77,7 +79,7 @@ export function ContentsNote({contents, prefix = "Includes: ", terms = []}){
 }
 
 export default function Manifestation(props){
-    console.log(props.terms);
+    //console.log(props.terms);
     const [selected, setSelected] = useRecoilState(selectedState)
     const [clickable] = useRecoilState(clickableState)
     //const {title, subtitle, numbering, part, responsibility, extent, edition, uri, partnote} = props.manifestation;
@@ -111,6 +113,7 @@ export default function Manifestation(props){
             creatorsmap[r] && creators.push([r, (creatorsmap[r].map(a => a.node.name)).join(" ; ")]);
         }
     }
+    console.log(props.manifestation.creatorsConnection.edges);
     //separate array for additional creators
     const others = [];
     for (const k in creatorsmap){

@@ -64,7 +64,7 @@ function expressionTitle(expression) {
 }
 
 export default function Expression(props){
-    console.log(props);
+    //console.log(props);
     const [showUri] = useRecoilState(showUriState);
     const [selected, setSelectedState] = useRecoilState(selectedState);
     const {uri, manifestations} = props.expression;

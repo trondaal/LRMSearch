@@ -39,7 +39,7 @@ function createQuery(q){
     if (params.get("name")){
         conditions += " AND (names: " + params.get("name") + ")";
     }
-    console.log(q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") + conditions)
+    //console.log(q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") + conditions)
     return q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ")  + conditions;
 }
 

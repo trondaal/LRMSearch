@@ -145,11 +145,11 @@ a:hover {
     text-align: left;
 }
 
-.manifestationdetails > .manifestationdetails:not(:first-of-type)::before{
+.manifestationdetails >  span.manifestationdetails:not(:first-of-type)::before{
     content: " - ";
 }
 
-.expressionHeaderTitle > .manifestationdetails:not(:first-of-type)::before{
+.expressionHeaderTitle > span.manifestationdetails:not(:first-of-type)::before{
     content: " - ";
 }
 
