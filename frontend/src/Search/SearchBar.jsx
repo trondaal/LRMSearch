@@ -36,6 +36,9 @@ function createQuery(q){
     if (params.get("types")){
         conditions += " AND (types: " + params.get("types") + ")";
     }
+    if (params.get("name")){
+        conditions += " AND (names: " + params.get("name") + ")";
+    }
     console.log(q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") + conditions)
     return q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ")  + conditions;
 }
