@@ -166,7 +166,23 @@ export default function Expression(props){
 
 
 
-    const ExpressionTitle = ({eTitle, wform}) => {
+    const ExpressionTitle = ({expression}) => {
+        const  eTitle= expressionTitle(expression);
+        const wTitle= expression.work[0].title;
+        const contentType=expression.content;
+        const language=expression.language;
+        let extraText = [];
+        if (wTitle !== eTitle){
+            extraText.push(wTitle);
+        }else{
+            extraText.push(wTitle);
+        }
+        if (language.length !== 0){
+            extraText.push(language[0].label);
+        }
+        if (contentType.length !== 0){
+            extraText.push(contentType[0].label);
+        }
         return (
             <Typography color="primary.main" component="div" variant="etitle" align="left">
                 <Highlighter
@@ -175,7 +191,7 @@ export default function Expression(props){
                     autoEscape={true}
                     textToHighlight={eTitle}
                 />
-                {/*wform && <Typography color='grey.700' variant="wtitle" component="span"> ({wform})</Typography>*/}
+                {wTitle && <Typography color='grey.700' variant="wtitle" component="span"> ({extraText.join(" / ")})</Typography>}
             </Typography>)
     }
 
@@ -222,7 +238,7 @@ export default function Expression(props){
                 return <>
                     <div className={"expressionHeader"}>
                         <div className={"expressionHeaderTitle"}>
-                            <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                            <ExpressionTitle expression={props.expression} />
                             <Agents/>
                             <Related/>
                             <ManifestationTitle terms={props.terms} manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
@@ -236,7 +252,7 @@ export default function Expression(props){
                 return <>
                     <div className={"expressionHeader"}>
                         <div className={"expressionHeaderTitle"}>
-                            <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                            <ExpressionTitle expression={props.expression}/>
                             <Agents/>
                             <Related/>
                             <PublicationData manifestation={props.expression.manifestations[0]}/>
@@ -251,7 +267,7 @@ export default function Expression(props){
         return <>
             <div className={"expressionHeader"}>
                 <div className={"expressionHeaderTitle"}>
-                    <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                    <ExpressionTitle expression={props.expression}/>
                     <Agents/>
                     {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
                     <Related/>
@@ -271,7 +287,7 @@ export default function Expression(props){
             return <>
                 <div className={"expressionHeader"}>
                     <div className={"expressionHeaderTitle"}>
-                        <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                        <ExpressionTitle expression={props.expression}/>
                         <Agents/>
                         <PublicationData manifestation={props.expression.manifestations[0]}/>
                         {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
@@ -284,7 +300,7 @@ export default function Expression(props){
             return <>
                 <div className={"expressionHeader"}>
                     <div className={"expressionHeaderTitle"}>
-                        <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
+                        <ExpressionTitle expression={props.expression}/>
                         <Agents/>
                          <ManifestationTitle manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
                         <PublicationData manifestation={props.expression.manifestations[0]}/>
