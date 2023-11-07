@@ -24,6 +24,7 @@ function initialQuery() {
 function createQuery(q){
     const params = new URLSearchParams(window.location.search);
     let conditions = "";
+    let bool = " AND ";
     if (params.get("content")){
         conditions += " AND (content: " + params.get("content") + ")";
     }
@@ -39,8 +40,13 @@ function createQuery(q){
     if (params.get("name")){
         conditions += " AND (names: " + params.get("name") + ")";
     }
-    //console.log(q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") + conditions)
-    return q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ")  + conditions;
+    if (params.get("boolean")){
+        if (params.get("boolean").toLowerCase() === "or"){
+            bool = " OR ";
+        }
+    }
+    console.log(q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") + conditions)
+    return q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(bool)  + conditions;
 }
 
 export default function SearchBar({search, expanded, setExpanded, results, display, setDisplay}) {

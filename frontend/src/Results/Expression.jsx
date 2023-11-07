@@ -205,8 +205,8 @@ export default function Expression(props){
                 autoEscape={true}
                 textToHighlight={creator[1]
             }/></Typography>) }</div> }
-        {<div>{contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>)}</div> }
-        {<div>{others.map(other => <Typography color="primary.main" component="span" align="left" variant="eroles" className={"role"} key={other[0] + other[1]}>{other[0] + plurals(other[1]) + ": " + other[1]}</Typography>)}</div> }
+        {<div>{contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="agentname" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>)}</div> }
+        {<div>{others.map(other => <Typography color="primary.main" component="span" align="left" variant="agentname" className={"role"} key={other[0] + other[1]}>{other[0] + plurals(other[1]) + ": " + other[1]}</Typography>)}</div> }
         </>
     }
 
