@@ -113,7 +113,7 @@ export default function Manifestation(props){
             creatorsmap[r] && creators.push([r, (creatorsmap[r].map(a => a.node.name)).join(" ; ")]);
         }
     }
-    console.log(props.manifestation.creatorsConnection.edges);
+    //console.log(props.manifestation.creatorsConnection.edges);
     //separate array for additional creators
     const others = [];
     for (const k in creatorsmap){

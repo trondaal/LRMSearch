@@ -167,7 +167,7 @@ export default function Expression(props){
 
 
     const ExpressionTitle = ({expression}) => {
-        const  eTitle= expressionTitle(expression);
+        const eTitle= expressionTitle(expression);
         const wTitle= expression.work[0].title;
         const contentType=expression.content;
         const language=expression.language;
@@ -191,7 +191,7 @@ export default function Expression(props){
                     autoEscape={true}
                     textToHighlight={eTitle}
                 />
-                {wTitle && <Typography color='grey.700' variant="wtitle" component="span"> ({extraText.join(" / ")})</Typography>}
+                {/*wTitle && <Typography color='grey.700' variant="wtitle" component="span"> ({extraText.join(" / ")})</Typography>*/}
             </Typography>)
     }
 

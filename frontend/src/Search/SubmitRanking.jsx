@@ -45,7 +45,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
         mutateFunction({
             variables: {
                 uri: window.location.toString(),
-                date: Date.now().toString(),
+                date: Date.now().toString() + " : " + Date(),
                 query: query,
                 respondent: respondent,
                 relevant: relevantVar(),
@@ -60,6 +60,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
         let json = JSON.stringify(obj);
         setQueries([...queries, query]);
         localStorage.setItem(query.toLowerCase(), json);
+        console.log(Date.now().toString() + " : " + Date());
     };
 
     return (
