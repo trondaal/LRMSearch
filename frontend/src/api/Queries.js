@@ -119,6 +119,7 @@ query($query: String!) {
             hasPartConnection{
                 totalCount,
                 edges{
+                    role,
                     node{
                         id,
                         label,
@@ -131,6 +132,7 @@ query($query: String!) {
             partOfConnection{
                 totalCount,
                 edges{
+                    role,
                     node{
                         id,
                         label,
@@ -144,6 +146,7 @@ query($query: String!) {
         hasPartConnection{
             totalCount,
             edges{
+                role,
                 node{
                     id,
                     label,
@@ -156,6 +159,7 @@ query($query: String!) {
         partOfConnection{
             totalCount,
             edges{
+                role,
                 node{
                     id,
                     label,
@@ -247,6 +251,7 @@ query($query: String!) {
                 hasPartConnection{
                     totalCount,
                     edges{
+                        role,
                         node{
                             id,
                             label,

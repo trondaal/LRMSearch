@@ -24,8 +24,8 @@ const typeDefs = `
         language: [Concept!]! @relationship(type: "LANGUAGE", direction: OUT)
         content: [Concept!]! @relationship(type: "CONTENT", direction: OUT)
         creators: [Agent!]! @relationship(type: "CREATOR", properties: "roleType", direction: OUT)
-        partOf: [Expression!]! @relationship(type: "PARTOF", direction: OUT)
-        hasPart: [Expression!]! @relationship(type: "PARTOF", direction: IN)
+        partOf: [Expression!]! @relationship(type: "PARTOF", properties: "roleType", direction: OUT)
+        hasPart: [Expression!]! @relationship(type: "PARTOF", properties: "roleType", direction: IN)
         relatedTo: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: OUT)
         relatedFrom: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: IN)
     }
@@ -41,11 +41,11 @@ const typeDefs = `
         form: String
         type: [Concept!]! @relationship(type: "TYPE", direction: OUT)
         creators: [Agent!]! @relationship(type: "CREATOR", properties: "roleType", direction: OUT)
-        hasSubjectWork: [Work!]! @relationship(type: "SUBJECT", direction: OUT)
-        isSubjectWork: [Work!]! @relationship(type: "SUBJECT", direction: IN)
-        hasSubjectAgent: [Agent!]! @relationship(type: "SUBJECT", direction: OUT)
-        partOf: [Work!]! @relationship(type: "PARTOF", direction: OUT)
-        hasPart: [Work!]! @relationship(type: "PARTOF", direction: IN)
+        hasSubjectWork: [Work!]! @relationship(type: "SUBJECT", properties: "roleType", direction: OUT)
+        isSubjectWork: [Work!]! @relationship(type: "SUBJECT", properties: "roleType", direction: IN)
+        hasSubjectAgent: [Agent!]! @relationship(type: "SUBJECT", properties: "roleType", direction: OUT)
+        partOf: [Work!]! @relationship(type: "PARTOF", properties: "roleType", direction: OUT)
+        hasPart: [Work!]! @relationship(type: "PARTOF", properties: "roleType", direction: IN)
         relatedTo: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: OUT)
         relatedFrom: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: IN)
 

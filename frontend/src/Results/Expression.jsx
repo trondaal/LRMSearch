@@ -123,7 +123,7 @@ export default function Expression(props){
 
     const isWorkRelatedToWork = props.expression.work[0].relatedToConnection;
     //const hasRelated = props.expression.work[0].relatedFromConnection;
-    const partOf = props.expression.work[0].partOfConnection;
+    const partOfWork = props.expression.work[0].partOfConnection;
     //const hasPart = props.expression.work[0].hasPartConnection;
     //const isSubjectWork = props.expression.work[0].isSubjectWorkConnection;
     const hasSubjectWork = props.expression.work[0].hasSubjectWorkConnection;
@@ -132,9 +132,6 @@ export default function Expression(props){
     const partOfExpression = props.expression.partOfConnection;
 
     if (isWorkRelatedToWork.totalCount > 0){
-        showRelated = true;
-    }
-    if (partOf.totalCount > 0){
         showRelated = true;
     }
     if (hasSubjectWork.totalCount > 0){
@@ -225,9 +222,13 @@ export default function Expression(props){
     }
 
     const PartOf = () => {
-        return <>
-            {partOfExpression.totalCount > 0 && <Typography color="primary.main" component="div" variant="body2" align="left">{"Part of: " + partOfExpression.edges.map(x => x.node.titlepreferred ? x.node.titlepreferred : x.node.titlevariant).join(", ")}</Typography>}
-        </>
+        if (partOfExpression.totalCount > 0){
+            return partOfExpression.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.label}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.label}>{w.node.label}</a></Typography>)
+        } else if (partOfWork.totalCount > 0){
+            return partOfWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.label}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.label}>{w.node.label}</a></Typography>)
+        } else {
+            <></>
+        }
     }
 
     const ExpressionDetails = () => {
@@ -241,6 +242,7 @@ export default function Expression(props){
                             <ExpressionTitle expression={props.expression} />
                             <Agents/>
                             <Related/>
+                            <PartOf/>
                             <ManifestationTitle terms={props.terms} manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
                             <PublicationData manifestation={props.expression.manifestations[0]}/>
                             {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote} terms={props.terms}/>}
@@ -255,6 +257,7 @@ export default function Expression(props){
                             <ExpressionTitle expression={props.expression}/>
                             <Agents/>
                             <Related/>
+                            <PartOf/>
                             <PublicationData manifestation={props.expression.manifestations[0]}/>
                             {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote} terms={props.terms}/>}
                             {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
@@ -271,6 +274,7 @@ export default function Expression(props){
                     <Agents/>
                     {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
                     <Related/>
+                    <PartOf/>
                     {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
                 </div>
             </div>
@@ -292,6 +296,7 @@ export default function Expression(props){
                         <PublicationData manifestation={props.expression.manifestations[0]}/>
                         {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
                         <Related/>
+                        <PartOf/>
                         {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
                     </div>
                 </div>
@@ -306,6 +311,7 @@ export default function Expression(props){
                         <PublicationData manifestation={props.expression.manifestations[0]}/>
                         {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote}  terms={props.terms}/>}
                         <Related/>
+                        <PartOf/>
                         {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
                     </div>
                 </div>
@@ -318,6 +324,8 @@ export default function Expression(props){
                         <Agents/>
                         <PublicationData manifestation={props.expression.manifestations[0]}/>
                         {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
+                        <Related/>
+                        <PartOf/>
                         {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
                     </div>
                 </div>
