@@ -35,12 +35,17 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
     const handleSave = () => {
         setOpen(false);
         const params = new URLSearchParams(window.location.search)
-        let respondent = uuidv4();
+        let respondent = "";
         if (params.get("respondent")){
             respondent = params.get("respondent");
         }else{
+            respondent = uuidv4();
             params.set("respondent", respondent);
             window.location.search = params.toString()
+        }
+        let task = "";
+        if (params.get("task")){
+            task = params.get("task");
         }
         mutateFunction({
             variables: {
@@ -48,6 +53,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
                 date: Date.now().toString() + " : " + Date(),
                 query: query,
                 respondent: respondent,
+                task: task,
                 relevant: relevantVar(),
                 irrelevant: irrelevantVar(),
                 results: results.map(x => x.expression.uri),
@@ -66,7 +72,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
     return (
         <Box display="flex" justifyContent="flex-end">
             <Button variant="outlined" onClick={() => setExpanded(!expanded)} sx={{ mr: 2 }}>
-                {expanded ? "Hide items" : "Expand items"}
+                {expanded ? "Hide all" : "Expand all"}
             </Button>
             {/*<Button variant="outlined" onClick={() => setDisplay(display % 3 + 1)} sx={{ mr: 2 }}>
                 {"Toggle displays"}

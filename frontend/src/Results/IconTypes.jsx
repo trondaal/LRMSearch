@@ -14,7 +14,7 @@ import ArticleTwoToneIcon from '@mui/icons-material/ArticleTwoTone';
 import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
 
 const IconTypes = props => {
-    const { type, color } = props;
+    const { type, color, text } = props;
     switch (type){
         case ('Maps'):
             return <MapTwoToneIcon fontSize="large" color={color}/>;
@@ -29,7 +29,7 @@ const IconTypes = props => {
         case ('Illustrations'):
             return <PhotoTwoToneIcon fontSize="large" color={color}/>;
         case ('Text'):
-            return <MenuBookTwoToneIcon fontSize="large" color={color} className={"icon"}/>;
+            return <div className={"icon-wrapper"}><MenuBookTwoToneIcon fontSize="large" color={color} className={"icon"}/><div className={"icon-text"}>{text}</div></div>;
         case ('Movie (3D)'):
             return <LocalMoviesTwoToneIcon fontSize="large" color={color}/>;
         case ('Movie'):

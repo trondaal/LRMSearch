@@ -8,23 +8,10 @@ export default function ResultList({results, checkboxes, expanded, display}) {
         return <div>No results</div>
     }else if (results.length === 0){
         return <div>No results</div>
-    }else if (display === 1){
-        //return all items in resultset
+    }else{
         return (<div className={"expressionList"}>
             {results.map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded} terms={terms}/>))}
         </div>)
-    }else if (display === 2){
-        return (
-            <div className={"expressionList"}>
-                {results.filter(x => x.expression.form !== "aggregate").map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded}/>))}
-            </div>)
-    }else if (display === 3){
-        return (
-            <div className={"expressionList"}>
-                {results.filter(x => x.expression.form !== "part").map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded}/>))}
-            </div>)
-    }else{
-        return <div></div>
     }
 }
 

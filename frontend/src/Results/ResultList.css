@@ -177,6 +177,26 @@ details > summary {
     font-weight: bold;
 }
 
+.icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.icon-text {
+    font-size: xx-small;
+    position: absolute;
+    top: 65%;
+    left: 65%;
+    transform: translate(-30%, -30%);
+    color: black;
+    border-radius: 10%;
+    border: 1px solid black;
+    background-color: rgba(245, 245, 245, 0.84);
+    padding-left: 1px;
+    padding-right: 1px;
+
+}
+
 /*details > summary {
     list-style-type: none;
 }

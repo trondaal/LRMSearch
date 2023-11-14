@@ -17,7 +17,7 @@ function renameRole(role, language){
     if (role.includes('translation')){
         return language[0].label + " translation of"
     }else{
-        return capitalize(role.replace(/is |has | work/g, ""));
+        return capitalize(role.replace(/is |has | work| expression/g, ""));
     }
 }
 
@@ -336,7 +336,7 @@ export default function Expression(props){
     // Return the expression component
     return <div className={"expression"} key={props.expression.uri}>
                 <div className={relevantClass(props.expression.ranking) + " expressionLeft"}>
-                    <IconTypes type={content[0]}/>
+                    <IconTypes type={content[0]} text={props.expression.language[0] ? props.expression.language[0].uri.split("/").at(-1) : ""}/>
                     <RankingButtons expression={props.expression}/>
                 </div>
                 <div className="resultitem expressionRight">

@@ -268,13 +268,14 @@ query($query: String!) {
 }
 `
 export const CREATE_RANKING = gql`
-    mutation ($uri: String!, $date: String!, $query: String!, $respondent: String!, $relevant: [String!]!, $irrelevant: [String!]!, $results: [String!]!, $bibliographicExpertise: Int!, $searchExpertise: Int!, $taskConfidence: Int!) {
+    mutation ($uri: String!, $date: String!, $query: String!, $respondent: String!, $task: String!, $relevant: [String!]!, $irrelevant: [String!]!, $results: [String!]!, $bibliographicExpertise: Int!, $searchExpertise: Int!, $taskConfidence: Int!) {
       createRankingResults (input: [
         {
           uri: $uri
           date: $date
           query: $query
           respondent: $respondent
+          task: $task
           relevant: $relevant
           irrelevant: $irrelevant
           results: $results
