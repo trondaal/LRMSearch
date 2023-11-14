@@ -116,6 +116,7 @@ const typeDefs = `
         uri: String
         query: String
         respondent: String
+        task: String
         date: String
         relevant: [String]
         irrelevant: [String]
