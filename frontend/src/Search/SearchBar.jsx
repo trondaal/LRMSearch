@@ -25,7 +25,7 @@ function createSortOrder(){
     const params = new URLSearchParams(window.location.search);
     let sort = {"score": "DESC"};
     if (params.get("sort") && params.get("sort") === "random"){
-        sort = {"expression": { "random": "DESC"}};
+        sort = {"expression": { "random": "ASC"}};
     }
     return sort;
 }
