@@ -34,15 +34,17 @@ export default function MyApp() {
     if (error)
         console.log(error.message);
 
+    let results = data ? data.expressionsFulltextExpressions : [];
+
     return (
         <>
             <CssBaseline/>
             <Grid container spacing={3} marginTop={1} paddingLeft={20} paddingRight={20} >
                 <Grid item xs={12}>
-                    <SearchBar search={search} expanded={expanded} setExpanded={setExpanded} results={data ? data.expressionsFulltextExpressions : []} display={display} setDisplay={setDisplay}/>
+                    <SearchBar search={search} expanded={expanded} setExpanded={setExpanded} results={results} display={display} setDisplay={setDisplay}/>
                 </Grid>
                 <Grid item xs={12}>
-                    {called && loading ? <Grid item xs={6}><CircularProgress /></Grid> : <ResultList results={data ? [...data.expressionsFulltextExpressions].sort(() => 0.5 - Math.random()) : []} expanded={expanded} display={display}/>}
+                    {called && loading ? <Grid item xs={6}><CircularProgress /></Grid> : <ResultList results={results} expanded={expanded} display={display}/>}
                 </Grid>
             </Grid>
         </>

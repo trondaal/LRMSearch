@@ -28,6 +28,7 @@ const typeDefs = `
         hasPart: [Expression!]! @relationship(type: "PARTOF", properties: "roleType", direction: IN)
         relatedTo: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: OUT)
         relatedFrom: [Resource!]! @relationship(type: "RELATED", properties: "roleType", direction: IN)
+        random: Int @cypher(statement: "RETURN rand() as random", columnName: "random")
     }
     type Work @fulltext(indexes: [{ indexName: "works", fields: ["titles", "names"] }]) {
         id: String
