@@ -25,7 +25,7 @@ const IconTypes = props => {
         case ('Performed music'):
             return <InterpreterModeIcon fontSize="large" color={color}/>;
         case ('Audio book'):
-            return <HeadsetTwoToneIcon fontSize="large" color={color}/>;
+            return <div className={"icon-wrapper"}><HeadsetTwoToneIcon fontSize="large" color={color}/><div className={"icon-text"}>{text}</div></div>;
         case ('Illustrations'):
             return <PhotoTwoToneIcon fontSize="large" color={color}/>;
         case ('Text'):

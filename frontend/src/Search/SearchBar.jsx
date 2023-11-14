@@ -21,6 +21,15 @@ function initialQuery() {
     return q;
 }
 
+function createSortOrder(){
+    const params = new URLSearchParams(window.location.search);
+    let sort = {"score": "DESC"};
+    if (params.get("sort") && params.get("sort") === "random"){
+        sort = {"expression": { "random": "DESC"}};
+    }
+    return sort;
+}
+
 function createQuery(q){
     const params = new URLSearchParams(window.location.search);
     let conditions = "";
@@ -58,7 +67,7 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
             params.set("query", event.target.value);
             window.location.search = params.toString()
             sessionStorage.setItem('query', query);
-            search({ variables: { query: createQuery(query) } })
+            search({ variables: { query: createQuery(query), sort: createSortOrder() } })
         }else{
             setQuery(event.target.value)
         }
@@ -72,7 +81,7 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
                 irrelevantVar([...rankings.irrelevant]);
             }
             sessionStorage.setItem('query', query.toLowerCase());
-            search({ variables: { query: createQuery(query) } });
+            search({ variables: { query: createQuery(query), sort: createSortOrder() }});
         }, []
     );
 
