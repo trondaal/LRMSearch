@@ -32,9 +32,9 @@ const questions = [
 
 ];
 const tasks = [
-    "Marker as relevant the result item(s) that you most immediately find interesting to inspect. Mark at least one item.",
-    "Mark as relevant the items that you find to best match the query and mark as irrelevant the items that you find to have least match. Mark at least one as relevant and one item as irrelevant.",
-    "Items in the resultset is intended to show content and if the same content is found in multiple publications, these publications are listed as an expandable list. Mark as relevant the items that you find to represent meaningfull as distinct content, and mark as irrelevant the items that you find to represent the same content as other items.",
+    "Marker as relevant the result entries that you most immediately find interesting to inspect. Please mark at least one.",
+    "Mark as relevant the entries that you find to best match the query and mark as irrelevant the entries that you find to have least match. Mark at least one as relevant and one as irrelevant.",
+    "Mark as relevant the entries that you think of as distinct, individual content, and mark as irrelevant the entries that in your opinion least represent a single piece of content.",
 ]
 
 function getRandomQuestions(questions, num) {
@@ -71,7 +71,8 @@ const Survey = () => {
             <h1>Search experience survey</h1>
 
                 <p>We kindly invite you to participate in a task-based survey with the purpose of exploring search results from a bibliographic search system.
-                We do not expect any particular knowledge in advance. In the survey you will be asked to perform specific judgements and mark items in the result, related to selected queries.
+                We do not expect any particular knowledge in advance, and you will spend between 5-15 minutes doing this survey. </p>
+            <p>In the survey you will be asked to perform specific judgements and mark items in the resultpage.
                 Your response is logged when you press submit, but all data is fully anonymous. By participating, you agree that the data will be used in research.
                 A random participant ID is generated when you access this page. This number can be used to refer to your response, in case you want to withdraw your response from the survey.
                 Responsible for the survey is Professor Trond Aalberg (Trond.Aalberg@oslomet.no).</p>
