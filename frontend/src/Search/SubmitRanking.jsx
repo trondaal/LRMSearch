@@ -93,9 +93,9 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
                 <DialogTitle id="alert-dialog-title">
                     {"Rate your ..."}
                 </DialogTitle>
-                <ExpertiseRating title={"knowledge of this author or work"} value={searchExpertise} setValue={setSearchExpertise}/>
-                <ExpertiseRating title={"knowledge of bibliographic data"} value={bibliographicExpertise} setValue={setBibliographicExpertise}/>
-                <ExpertiseRating title={"confidence in solving the task"} value={taskConfidence} setValue={setTaskConfidence}/>
+                <ExpertiseRating title={"Knowledge of this author or work"} value={searchExpertise} setValue={setSearchExpertise}/>
+                <ExpertiseRating title={"Knowledge of library data in general"} value={bibliographicExpertise} setValue={setBibliographicExpertise}/>
+                <ExpertiseRating title={"Confidence in solving the task"} value={taskConfidence} setValue={setTaskConfidence}/>
                 <DialogTitle id="alert-dialog-title">
                     {"Submit your ranking?"}
                 </DialogTitle>

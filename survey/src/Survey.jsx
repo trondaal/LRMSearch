@@ -1,14 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp.js";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown.js";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline.js";
+import screenshots from './assets/screenshots.png';
+
+
 
 const questions = [
-    ["You want to read the novel \"På gjengrodde stier\" by Knut Hamsun and have made a search using title and author name.", "http://dijon.idi.ntnu.no/lrm-search/?query=knut+hamsun+på+gjengrodde+stier&language=norwegian", "Results for the search on \"Knut Hamsun På gjengrodde stier\""],
-    ["You have been told by a friend to read the story \"Chronopolis\" by J.G. Ballard and have made a search using title and author name.", "http://dijon.idi.ntnu.no/lrm-search/?query=Chronopolis", "Results for the search on \"Chronopolis\""],
-    ["You want to explore what is available by Mark Twain and have made a search using the authors name.", "http://dijon.idi.ntnu.no/lrm-search/?query=mark+twain", "Results for the search om \"Mark Twain\""],
-    ["You want to explore what is available by Mark Twain on the character Tom Sawyer and have made a search using the authors name and the name of the character.", "http://dijon.idi.ntnu.no/lrm-search/?query=mark+twain+tom+sawyer", "Results for the search om \"Mark Twain Tom Sawyer\""],
-    ["You want to read \"Lord of the rings\" by J.R.R. and have made a search using this title.", "http://dijon.idi.ntnu.no/lrm-search/?query=lord+rings&language=norwegian", "Results for the search on \"Lord of the rings\""],
-    ["You want to read \"Murder on the links\" by Agatha Christie and have made a search using this title.", "http://dijon.idi.ntnu.no/lrm-search/?query=Murder+on+the+links", "Results for the search on \"Murder on the links\""],
-    ["You want to explore what is available by \"Agatha Christie\" and have made a search using .", "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie", "Results for the search on \"Agatha Christie\""],
+    ["You want to read the novel \"På gjengrodde stier\" by Knut Hamsun and have made a search using title and author name.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=knut+hamsun+på+gjengrodde+stier&language=norwegian",
+        "Results for the search on \"Knut Hamsun På gjengrodde stier\""],
+    ["You have been told by a friend to read the story \"Chronopolis\" by J.G. Ballard and have made a search using title and author name.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=chronopolis+ballard",
+        "Results for the search on \"Chronopolis Ballard\""],
+    ["You want to explore what is available by Mark Twain and have made a search using the authors name.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=mark+twain",
+        "Results for the search om \"Mark Twain\""],
+    ["You want to explore what is available by Mark Twain on the character Tom Sawyer and have made a search using the authors name and the name of the character.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=mark+twain+tom+sawyer",
+        "Results for the search om \"Mark Twain Tom Sawyer\""],
+    ["You want to read \"Lord of the rings\" by J.R.R. and have made a search using this title.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=lord+rings&language=english",
+        "Results for the search on \"Lord of the rings\""],
+    ["You want to read \"Murder on the links\" by Agatha Christie and have made a search using this title.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Murder+on+the+links",
+        "Results for the search on \"Murder on the links\""],
+    ["You want to read \"Murder on the Orient Express\" by \"Agatha Christie\" and have made a search using title and author name.",
+        "http://localhost:5173/lrm-search/?query=murder+on+the+orient+express+Agatha+Christie&content=text&name=christie&sort=random",
+        "Results for the search on \"Murder on the Orient Express Agatha Christie\""],
+
 ];
 const tasks = [
     "Marker as relevant the result item(s) that you most immediately find interesting to inspect. Mark at least one item.",
@@ -56,19 +77,24 @@ const Survey = () => {
                 Responsible for the survey is Professor Trond Aalberg (Trond.Aalberg@oslomet.no).</p>
 
             <h2>The search system</h2>
-            <p>The system used in the experiment mimics a bibliographic search system. You will be presented with the results of predefined searches. Each item of the result represents particular content
-                that you may or may not be familiar with. If the same content is available in multiple publications,the list of publications can be expanded using the "Available as: " option.
+            <p>The system used in the experiment is a simplified bibliographic search system. You will be presented with the results of predefined searches. Each entry on the result page represents particular content
+                that you may or may not be familiar with. If the same content is available as multiple publications, the list of publications can be expanded using the "Available as: " option.
                 On the top of the page is a button that can be used to hide and show all available publications.</p>
-            <p>To the left of each item in the result set, there are two circular buttons with arrows that can be used to
-                indicate how you assess items according to the task given. The up arrow is used to give positive feedback on an item, the down arrow to give negative feedback.
-                After marking, items given positive feedback are highlighted in green or highlighted with red when negative negative. Your feedback can be reset by clicking on the cancel button. </p>
-            <p>The actual tasks to perform are descibed below and the result to inspect is retrieved automatically when using the given links. When you decide to finish a task, click on the "Submit" button to send your feedback. This will show a dialog where you can give some suplemental feedback before pressing Yes to finish the submission.</p>
+            <p>To the left of each entry on the result page, there are two circular buttons with up and down arrows that can be used to
+                indicate how you assess entries according to the task given. The up arrow button <ArrowCircleUpIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is used to give positive feedback on an entry, the down arrow button <ArrowCircleDownIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> to give negative feedback.
+                After marking, entries with positive feedback are highlighted in green or highlighted with red when negative negative. Markings of a particular entry can be removed clicking on the cancel button <RemoveCircleOutlineIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/>.
+                When you decide to finish a task, click on the "Submit" button to send your feedback. This will show a dialog where you can give some supplemental feedback before pressing Yes to finish the submission. Screenshots of the application and the submit dialogue are shown below.
+            </p>
+            <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '60%'}} align="middle"/>
+            <p>The tasks to perform are listed below as Task 1-3. The Context describes the motivation for the query, when you click on the Link the resultpage to inspect is retrieved automatically and presented in a different tab.
+                The actual assigment in the task is detailed below the link. </p>
+
             {selectedQuestions.map((question, index) => (
                 <div key={index}>
                     <h2>Task {index + 1}</h2>
                     <p className={"section"}><span className={"prefix"}>Context: </span><span className={"description"}>{question[0]}</span></p>
-                    <p className={"section"}><span className={"prefix"}>Task: </span><span className={"description"}>{tasks[index]}</span></p>
                     <p className={"section"}><span className={"prefix"}>Link: </span><span className={"description"}><a href={question[1] + "&respondent=" + respondent + "&task=" + (index+1)} target={"_blank"} rel="noreferrer">{question[2]}</a></span></p>
+                    <p className={"section"}><span className={"prefix"}>Task: </span><span className={"description"}>{tasks[index]}</span></p>
                 </div>
             ))}
             <footer>Participant ID: {respondent}</footer>
