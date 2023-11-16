@@ -85,8 +85,14 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
         }, []
     );
 
+    const params = new URLSearchParams(window.location.search);
+    let description = "";
+    if (params.get("description")){
+        description = params.get("description");
+    }
 
-    return <Grid container spacing={3} marginTop={1} >
+    return <Grid container spacing={3} marginTop={0} >
+        {description !== "" ? <Grid item xs={12}>Test</Grid> : <></>}
         <Grid item xs={6}>
             <TextField
                 id="filled-search"
@@ -103,7 +109,6 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
         <Grid item xs={6}>
             <SubmitRanking query={query} expanded={expanded} setExpanded={setExpanded} results={results} display={display} setDisplay={setDisplay}/>
         </Grid>
-
     </Grid>
 
 
