@@ -25,7 +25,7 @@ const questions = [
         "Results for the search on \"Lord of the rings Tolkien\""],
     ["You want to read \"Murder on the links\" by Agatha Christie and have made a search using this title.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Murder+on+the+links+Agatha+Christie&sort=random",
-        "Results for the search on \"Murder on the links\""],
+        "Results for the search on \"Murder on the links Agatha Christie\""],
     ["You want to read \"Murder on the Orient Express\" by Agatha Christie and have made a search using title and author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Murder+on+the+Orient+Express+Agatha+Christie&content=text&name=christie&sort=random",
         "Results for the search on \"Murder on the Orient Express Agatha Christie\""],
@@ -94,7 +94,7 @@ const Survey = () => {
                 <div key={index}>
                     <h2>Task {index + 1}</h2>
                     <p className={"section"}><span className={"prefix"}>Context: </span><span className={"description"}>{question[0]}</span></p>
-                    <p className={"section"}><span className={"prefix"}>Link: </span><span className={"description"}><a href={question[1] + "&respondent=" + respondent + "&task=" + (index+1) + "&description=" + tasks[index]} target={"_blank"} rel="noreferrer">{question[2]}</a></span></p>
+                    <p className={"section"}><span className={"prefix"}>Link: </span><span className={"description"}><a href={question[1] + "&respondent=" + respondent + "&task=" + (index+1) + "&description=Task: " + tasks[index]} target={"_blank"} rel="noreferrer">{question[2]}</a></span></p>
                     <p className={"section"}><span className={"prefix"}>Task: </span><span className={"description"}>{tasks[index]}</span></p>
                 </div>
             ))}
