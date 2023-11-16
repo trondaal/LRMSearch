@@ -86,7 +86,7 @@ const Survey = () => {
                 After marking, entries with positive feedback are highlighted in green or highlighted with red when negative negative. Markings of a particular entry can be removed clicking on the cancel button <RemoveCircleOutlineIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/>.
                 When you decide to finish a task, click on the "Submit" button to send your feedback. This will show a dialog where you can give some supplemental feedback before pressing Yes to finish the submission. Screenshots of the application and the submit dialogue are shown below.
             </p>
-            <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '60%'}} align="middle"/>
+            <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
             <p>The tasks to perform are listed below as Task 1-3. The Context describes the motivation for the query, when you click on the Link the resultpage to inspect is retrieved automatically and presented in a different tab.
                 The actual assigment in the task is detailed below the link. </p>
 
