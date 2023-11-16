@@ -92,7 +92,7 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
     }
 
     return <Grid container spacing={3} marginTop={0} >
-        {description !== "" ? <Grid item xs={12}>Test</Grid> : <></>}
+        {description !== "" ? <Grid item xs={12}>{description}</Grid> : <></>}
         <Grid item xs={6}>
             <TextField
                 id="filled-search"
