@@ -47,18 +47,18 @@ const Survey = () => {
     const [respondent, setRespondent] = useState('');
 
     useEffect(() => {
-        let existingId = localStorage.getItem('respondent');
-        let savedQuestions = localStorage.getItem('selectedQuestions');
+        let existingId = sessionStorage.getItem('respondent');
+        let savedQuestions = sessionStorage.getItem('selectedQuestions');
 
         if (!existingId) {
             existingId = uuidv4();
-            localStorage.setItem('respondent', existingId);
+            sessionStorage.setItem('respondent', existingId);
         }
         setRespondent(existingId);
 
         if (!savedQuestions) {
             savedQuestions = getRandomQuestions(questions, 3);
-            localStorage.setItem('selectedQuestions', JSON.stringify(savedQuestions));
+            sessionStorage.setItem('selectedQuestions', JSON.stringify(savedQuestions));
         } else {
             savedQuestions = JSON.parse(savedQuestions);
         }
