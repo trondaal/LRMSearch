@@ -9,29 +9,32 @@ import screenshots from './assets/screenshots.png';
 
 const questions = [
     ["You want to read the novel \"På gjengrodde stier\" by Knut Hamsun and have made a search using title and author name.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=knut+hamsun+på+gjengrodde+stier&language=norwegian",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=knut+hamsun+på+gjengrodde+stier&language=norwegian&sort=random",
         "Results for the search on \"Knut Hamsun På gjengrodde stier\""],
     ["You have been told by a friend to read the story \"Chronopolis\" by J.G. Ballard and have made a search using title and author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=chronopolis+ballard",
         "Results for the search on \"Chronopolis Ballard\""],
+    ["You have been told by a friend to read the story \"Life and death of God\" by J.G. Ballard and have made a search using title and author name.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Life+and+death+of+God+Ballard",
+        "Results for the search on \"Life and death of God Ballard\""],
     ["You want to explore what is available by Mark Twain on the character Tom Sawyer and have made a search using the authors name and the name of the character.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=mark+twain+tom+sawyer",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain+Tom+Sawyer",
         "Results for the search on \"Mark Twain Tom Sawyer\""],
     ["You want to read \"Lord of the rings\" by J.R.R. Tolkien and have made a search using this title.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=lord+rings&language=english",
-        "Results for the search on \"Lord of the rings\""],
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Lord+of+the+rings+Tolkien&language=english",
+        "Results for the search on \"Lord of the rings Tolkien\""],
     ["You want to read \"Murder on the links\" by Agatha Christie and have made a search using this title.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Murder+on+the+links&sort=random",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Murder+on+the+links+Agatha+Christie&sort=random",
         "Results for the search on \"Murder on the links\""],
     ["You want to read \"Murder on the Orient Express\" by Agatha Christie and have made a search using title and author name.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=murder+on+the+orient+express+Agatha+Christie&content=text&name=christie&sort=random",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Murder+on+the+Orient+Express+Agatha+Christie&content=text&name=christie&sort=random",
         "Results for the search on \"Murder on the Orient Express Agatha Christie\""],
 
 ];
 const tasks = [
-    "Mark as relevant the result(s) that you most immediately find interesting to inspect. Please mark at least one.",
-    "Mark as relevant the entries that you find to best match the query and mark as non-relevant the entries that you find to have least match. Mark at least one as relevant and one as irrelevant.",
-    "Mark as relevant all entries that you think of as works by this author",
+    "Mark as relevant the result(s) that you most immediately find interesting to inspect.",
+    "Mark as relevant the entries that you find to best match the query and mark as non-relevant the entries that you find least match.",
+    "Mark as relevant all entries that you think of as works by this author.",
 ]
 
 function getRandomQuestions(questions, num) {
