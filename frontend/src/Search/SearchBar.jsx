@@ -86,13 +86,18 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
     );
 
     const params = new URLSearchParams(window.location.search);
-    let description = "";
-    if (params.get("description")){
-        description = params.get("description");
+    let task = "";
+    if (params.get("task")){
+        task = params.get("task");
+    }
+    let context = "";
+    if (params.get("context")){
+        context = params.get("context");
     }
 
     return <Grid container spacing={3} marginTop={0} >
-        {description !== "" ? <Grid item xs={12}>{description}</Grid> : <></>}
+        {context !== "" ? <Grid item xs={12}>{context}</Grid> : <></>}
+        {task !== "" ? <Grid item xs={12}>{task}</Grid> : <></>}
         <Grid item xs={6}>
             <TextField
                 id="filled-search"

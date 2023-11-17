@@ -43,9 +43,9 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
             params.set("respondent", respondent);
             window.location.search = params.toString()
         }
-        let task = "";
-        if (params.get("task")){
-            task = params.get("task");
+        let taskid = "";
+        if (params.get("taskid")){
+            taskid = params.get("taskid");
         }
         mutateFunction({
             variables: {
@@ -53,7 +53,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
                 date: Date.now().toString() + " : " + Date(),
                 query: query,
                 respondent: respondent,
-                task: task,
+                task: taskid,
                 relevant: relevantVar(),
                 irrelevant: irrelevantVar(),
                 results: results.map(x => x.expression.uri),

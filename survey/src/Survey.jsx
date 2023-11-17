@@ -5,41 +5,39 @@ import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown.js";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline.js";
 import screenshots from './assets/screenshots.png';
 
-
-
 const questions = [
     ["You want to read the novel \"På gjengrodde stier\" by Knut Hamsun and have made a search using title and author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=knut+hamsun+på+gjengrodde+stier&language=norwegian&sort=random",
         "Results for the search on \"Knut Hamsun På gjengrodde stier\"",
         "Knut Hamsun"],
     ["You have been told by a friend to read the story \"Chronopolis\" by J.G. Ballard and have made a search using title and author name.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=chronopolis+ballard",
-        "Results for the search on \"Chronopolis Ballard\"",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Ballard+Chronopolis",
+        "Results for the search on \"Ballard Chronopolis\"",
         "J.G. Ballard"],
     ["You have been told by a friend to read the story \"Life and death of God\" by J.G. Ballard and have made a search using title and author name.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Life+and+death+of+God+Ballard",
-        "Results for the search on \"Life and death of God Ballard\"",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Ballard+Life+and+death+of+God",
+        "Results for the search on \"Ballard Life and death of God\"",
         "J.G. Ballard"],
     ["You want to explore what is available by Mark Twain on the character Tom Sawyer and have made a search using the authors name and the name of the character.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain+Tom+Sawyer",
         "Results for the search on \"Mark Twain Tom Sawyer\"",
         "Mark Twain"],
     ["You want to read \"Lord of the rings\" by J.R.R. Tolkien and have made a search using this title.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Lord+of+the+rings+Tolkien&language=english",
-        "Results for the search on \"Lord of the rings Tolkien\"",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Tolkien+Lord+of+the+rings&language=english",
+        "Results for the search on \"Tolkien Lord of the rings\"",
         "J.R.R. Tolkien"],
     ["You want to read \"Murder on the links\" by Agatha Christie and have made a search using this title.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Murder+on+the+links+Agatha+Christie&sort=random",
-        "Results for the search on \"Murder on the links Agatha Christie\"",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie+Murder+on+the+links&sort=random",
+        "Results for the search on \"Agatha Christie Murder on the links\"",
         "Agatha Christie"],
     ["You want to read \"Murder on the Orient Express\" by Agatha Christie and have made a search using title and author name.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Murder+on+the+Orient+Express+Agatha+Christie&content=text&name=christie&sort=random",
-        "Results for the search on \"Murder on the Orient Express Agatha Christie\"",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie+Murder+on+the+Orient+Express&content=text&name=christie&sort=random",
+        "Results for the search on \"Agatha Christie Murder on the Orient Express Agatha Christie\"",
         "Agatha Christie"],
     ["You want to read \"All the pretty horses\" by Cormac McCarthy and have made a search using title and author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=All+the+pretty+horses+Cormac+McCarthy&language=english&content=text",
-        "Results for the search on \"All the pretty horses Cormac McCarthy\"",
-        "Agatha Christie"],
+        "Results for the search on \"Cormac McCarthy All the pretty horses\"",
+        "Cormac McCarthy"],
 ];
 const tasks = [
     "Mark as relevant the result(s) that you most immediately find interesting to inspect.",
@@ -68,7 +66,7 @@ const Survey = () => {
 
         if (!savedQuestions) {
             savedQuestions = getRandomQuestions(questions, 3);
-            sessionStorage.setItem('selectedQuestions', JSON.stringify(savedQuestions));
+            //sessionStorage.setItem('selectedQuestions', JSON.stringify(savedQuestions));
         } else {
             savedQuestions = JSON.parse(savedQuestions);
         }
@@ -104,7 +102,7 @@ const Survey = () => {
                 <div key={index}>
                     <h2>Task {index + 1}</h2>
                     <p className={"section"}><span className={"prefix"}>Context: </span><span className={"description"}>{question[0]}</span></p>
-                    <p className={"section"}><span className={"prefix"}>Link: </span><span className={"description"}><a href={question[1] + "&respondent=" + respondent + "&task=" + (index+1) + "&description=Task: " + tasks[index]} target={"_blank"} rel="noreferrer">{question[2]}</a></span></p>
+                    <p className={"section"}><span className={"prefix"}>Link: </span><span className={"description"}><a href={question[1] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=Task: " + tasks[index] + "&context=Context: " + question[0]} target={"_blank"} rel="noreferrer">{question[2]}</a></span></p>
                     <p className={"section"}><span className={"prefix"}>Task: </span><span className={"description"}>{tasks[index]}</span></p>
                 </div>
             ))}
