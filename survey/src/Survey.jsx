@@ -98,7 +98,7 @@ const Survey = () => {
             </p>
             <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
             <p>The tasks to perform are listed below as Task 1-3. The Context describes the motivation for the query, when you click on the Link the resultpage to inspect is retrieved automatically and presented in a different tab.
-                The actual assigment in the task is detailed below the link. </p>
+                The actual assigment in the task is detailed below the link, but will also be displayed on the top of the page you are visiting. </p>
 
             {selectedQuestions.map((question, index) => (
                 <div key={index}>

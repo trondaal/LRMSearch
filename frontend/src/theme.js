@@ -17,6 +17,10 @@ export const theme = createTheme({
             fontSize: '1.00rem',
             fontWeight: 420,
         },
+        fieldname: {
+            fontSize: '1.00rem',
+            fontWeight: 400,
+        },
         eroles: {
             fontSize: '1.00rem',
             fontWeight: 420,

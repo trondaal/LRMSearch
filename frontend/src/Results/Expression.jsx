@@ -182,6 +182,7 @@ export default function Expression(props){
         }
         return (
             <Typography color="primary.main" component="div" variant="etitle" align="left">
+                <Typography color="primary.main" component="span" variant="fieldname" align="left">Title: </Typography>
                 <Highlighter
                     highlightClassName="highlighted"
                     searchWords={props.terms}
@@ -307,7 +308,7 @@ export default function Expression(props){
                     <div className={"expressionHeaderTitle"}>
                         <ExpressionTitle expression={props.expression}/>
                         <Agents/>
-                         <ManifestationTitle manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
+                        <ManifestationTitle manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
                         <PublicationData manifestation={props.expression.manifestations[0]}/>
                         {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote}  terms={props.terms}/>}
                         <Related/>
