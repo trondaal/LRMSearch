@@ -42,7 +42,7 @@ const questions = [
 const tasks = [
     "Mark as relevant the result(s) that you most immediately find interesting to inspect.",
     "Mark as relevant the entries that you find to best match the query and mark as non-relevant the entries that you find least match.",
-    "Mark as relevant all entries that you think of as works by ",
+    "Mark as relevant all entries that you think of as works by this author.",
 ]
 
 function getRandomQuestions(questions, num) {
