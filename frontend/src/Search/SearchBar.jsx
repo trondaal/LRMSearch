@@ -6,6 +6,7 @@ import stopwords from './stopwords'
 import Grid from "@mui/material/Grid";
 import SubmitRanking from "./SubmitRanking.jsx";
 import * as React from "react";
+import Typography from "@mui/material/Typography";
 
 function initialQuery() {
     const params = new URLSearchParams(window.location.search)
@@ -96,8 +97,10 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
     }
 
     return <Grid container spacing={3} marginTop={0} >
-        {context !== "" ? <Grid item xs={12}>{context}</Grid> : <></>}
-        {task !== "" ? <Grid item xs={12}>{task}</Grid> : <></>}
+        {context !== "" && task !== ""?
+            <Grid item xs={12}><Typography color="primary.light" component="span" align="left" variant="body2">{context}<br/>{task}</Typography></Grid>
+            : <></>
+        }
         <Grid item xs={6}>
             <TextField
                 id="filled-search"

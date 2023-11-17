@@ -39,7 +39,7 @@ export default function MyApp() {
     return (
         <>
             <CssBaseline/>
-            <Grid container spacing={3} marginTop={1} paddingLeft={20} paddingRight={20} >
+            <Grid container spacing={3} marginTop={0} paddingLeft={20} paddingRight={20} >
                 <Grid item xs={12}>
                     <SearchBar search={search} expanded={expanded} setExpanded={setExpanded} results={results} display={display} setDisplay={setDisplay}/>
                 </Grid>
