@@ -67,7 +67,9 @@ export default function SubmitRanking({query, expanded, setExpanded, results}) {
         let stasks = localStorage.getItem('lrm-survey-tasks') ? JSON.parse(localStorage.getItem('lrm-survey-tasks')) : []
         stasks.push(window.location.toString());
         localStorage.setItem('lrm-survey-tasks', JSON.stringify(stasks));
-        //console.log(stasks)
+        let obj = {relevant: relevantVar(), irrelevant: irrelevantVar()};
+        let json = JSON.stringify(obj);
+        localStorage.setItem(uri, json);
     };
 
     return (
@@ -76,7 +78,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results}) {
                 {expanded ? "Hide all" : "Expand all"}
             </Button>
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
-                onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(query.toLowerCase());}}>
+                onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(uri);}}>
                 Clear marking
             </Button>
             <Button variant="outlined" onClick={handleClickOpen} disabled={relevantVar().length === 0 && irrelevantVar().length === 0}  sx={{ mr: 2 }}>

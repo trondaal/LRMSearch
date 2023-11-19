@@ -79,10 +79,12 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
 
     useEffect(() => {
             //retrieves rankings from local storage if they exist
-            if (localStorage.getItem(query.toLowerCase())) {
-                const rankings = JSON.parse(localStorage.getItem(query.toLowerCase()))
+            console.log(window.location.search);
+            if (localStorage.getItem(window.location.toString())) {
+                const rankings = JSON.parse(localStorage.getItem(window.location.toString()))
                 relevantVar([...rankings.relevant]);
                 irrelevantVar([...rankings.irrelevant]);
+                console.log(rankings);
             }
             sessionStorage.setItem('query', query.toLowerCase());
             search({ variables: { query: createQuery(query), sort: createSortOrder() }});
