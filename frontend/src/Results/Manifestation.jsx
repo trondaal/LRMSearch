@@ -41,7 +41,6 @@ export const PublicationData = ({manifestation}) => {
         {identifier  && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}></span>{identifier}</Typography>}
         {partnote && <Typography component="div" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}>In: </span>{partnote}</Typography>}
     </>
-
 }
 
 export function manifestationStatement(manifestation){

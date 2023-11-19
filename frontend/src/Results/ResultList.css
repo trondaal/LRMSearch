@@ -88,7 +88,7 @@ a:hover {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
-    min-height: 110px;
+    min-height: 80px;
 }
 
 .expressionLeft{
@@ -96,6 +96,11 @@ a:hover {
     padding-right: 5px;
     padding-top: 5px;
     flex-basis: auto;
+    min-width: 70px;
+    align-items: center;
+    justify-content: top;
+    display: flex;
+    flex-direction: column;
 }
 
 .expressionRight{
@@ -126,7 +131,7 @@ a:hover {
 
 .rankingbuttons{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .manifestation {

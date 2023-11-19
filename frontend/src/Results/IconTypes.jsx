@@ -29,7 +29,7 @@ const IconTypes = props => {
         case ('Illustrations'):
             return <PhotoTwoToneIcon fontSize="large" color={color}/>;
         case ('Text'):
-            return <div className={"icon-wrapper"}><MenuBookTwoToneIcon fontSize="large" color={color} className={"icon"}/><div className={"icon-text"}>{text}</div></div>;
+            return <div className={"icon-wrapper"}><MenuBookTwoToneIcon sx={{ fontSize: 40 }} color={color} className={"icon"}/><div className={"icon-text"}>{text}</div></div>;
         case ('Movie (3D)'):
             return <LocalMoviesTwoToneIcon fontSize="large" color={color}/>;
         case ('Movie'):

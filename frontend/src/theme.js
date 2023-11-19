@@ -35,7 +35,7 @@ export const theme = createTheme({
             fontWeight: 450,
         },
         description: {
-            fontSize: '0.9rem',
+            fontSize: '0.95rem',
         },
         agentprefix: {
             fontSize: '1.00rem',
@@ -47,17 +47,17 @@ export const theme = createTheme({
             fontWeight: 400
         },
         relatedprefix: {
-            fontSize: '0.9rem',
+            fontSize: '0.95rem',
             fontStyle: 'italic'
         },
         relatedlabel: {
-            fontSize: '0.9rem',
+            fontSize: '0.95rem',
         },
         contentsprefix: {
-            fontSize: '0.9rem',
+            fontSize: '0.95rem',
         },
         contents: {
-            fontSize: '0.9rem',
+            fontSize: '0.95rem',
             fontStyle: 'italic'
         }
     }

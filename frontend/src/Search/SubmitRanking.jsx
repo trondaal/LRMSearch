@@ -15,13 +15,14 @@ import Tooltip from '@mui/material/Tooltip';
 import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
 
-export default function SubmitRanking({query, expanded, setExpanded, results, display, setDisplay}) {
+export default function SubmitRanking({query, expanded, setExpanded, results}) {
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
     const [open, setOpen] = React.useState(false);
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
     const [searchExpertise, setSearchExpertise] = React.useState(3);
     const [taskConfidence, setTaskConfidence] = React.useState(3);
-    const [queries, setQueries] = React.useState([]);
+    const [tasks, setTasks] = React.useState(localStorage.getItem('lrm-survey-tasks') ? JSON.parse(localStorage.getItem('lrm-survey-tasks')) : []);
+    const uri =  window.location.toString();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -30,7 +31,6 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
     const handleClose = () => {
         setOpen(false);
     };
-
 
     const handleSave = () => {
         setOpen(false);
@@ -49,7 +49,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
         }
         mutateFunction({
             variables: {
-                uri: window.location.toString(),
+                uri: uri,
                 date: Date.now().toString() + " : " + Date(),
                 query: query,
                 respondent: respondent,
@@ -62,11 +62,12 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
                 taskConfidence: taskConfidence
             }
         });
-        let obj = {relevant: relevantVar(), irrelevant: irrelevantVar()};
-        let json = JSON.stringify(obj);
-        setQueries([...queries, query]);
-        localStorage.setItem(query.toLowerCase(), json);
-        console.log(Date.now().toString() + " : " + Date());
+
+        setTasks([...tasks, window.location.toString()]);
+        let stasks = localStorage.getItem('lrm-survey-tasks') ? JSON.parse(localStorage.getItem('lrm-survey-tasks')) : []
+        stasks.push(window.location.toString());
+        localStorage.setItem('lrm-survey-tasks', JSON.stringify(stasks));
+        //console.log(stasks)
     };
 
     return (
@@ -74,9 +75,6 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
             <Button variant="outlined" onClick={() => setExpanded(!expanded)} sx={{ mr: 2 }}>
                 {expanded ? "Hide all" : "Expand all"}
             </Button>
-            {/*<Button variant="outlined" onClick={() => setDisplay(display % 3 + 1)} sx={{ mr: 2 }}>
-                {"Toggle displays"}
-            </Button>*/}
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
                 onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(query.toLowerCase());}}>
                 Clear marking
@@ -113,8 +111,8 @@ export default function SubmitRanking({query, expanded, setExpanded, results, di
                     <Button onClick={handleSave} autoFocus>Yes</Button>
                 </DialogActions>
             </Dialog>
-            <Tooltip title={localStorage.getItem(sessionStorage.getItem('query')) ? "You have completed ranking this query." : "Not submitted yet"} placement={"right"}>
-                <CheckCircleOutlineSharpIcon color={localStorage.getItem(sessionStorage.getItem('query')) ? "success" : "action"} sx={{fontSize: 40}}/>
+            <Tooltip title={tasks.includes(uri) ? "You have completed this task." : "Not submitted this task yet."} placement={"right"}>
+                <CheckCircleOutlineSharpIcon color={tasks.includes(uri) ? "success" : "action"} sx={{fontSize: 40}}/>
             </Tooltip>
         </Box>
     );

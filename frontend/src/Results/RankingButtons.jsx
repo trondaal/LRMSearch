@@ -4,6 +4,7 @@ import {irrelevantVar, relevantVar} from "../api/Cache.js";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp.js";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown.js";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline.js";
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import React from "react";
 import { PropTypes } from "prop-types";
 
@@ -18,8 +19,8 @@ export default function RankingButtons({expression}){
     return (
     <div className={"rankingbuttons"}>
         { expression.ranking === 0  &&
-            <><Tooltip title={"Mark as relevant"} placement={"right"}>
-                <IconButton size="small" onClick={() => {
+            <><Tooltip title={"Mark as relevant"} placement={"bottom-end"}>
+                <IconButton sx={{ padding: 0 }} size="small" onClick={() => {
                     const arr = relevantVar();
                     if (arr.indexOf(expression.uri) === -1){
                         arr.push(expression.uri);
@@ -30,8 +31,8 @@ export default function RankingButtons({expression}){
                 }}><ArrowCircleUpIcon color="action" fontSize="small"/>
                 </IconButton>
             </Tooltip>
-                {<Tooltip title={"Mark as irrelevant"} placement={"right"}>
-                    <IconButton size="small" onClick={() => {
+                {<Tooltip title={"Mark as irrelevant"} placement={"bottom-end"}>
+                    <IconButton sx={{ padding: 0 }} size="small" onClick={() => {
                         const arr = irrelevantVar();
                         if (arr.indexOf(expression.uri) === -1) {
                             arr.push(expression.uri);
@@ -44,7 +45,7 @@ export default function RankingButtons({expression}){
         }
         { expression.ranking !== 0  &&
             <Tooltip title={"Remove marking"} placement={"right"}>
-                <IconButton size="small" onClick={() => {
+                <IconButton sx={{ padding: 0 }} size="small" onClick={() => {
                     if (relevantVar().includes(expression.uri)) {
                         const arr = relevantVar();
                         const index = arr.indexOf(expression.uri);
@@ -60,7 +61,7 @@ export default function RankingButtons({expression}){
                         //localStorage.setItem(sessionStorage.getItem('query').toLowerCase() + " : irrelevant", JSON.stringify(irrelevantVar()));
                     }
                 }}>
-                    <RemoveCircleOutlineIcon color="action" fontSize="small"/>
+                    <CancelOutlinedIcon color="action" fontSize="small"/>
                 </IconButton>
             </Tooltip>
         }

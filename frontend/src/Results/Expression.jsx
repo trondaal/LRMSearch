@@ -5,13 +5,11 @@ import "./ResultList.css";
 import {groupBy} from "lodash";
 import Manifestation, {manifestationStatement, PublicationData, ManifestationTitle, ContentsNote} from "./Manifestation";
 import {useRecoilState} from 'recoil';
-import {showUriState, clickableState, selectedState} from "../state/state";
+import {showUriState, selectedState} from "../state/state";
 import "./ResultList.css";
-import TruncateText from "./TruncateText.jsx";
 import RankingButtons from "./RankingButtons.jsx";
 import Highlighter from "react-highlight-words";
-import stopwords from "../Search/stopwords.js";
-
+import {useState, useEffect, useRef} from 'react';
 
 function renameRole(role, language){
     if (role.includes('translation')){
@@ -68,6 +66,22 @@ export default function Expression(props){
     const [showUri] = useRecoilState(showUriState);
     const [selected, setSelectedState] = useRecoilState(selectedState);
     const {uri, manifestations} = props.expression;
+    const [expanded, setExpanded] = useState(false);
+
+    /*const detailsRef = useRef(null);
+
+    useEffect(() => {
+        setExpanded(props.expanded);
+        detailsRef.current.addEventListener('toggle', handleToggle);
+        return () => {
+           detailsRef.current.removeEventListener('toggle', handleToggle);
+        };
+    }, []);*/
+
+    const handleToggle = (event) => {
+        console.log('Clicked!');
+    };
+
 
     //roles that should default be displayed, in the order they should be presented, contains both work and expression roles
     const primaryroles = ['Author', 'Creator', 'Artist', 'Director', 'Producer', 'Composer', 'Lyricist', 'Interviewer', 'Interviewee', 'Honouree', 'Compiler', 'Translator', 'Narrator', 'Abridger', 'Editor', 'Instrumentalist', 'Performer'];
@@ -102,8 +116,6 @@ export default function Expression(props){
         }
     }
 
-    //console.log(others);
-
     let showRelated = false;
 
     if (others.length > 0){
@@ -114,52 +126,14 @@ export default function Expression(props){
     const content = props.expression.content.map(c => c.label);
     content.sort();
     content.reverse();
-    //const worktype = props.expression.work[0].type.map(c => c.label);
     const workform = props.expression.work[0].form;
 
-    //const isRelatedToMap = groupBy(props.expression.work[0].relatedToConnection.edges, a => a.role);
-    //console.log(isRelatedToMap);
-    //console.log(props.expression.work[0].relatedToConnection)
-
     const isWorkRelatedToWork = props.expression.work[0].relatedToConnection;
-    //const hasRelated = props.expression.work[0].relatedFromConnection;
     const partOfWork = props.expression.work[0].partOfConnection;
-    //const hasPart = props.expression.work[0].hasPartConnection;
-    //const isSubjectWork = props.expression.work[0].isSubjectWorkConnection;
     const hasSubjectWork = props.expression.work[0].hasSubjectWorkConnection;
     const hasSubjectAgent = props.expression.work[0].hasSubjectAgentConnection;
     const isExpressionRelatedToExpression = props.expression.relatedToConnection;
     const partOfExpression = props.expression.partOfConnection;
-
-    if (isWorkRelatedToWork.totalCount > 0){
-        showRelated = true;
-    }
-    if (hasSubjectWork.totalCount > 0){
-        showRelated = true;
-    }
-    if (hasSubjectAgent.totalCount > 0){
-        showRelated = true;
-    }
-    if (isExpressionRelatedToExpression.totalCount > 0){
-        showRelated = true;
-    }
-
-    const handleClick = () => {
-        const epos = selected.indexOf(uri)
-        const selectedSet = new Set();
-        selected.forEach((e) => selectedSet.add(e));
-        if (epos === -1) {
-            //Adding expression and child manifestation uri to list of selected
-            selectedSet.add(uri);
-            manifestations.forEach((m) => selectedSet.add(m.uri));
-        } else {
-            //Removing expression and child manifestation uri to list of selected
-            selectedSet.delete(uri);
-            manifestations.forEach((m) => selectedSet.delete(m.uri));
-        }
-        setSelectedState([...selectedSet]);
-        //console.log(itemsSelected);
-    };
 
 
 

@@ -47,16 +47,19 @@ function createQuery(q){
     if (params.get("types")){
         conditions += " AND (types: " + params.get("types") + ")";
     }
-    if (params.get("name")){
-        conditions += " AND (names: " + params.get("name") + ")";
+    if (params.get("creator")){
+        conditions += " AND (creators: " + params.get("creator") + ")";
+    }
+    if (params.get("subject")){
+        conditions += " AND (creators: " + params.get("creator") + ")";
     }
     if (params.get("boolean")){
         if (params.get("boolean").toLowerCase() === "or"){
             bool = " OR ";
         }
     }
-    console.log(q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") + conditions)
-    return q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(bool)  + conditions;
+    //console.log(q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") + conditions)
+    return q.trim().split(/-| +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(bool)  + conditions;
 }
 
 export default function SearchBar({search, expanded, setExpanded, results, display, setDisplay}) {
@@ -115,7 +118,7 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
             />
         </Grid>
         <Grid item xs={6}>
-            <SubmitRanking query={query} expanded={expanded} setExpanded={setExpanded} results={results} display={display} setDisplay={setDisplay}/>
+            <SubmitRanking query={query} expanded={expanded} setExpanded={setExpanded} results={results}/>
         </Grid>
     </Grid>
 
