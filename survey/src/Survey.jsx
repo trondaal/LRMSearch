@@ -23,7 +23,7 @@ const questions = [
         "Results for the search on \"Mark Twain Tom Sawyer\"",
         "Mark Twain"],
     ["You want to explore what is available by Agatha Christie on the character Miss Marple and have made a search using author and name of the character.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain+Tom+Sawyer",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie+Miss+Marple&creator=Christie&sort=random",
         "Results for the search on \"Agatha Christie Miss Marple\"",
         "Agatha Christie"],
     ["You want to read \"Lord of the rings\" by J.R.R. Tolkien and have made a search using author and title.",
