@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp.js";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown.js";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline.js";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import screenshots from './assets/screenshots.png';
 
@@ -85,15 +85,16 @@ const Survey = () => {
 
                 <p>We kindly invite you to participate in a task-based survey with the purpose of exploring search results from a bibliographic search system.
                 We do not expect any particular knowledge in advance, and you will spend between 5-15 minutes doing this survey. </p>
-            <p>In the survey you will be asked to perform specific judgements and mark items in the resultpage.
-                Your response is logged when you press submit, but all data is fully anonymous. By participating, you agree that the data will be used in research.
+            <p>In the survey you will be asked to perform specific judgements and mark items in the resultpage. If the results are unknown, simply make your best guess based on the information available.
+                Your response is logged when you press submit, but all data is fully anonymous. </p>
+            <p>By participating, you agree that the data will be used in research.
                 A random participant ID is generated when you access this page. This number can be used to refer to your response, in case you want to withdraw your response from the survey.
                 Responsible for the survey is Professor Trond Aalberg (Trond.Aalberg@oslomet.no).</p>
 
             <h2>The search system</h2>
             <p>The system used in the experiment is a simplified bibliographic search system. You will be presented with the results of predefined searches. Each entry on the result page represents particular content
-                that you may or may not be familiar with. If the same content is available as multiple publications, the list of publications can be expanded using the "Available as: " option.
-                On the top of the page is a button that can be used to hide and show all available publications.</p>
+                that you may or may not be familiar with. If the same content is available as multiple publications, the list of publications can be expanded using the "<PlayArrowIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/># publications available" option.
+                On the top of the page is a button that can be used to hide and show all available publications for all results.</p>
             <p>To the left of each entry on the result page, there are two circular buttons with up and down arrows that can be used to
                 indicate how you assess entries according to the task given. The up arrow button <ArrowCircleUpIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is used to give positive feedback on an entry, the down arrow button <ArrowCircleDownIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> to give negative feedback.
                 After marking, entries with positive feedback are highlighted in green or highlighted with red when negative. Markings of a particular entry can be removed clicking on the cancel button <CancelOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/>.
