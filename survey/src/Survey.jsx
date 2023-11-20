@@ -96,7 +96,7 @@ const Survey = () => {
                 On the top of the page is a button that can be used to hide and show all available publications for all results.</p>
             <p>To the left of each entry on the result page, there are two circular buttons with up and down arrows that can be used to
                 indicate how you assess entries according to the task given. The up arrow button <ArrowCircleUpIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is used to give positive feedback on an entry, the down arrow button <ArrowCircleDownIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> to give negative feedback.
-                After marking, entries with positive feedback are highlighted in green or highlighted with red when negative. Markings of a particular entry can be removed clicking on the cancel button <CancelOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/>.
+                After marking, entries with positive feedback are highlighted in green or highlighted with red when negative. Markings of a particular entry can be removed by clicking on the cancel button <CancelOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/>.
                 When you decide to finish a task, click on the "Submit" button to send your feedback. This will show a dialog where you can give some supplemental feedback before pressing Yes to finish the submission. Screenshots of the application and the submit dialogue are shown below.
             </p>
             <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
