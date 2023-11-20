@@ -107,8 +107,8 @@ const Survey = () => {
                 <div key={index}>
                     <h2>Task {index + 1}</h2>
                     <p className={"section"}><span className={"prefix"}>Context: </span><span className={"description"}>{question[0]}</span></p>
-                    <p className={"section"}><span className={"prefix"}>Link: </span><span className={"description"}><a href={question[1] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=Task: " + tasks[index] + "&context=Context: " + question[0]} target={"_blank"} rel="noreferrer">{question[2]}</a></span></p>
                     <p className={"section"}><span className={"prefix"}>Task: </span><span className={"description"}>{tasks[index]}</span></p>
+                    <p className={"section"}><span className={"prefix"}>Link: </span><span className={"description"}><a href={question[1] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=Task: " + tasks[index] + "&context=Context: " + question[0]} target={"_blank"} rel="noreferrer">{question[2]}</a></span></p>
                 </div>
             ))}
             <footer>Participant ID: {respondent}</footer>
