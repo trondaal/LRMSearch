@@ -85,9 +85,8 @@ const Survey = () => {
 
                 <p>We kindly invite you to participate in a task-based survey with the purpose of exploring search results from a bibliographic search system.
                 We do not expect any particular knowledge in advance, and you will spend between 5-15 minutes doing this survey. </p>
-            <p>In the survey you will be asked to perform specific judgements and mark items in the resultpage. If the results are unknown, simply make your best guess based on the information available.
-                Your response is logged when you press submit, but all data is fully anonymous. </p>
-            <p>By participating, you agree that the data will be used in research.
+            <p>In the survey you will be asked to perform specific judgements and mark items in the resultpage. If the results are unknown, simply make your best guess based on the information available. You need to mark at least one to be allowed to submit, but can mark as many as you like before completing a task.</p>
+            <p>Your response is logged when you press submit, but all data is fully anonymous. By participating, you agree that the data will be used in research.
                 A random participant ID is generated when you access this page. This number can be used to refer to your response, in case you want to withdraw your response from the survey.
                 Responsible for the survey is Professor Trond Aalberg (Trond.Aalberg@oslomet.no).</p>
 
