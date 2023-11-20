@@ -103,7 +103,7 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
 
     return <Grid container spacing={3} marginTop={0} >
         {context !== "" && task !== ""?
-            <Grid item xs={12}><Typography color="primary.light" component="span" align="left" variant="body2">{context}<br/>{task}</Typography></Grid>
+            <Grid item xs={12}><Typography color="primary.light" component="span" align="left" variant="taskdescription">{context}<br/>{task}</Typography></Grid>
             : <></>
         }
         <Grid item xs={6}>

@@ -37,6 +37,9 @@ export const theme = createTheme({
         description: {
             fontSize: '0.95rem',
         },
+        taskdescription: {
+            fontSize: '0.95rem',
+        },
         agentprefix: {
             fontSize: '1.00rem',
             fontWeight: 400,
