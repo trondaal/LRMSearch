@@ -51,7 +51,7 @@ function createQuery(q){
         conditions += " AND (creators: " + params.get("creator") + ")";
     }
     if (params.get("subject")){
-        conditions += " AND (creators: " + params.get("creator") + ")";
+        conditions += " AND (subject: " + params.get("subject") + ")";
     }
     if (params.get("boolean")){
         if (params.get("boolean").toLowerCase() === "or"){
