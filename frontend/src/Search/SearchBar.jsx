@@ -58,8 +58,8 @@ function createQuery(q){
             bool = " OR ";
         }
     }
-    //console.log(q.trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") + conditions)
-    return q.trim().split(/-| +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(bool)  + conditions;
+    console.log(q.trim().split(/-| +|\. */).filter((word) => !stopwords.includes(word.toLowerCase())).join(" AND ") + conditions)
+    return q.trim().split(/-| +|\. */).filter((word) => !stopwords.includes(word.toLowerCase())).join(bool)  + conditions;
 }
 
 export default function SearchBar({search, expanded, setExpanded, results, display, setDisplay}) {
