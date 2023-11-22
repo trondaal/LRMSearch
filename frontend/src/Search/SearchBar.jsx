@@ -64,14 +64,27 @@ function createQuery(q){
 
 export default function SearchBar({search, expanded, setExpanded, results, display, setDisplay}) {
     const [query, setQuery] = useState(initialQuery());
+
+    const params = new URLSearchParams(window.location.search);
+    let limit = 100;
+    if (params.get("limit")){
+
+        const lim = parseInt(params.get("limit"));
+        if (!isNaN(lim) && lim > 0){
+            console.log(params.get("limit"))
+            limit = lim;
+        }
+    }
     const changeHandler = (event) => {
         if (event.key === 'Enter') {
+            console.log(limit);
             selectedVar(new Set());
-            const params = new URLSearchParams(window.location.search);
+            //const params = new URLSearchParams(window.location.search);
             params.set("query", event.target.value);
             window.location.search = params.toString()
             sessionStorage.setItem('query', query);
-            search({ variables: { query: createQuery(query), sort: createSortOrder() } })
+            search({ variables: { query: createQuery(query), sort: createSortOrder(), limit: limit } })
+
         }else{
             setQuery(event.target.value)
         }
@@ -79,19 +92,19 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
 
     useEffect(() => {
             //retrieves rankings from local storage if they exist
-            console.log(window.location.search);
+            //console.log(window.location.search);
             if (localStorage.getItem(window.location.toString())) {
                 const rankings = JSON.parse(localStorage.getItem(window.location.toString()))
                 relevantVar([...rankings.relevant]);
                 irrelevantVar([...rankings.irrelevant]);
-                console.log(rankings);
+                console.log(limit);
             }
             sessionStorage.setItem('query', query.toLowerCase());
-            search({ variables: { query: createQuery(query), sort: createSortOrder() }});
+            search({ variables: { query: createQuery(query), sort: createSortOrder(), limit:limit }});
         }, []
     );
 
-    const params = new URLSearchParams(window.location.search);
+    //const params = new URLSearchParams(window.location.search);
     let task = "";
     if (params.get("task")){
         task = params.get("task");

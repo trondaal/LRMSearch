@@ -2,9 +2,10 @@ import {gql} from "@apollo/client";
 
 
 export const GET_EXPRESSIONS = gql`
-query($query: String!, $sort: [ExpressionFulltextSort!]) {
+query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
   expressionsFulltextExpressions(
     phrase: $query
+    limit: $limit
     sort: $sort
     where: {expression: {manifestationsAggregate: {count_GT: 0}}}) {
     score,

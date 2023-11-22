@@ -11,43 +11,43 @@ const questions = [
         "http://dijon.idi.ntnu.no/lrm-search/?query=knut+hamsun+på+gjengrodde+stier&language=norwegian&sort=random",
         "Results for the search on \"Knut Hamsun På gjengrodde stier\"",
         "Knut Hamsun"],
-    ["You have been told by a friend to read the story \"Chronopolis\" by J.G. Ballard and have made a search using author and title.",
+    ["You have been told by a friend to read the story \"Chronopolis\" by J.G. Ballard and have made a search using author's name and title.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Ballard+Chronopolis",
         "Results for the search on \"Ballard Chronopolis\"",
         "J.G. Ballard"],
-    ["You have been told by a friend to read the story \"Life and death of God\" by J.G. Ballard and have made a search using author and title.",
+    ["You have been told by a friend to read the story \"Life and death of God\" by J.G. Ballard and have made a search using author's name and title.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Ballard+Life+and+death+of+God",
         "Results for the search on \"Ballard Life and death of God\"",
         "J.G. Ballard"],
-    ["You want to explore what is available by Mark Twain on the character Tom Sawyer and have made a search using author and name of the character.",
+    ["You want to explore what is available by Mark Twain on the character Tom Sawyer and have made a search using author's name and name of the character.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain+Tom+Sawyer",
         "Results for the search on \"Mark Twain Tom Sawyer\"",
         "Mark Twain"],
-    ["You want to explore what is available by Agatha Christie on the character Miss Marple and have made a search using author and name of the character.",
+    ["You want to explore what is available by Agatha Christie on the character Miss Marple and have made a search using author's name and name of the character.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie+Miss+Marple&creator=Christie&sort=random",
         "Results for the search on \"Agatha Christie Miss Marple\"",
         "Agatha Christie"],
-    ["You want to read \"Lord of the rings\" by J.R.R. Tolkien and have made a search using author and title.",
+    ["You want to read \"Lord of the rings\" by J.R.R. Tolkien and have made a search using author's name and title.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Tolkien+Lord+of+the+rings&language=english",
         "Results for the search on \"Tolkien Lord of the rings\"",
         "J.R.R. Tolkien"],
-    ["You want to read \"Murder on the links\" by Agatha Christie and have made a search using author and title.",
+    ["You want to read \"Murder on the links\" by Agatha Christie and have made a search using author's name and title.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie+Murder+on+the+links&sort=random",
         "Results for the search on \"Agatha Christie Murder on the links\"",
         "Agatha Christie"],
-    ["You want to read \"Murder on the Orient Express\" by Agatha Christie and have made a search using author and title.",
+    ["You want to read \"Murder on the Orient Express\" by Agatha Christie and have made a search using author's name and title.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie+Murder+on+the+Orient+Express&content=text&name=christie&sort=random",
         "Results for the search on \"Agatha Christie Murder on the Orient Express Agatha Christie\"",
         "Agatha Christie"],
-    ["You want to read \"All the pretty horses\" by Cormac McCarthy and have made a search using author and title.",
+    ["You want to read \"All the pretty horses\" by Cormac McCarthy and have made a search using author's name and title.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=All+the+pretty+horses+Cormac+McCarthy&language=english&content=text",
         "Results for the search on \"Cormac McCarthy All the pretty horses\"",
         "Cormac McCarthy"],
 ];
 const tasks = [
     "Mark as relevant the result(s) that you most immediately find interesting to inspect.",
-    "Mark as relevant the entries that you find to best match the query and mark as non-relevant the entries that you find least match.",
-    "Mark as relevant all entries that you think of as works by this author.",
+    "Mark as relevant the entries that you find to best match the query and mark as non-relevant the entries that you find least match .",
+    "Mark as relevant all entries that you think of as a work by this author.",
 ]
 
 function getRandomQuestions(questions, num) {
@@ -100,8 +100,8 @@ const Survey = () => {
                 When you decide to finish a task, click on the "Submit" button to send your feedback. This will show a dialog where you can give some supplemental feedback before pressing Yes to finish the submission. Screenshots of the application and the submit dialogue are shown below.
             </p>
             <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
-            <p>The tasks to perform are listed below as Task 1-3. The Context describes the motivation for the query, when you click on the Link the resultpage to inspect is retrieved automatically and presented in a different tab.
-                The actual assigment in the task is detailed below the link, but will also be displayed on the top of the page you are visiting. </p>
+            <p>The tasks to perform are listed below as Task 1-3. The Context describes the motivation for the query, and the the actual assignment is detailed in the Task. When you click on the Link the resultpage to inspect is retrieved automatically and presented in a different tab.
+               Context and task information will also be displayed on the top of the page you are visiting. </p>
 
             {selectedQuestions.map((question, index) => (
                 <div key={index}>
