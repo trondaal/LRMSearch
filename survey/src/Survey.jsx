@@ -18,7 +18,7 @@ const a_questions = [
         "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain&language=english&content=text&subject=surveyitem",
         "Results for the search on \"Mark Twain\"", "Mark Twain"],
     ["You have made a search using the author name \"J.R.R. Tolkien\" and want to learn what is available by this author.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=J.R.R.+Tolkie&language=english&content=text&subject=surveyitem",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=J.R.R.+Tolkien&language=english&content=text&subject=surveyitem",
         "Results for the search on \"J.R.R. Tolkien\"", "J.R.R. Tolkien"],
     /*["You have made a search using the author name \"Cormac McCarthy\" and want to learn what is available by this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Cormac+McCarthy&language=english&content=text&subject=surveyitem",
@@ -67,10 +67,10 @@ const at_questions = [
         "Cormac McCarthy"],
 ];
 const tasks = [
-    "Mark as positive (green) the results that you find to be most relevant for this search.",
-    "Mark as positive (green) the results that you find to to be most relevant for this search, and mark as negative (red) the results that you find have lesser relevance.",
-    "Mark as positive (green) the results that you find to be most relevant for exploring what is available by this author.",
-    "Mark as positive (green) the results that you identify as distinct works by this author.",
+    "Mark as green with the up-arrow button the results that you find to be most relevant for this search.",
+    "Mark as green with the up-arrow button the results that you find to to be most relevant for this search, and mark as red with the down arrow results that you find have least relevance.",
+    "Mark as green with the up-arrow button the results that you find to be most informative and useful for learning what is available by this author.",
+    "Mark as green with the up-arrow button the results that you identify as a distinct work by this author.",
 ]
 
 function getRandomQuestions(questions, num) {
@@ -98,34 +98,38 @@ const Survey = () => {
             <h1>Search experience survey</h1>
 
                 <p>We kindly invite you to participate in a task-based survey with the purpose of evaluating the presentation of results in bibliographic search systems.
-                Participation requires 5-15 minutes of your time. </p>
-            <p>You will be presented with the results of different searches and asked to perform judgements and mark results. We do not expect any particular knowledge in advance, and if the results are unknown, simply make your best guess based on the information that is presented to you.</p>
+                Participation requires 5-15 minutes of your time. You will be presented with the results of different searches and asked to perform judgements and mark results. </p>
 
                 <p>A random participant ID is generated when you access this page. This number is presented at the bottom of this page, and can be used to refer to your response in case you want to withdraw your response from the survey.
                 Responsible for the survey is Professor Trond Aalberg (Trond.Aalberg@oslomet.no).</p>
 
             <h2>The search system</h2>
-            <p>The system used in the experiment is a simplified bibliographic search system. Each entry on the result page represents particular content
-                that you may or may not be familiar with. If the same content is available as multiple publications, the list of publications can be expanded using the "<PlayArrowIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/># publications available" option.
+            <p>The system used in the experiment is a simplified bibliographic search system. Each result on the list represents particular content.
+                If the same content is available in multiple publications, the list of publications can be expanded using expand feature.
                 On the top of the page is a button that can be used to hide and show all available publications for all results.</p>
             <p>To the left of each result, there are two circular buttons with up and down arrows that can be used to
-                indicate how you assess the result according to the task given. The up arrow button <ArrowCircleUpIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is used to give positive feedback to the result item, the down arrow button <ArrowCircleDownIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> to give negative feedback.
-                After marking, entries with positive feedback are highlighted in green or highlighted with red when negative. Markings of a particular entry can be removed by clicking on the cancel button <CancelOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/>.
-                When you decide to finish a task, click on the "Submit" button to send your feedback. This will show a dialog where you can give some supplemental feedback before pressing Yes to finish the submission.
+                indicate how you assess the result according to the task given. The up arrow button <ArrowCircleUpIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is used to give positive feedback and will mark the result with green,
+                the down arrow button <ArrowCircleDownIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is for negative feedback and will mark results with red.
+                Markings of a particular entry can be removed by clicking on the cancel button <CancelOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/>.
+                When you decide to finish a task, click on the "Submit" button to send your feedback. This will show a dialog where you give some supplemental feedback before pressing Yes to finish the submission.
             </p>
             <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
-            <p>The tasks to perform are listed below as Task 1-3. The Context describes the motivation for the query, and the the actual assignment is detailed in the Task. When you click on the Link the resultpage to inspect is retrieved automatically and presented in a different tab.
-               Context and task information will also be displayed on the top of the page you are visiting. </p>
+            <p>The tasks to perform are listed below. The text describes the context and the task. When you click on the Link the resultpage to inspect is retrieved automatically and presented in a different tab.
+               Task description will also be displayed on the top of the page you are visiting.</p>
+            <p>We do not expect any particular knowledge in advance, and if the results are unknown, simply make your best guess based on the information that is presented to you.
+                When asked about relevance, think in terms of what should be listed first or last on a result page.</p>
+
+
 
             {selectedQuestions.map((question, index) => (
                 <div key={index}>
                     <h2>Task {index + 1}</h2>
                     <p>{question[0]}<br/>
                     <strong>{tasks[index].split("--").map((text) => (<div key={text}>{text}</div>))}</strong></p>
-                    <p><a href={question[1] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=Task: " + tasks[index] + "&context=Context: " + question[0]} target={"_blank"} rel="noreferrer">{question[2]}</a></p>
+                    <p><a href={question[1] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=" + tasks[index] + "&context=" + question[0]} target={"_blank"} rel="noreferrer">{question[2]}</a></p>
                 </div>
             ))}
-
+            {/*<p>The tasks listed above are tailored with specific result sets. If you want to explore searching the system on your own, use this URI <a href={"http://dijon.idi.ntnu.no/lrm-search"}>http://dijon.idi.ntnu.no/lrm-search</a></p> */}
             <footer>Participant ID: {respondent}</footer>
         </div>
     );
