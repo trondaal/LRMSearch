@@ -19,6 +19,7 @@ const typeDefs = `
         names: String
         form: String
         contentsnote: String
+        pagerank: Float
         manifestations: [Manifestation!]! @relationship(type: "EMBODIES", direction: IN)
         work: [Work!]! @relationship(type: "REALIZES", direction: OUT)
         language: [Concept!]! @relationship(type: "LANGUAGE", direction: OUT)

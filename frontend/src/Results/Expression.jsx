@@ -10,8 +10,10 @@ import "./ResultList.css";
 import RankingButtons from "./RankingButtons.jsx";
 import Highlighter from "react-highlight-words";
 import {useState, useEffect, useRef} from 'react';
-
-function renameRole(role, language){
+import Agents from "./Agents.jsx";
+import Related from "./Related.jsx";
+import PropTypes from "prop-types";
+export function renameRole(role, language){
     if (role.includes('translation')){
         return language[0].label + " translation of"
     }else{
@@ -19,21 +21,19 @@ function renameRole(role, language){
     }
 }
 
-function isEmpty(str) {
-    return (!str || str.length === 0 );
-}
-
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function plurals(str){
-    //Returns an s to be added to a role in case of multiple agents
-    if (str.includes(' ; ')){
-        return 's';
-    }else{
-        return ''
-    }
+Expression.propTypes = {
+    expression: PropTypes.object,
+    terms: PropTypes.array,
+    expanded: PropTypes.bool,
+    checkboxes: PropTypes.bool
+};
+
+function isEmpty(str) {
+    return (!str || str.length === 0 );
 }
 
 function relevantClass(ranking){
@@ -61,81 +61,36 @@ function expressionTitle(expression) {
     return titles[0];
 }
 
-export default function Expression(props){
-    //console.log(props);
+export default function Expression({expression, expanded, terms, checkboxes}){
     const [showUri] = useRecoilState(showUriState);
-    const [selected, setSelectedState] = useRecoilState(selectedState);
-    const {uri, manifestations} = props.expression;
-    const [expanded, setExpanded] = useState(false);
+    //const [selected, setSelectedState] = useRecoilState(selectedState);
+    //const {uri, manifestations} = expression;
+    //const [expanded, setExpanded] = useState(false);
 
     /*const detailsRef = useRef(null);
 
     useEffect(() => {
-        setExpanded(props.expanded);
+        setExpanded(expanded);
         detailsRef.current.addEventListener('toggle', handleToggle);
         return () => {
            detailsRef.current.removeEventListener('toggle', handleToggle);
         };
     }, []);*/
 
-    const handleToggle = (event) => {
+    /*const handleToggle = (event) => {
         console.log('Clicked!');
-    };
+    };*/
 
 
-    //roles that should default be displayed, in the order they should be presented, contains both work and expression roles
-    const primaryroles = ['Author', 'Creator', 'Artist', 'Director', 'Producer', 'Composer', 'Lyricist', 'Interviewer', 'Interviewee', 'Honouree', 'Compiler', 'Translator', 'Narrator', 'Abridger', 'Editor', 'Instrumentalist', 'Performer'];
-    //selecting from work
-    const creatorsmap = groupBy(props.expression.work[0].creatorsConnection.edges, a => a.role);
-    const creators = [];
-    for (const r in creatorsmap){
-        if (primaryroles.includes(r)) {
-            creatorsmap[r] && creators.push([r, (creatorsmap[r].map(a => a.node.name)).join(" ; ")]);
-        }
-    }
-    //selecting from expression
-    const contributorsmap = groupBy(props.expression.creatorsConnection.edges, a => a.role);
-    const contributors = [];
-    for (const r in contributorsmap){
-        if (primaryroles.includes(r)) {
-            contributorsmap[r] && contributors.push([r, (contributorsmap[r].map(a => a.node.name)).join(" ; ")]);
-        }
-    }
 
-    const others = [];
-
-    for (const k in creatorsmap){
-        if (!primaryroles.includes(k)){
-            others.push([k, (creatorsmap[k].map(a => a.node.name)).join(" ; ")]);
-        }
-    }
-
-    for (const k in contributorsmap){
-        if (!primaryroles.includes(k)){
-            others.push([k, (contributorsmap[k].map(a => a.node.name)).join(" ; ")]);
-        }
-    }
-
-    let showRelated = false;
-
-    if (others.length > 0){
-        showRelated = true;
-    }
-
-    const language = props.expression.language.map(l => l.label);
-    const content = props.expression.content.map(c => c.label);
+    //const language = expression.language.map(l => l.label);
+    const content = expression.content.map(c => c.label);
     content.sort();
     content.reverse();
-    const workform = props.expression.work[0].form;
+    //const workform = expression.work[0].form;
 
-    const isWorkRelatedToWork = props.expression.work[0].relatedToConnection;
-    const partOfWork = props.expression.work[0].partOfConnection;
-    const hasSubjectWork = props.expression.work[0].hasSubjectWorkConnection;
-    const hasSubjectAgent = props.expression.work[0].hasSubjectAgentConnection;
-    const isExpressionRelatedToExpression = props.expression.relatedToConnection;
-    const partOfExpression = props.expression.partOfConnection;
-
-
+    const partOfWork = expression.work[0].partOfConnection;
+    const partOfExpression = expression.partOfConnection;
 
     const ExpressionTitle = ({expression}) => {
         const eTitle= expressionTitle(expression);
@@ -156,10 +111,10 @@ export default function Expression(props){
         }
         return (
             <Typography color="primary.main" component="div" variant="etitle" align="left">
-                <Typography color="primary.main" component="span" variant="fieldname" align="left">Title: </Typography>
+                <Typography color="primary.main" component="span" variant="fieldname" align="left"><Typography color="primary.main" component="span" align="left" variant="prefix">Title: </Typography></Typography>
                 <Highlighter
                     highlightClassName="highlighted"
-                    searchWords={props.terms}
+                    searchWords={terms}
                     autoEscape={true}
                     textToHighlight={eTitle}
                 />
@@ -167,34 +122,14 @@ export default function Expression(props){
             </Typography>)
     }
 
-    const Agents = () => {
-        return <>
-        {<div>{creators.map(creator =>
-            <Typography color="primary.main" component="span" align="left" variant="agentname" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": "}
-            <Highlighter
-                highlightClassName="highlighted"
-                searchWords={props.terms}
-                autoEscape={true}
-                textToHighlight={creator[1]
-            }/></Typography>) }</div> }
-        {<div>{contributors.map(contributor => <Typography color="primary.main" component="span" align="left" variant="agentname" className={"role"} key={contributor[0] + contributor[1]}>{contributor[0] + plurals(contributor[1]) + ": " + contributor[1]}</Typography>)}</div> }
-        {<div>{others.map(other => <Typography color="primary.main" component="span" align="left" variant="agentname" className={"role"} key={other[0] + other[1]}>{other[0] + plurals(other[1]) + ": " + other[1]}</Typography>)}</div> }
-        </>
-    }
 
     /*const ContentsNote = () => {
         return <>
-            {!(props.expression.contentsnote === null) && <Typography color="primary.main" component="div" variant="contents" align="left"><TruncateText text={"Includes: " + props.expression.contentsnote} maxLength={120}/></Typography>}
+            {!(expression.contentsnote === null) && <Typography color="primary.main" component="div" variant="contents" align="left"><TruncateText text={"Includes: " + expression.contentsnote} maxLength={120}/></Typography>}
         </>
     }*/
 
 
-    const Related = () => {
-        return <>
-            {isExpressionRelatedToExpression.totalCount > 0 && isExpressionRelatedToExpression.edges.map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.label}>{renameRole(e.role, props.expression.language) + ": "}<a href={"?query=" + (e.node.titlepreferred ? e.node.titlepreferred : e.node.label) + " (" + e.node.id +")"}>{e.node.titlepreferred ? e.node.titlepreferred : e.node.label}</a></Typography>)}
-            {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.label}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.label}>{w.node.label}</a></Typography>)}
-        </>
-    }
 
     const PartOf = () => {
         if (partOfExpression.totalCount > 0){
@@ -207,21 +142,21 @@ export default function Expression(props){
     }
 
     const ExpressionDetails = () => {
-        if (props.expression.manifestations.length === 1){
+        if (expression.manifestations.length === 1){
             //Dislay expression and manifestation details in one line
-            if (props.expression.form === "part"){
+            if (expression.form === "part"){
                 // This is a part and part of is indicated with a prefix to title
                 return <>
                     <div className={"expressionHeader"}>
                         <div className={"expressionHeaderTitle"}>
-                            <ExpressionTitle expression={props.expression} />
-                            <Agents/>
-                            <Related/>
+                            <ExpressionTitle expression={expression} />
+                            <Agents expression={expression} terms={terms}/>
+                            <Related expression={expression}/>
                             <PartOf/>
-                            <ManifestationTitle terms={props.terms} manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
-                            <PublicationData manifestation={props.expression.manifestations[0]}/>
-                            {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote} terms={props.terms}/>}
-                            {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                            <ManifestationTitle terms={terms} manifestation={expression.manifestations[0]} prefix={"In: "}/>
+                            <PublicationData manifestation={expression.manifestations[0]}/>
+                            {!(expression.manifestations[0].contentsnote === null) && <ContentsNote contents={expression.manifestations[0].contentsnote} terms={terms}/>}
+                            {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
                         </div>
                     </div>
                 </>
@@ -229,65 +164,65 @@ export default function Expression(props){
                 return <>
                     <div className={"expressionHeader"}>
                         <div className={"expressionHeaderTitle"}>
-                            <ExpressionTitle expression={props.expression}/>
-                            <Agents/>
-                            <Related/>
+                            <ExpressionTitle expression={expression}/>
+                            <Agents expression={expression} terms={terms}/>
+                            <Related expression={expression}/>
                             <PartOf/>
-                            <PublicationData manifestation={props.expression.manifestations[0]}/>
-                            {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote} terms={props.terms}/>}
-                            {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                            <PublicationData manifestation={expression.manifestations[0]}/>
+                            {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote} terms={terms}/>}
+                            {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
                         </div>
                     </div>
                 </>
             }
         }
-        if (props.expression.manifestations.length > 1){
+        if (expression.manifestations.length > 1){
         return <>
             <div className={"expressionHeader"}>
                 <div className={"expressionHeaderTitle"}>
-                    <ExpressionTitle expression={props.expression}/>
-                    <Agents/>
-                    {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
-                    <Related/>
+                    <ExpressionTitle expression={expression}/>
+                    <Agents expression={expression} terms={terms}/>
+                    {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
+                    <Related expression={expression}/>
                     <PartOf/>
-                    {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                    {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
                 </div>
             </div>
             <div className={"expressionManifestationListing"}>
-                    <details open={props.expanded}>
-                        <summary>{props.expression.manifestations.length} publications available</summary>
+                    <details open={expanded}>
+                        <summary>{expression.manifestations.length} publications available</summary>
                         <ul className={"manifestationlist"}>
-                            {props.expression && props.expression.manifestations.map(m => (<Manifestation manifestation={m} form= {props.expression.form} key={m.uri} checkboxes={props.checkboxes} contentsDisplayed={props.expression.contents === null} terms={props.terms}/>))}
+                            {expression && expression.manifestations.map(m => (<Manifestation manifestation={m} form= {expression.form} key={m.uri} checkboxes={checkboxes} contentsDisplayed={expression.contents === null} terms={terms}/>))}
                         </ul>
                     </details>
             </div>
         </>
-        }else if (props.expression.manifestations.length === 1 && props.expression.form === "standalone"){
+        }else if (expression.manifestations.length === 1 && expression.form === "standalone"){
             return <>
                 <div className={"expressionHeader"}>
                     <div className={"expressionHeaderTitle"}>
-                        <ExpressionTitle expression={props.expression}/>
-                        <Agents/>
-                        <PublicationData manifestation={props.expression.manifestations[0]}/>
-                        {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
-                        <Related/>
+                        <ExpressionTitle expression={expression}/>
+                        <Agents expression={expression} terms={terms}/>
+                        <PublicationData manifestation={expression.manifestations[0]}/>
+                        {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
+                        <Related expression={expression}/>
                         <PartOf/>
-                        {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
                     </div>
                 </div>
             </>
-        }else if (props.expression.manifestations.length === 1 && props.expression.form === "part"){
+        }else if (expression.manifestations.length === 1 && expression.form === "part"){
             return <>
                 <div className={"expressionHeader"}>
                     <div className={"expressionHeaderTitle"}>
-                        <ExpressionTitle expression={props.expression}/>
-                        <Agents/>
-                        <ManifestationTitle manifestation={props.expression.manifestations[0]} prefix={"In: "}/>
-                        <PublicationData manifestation={props.expression.manifestations[0]}/>
-                        {!(props.expression.manifestations[0].contentsnote === null) && <ContentsNote contents={props.expression.manifestations[0].contentsnote}  terms={props.terms}/>}
-                        <Related/>
+                        <ExpressionTitle expression={expression}/>
+                        <Agents expression={expression} terms={terms}/>
+                        <ManifestationTitle manifestation={expression.manifestations[0]} prefix={"In: "}/>
+                        <PublicationData manifestation={expression.manifestations[0]}/>
+                        {!(expression.manifestations[0].contentsnote === null) && <ContentsNote contents={expression.manifestations[0].contentsnote}  terms={terms}/>}
+                        <Related expression={expression}/>
                         <PartOf/>
-                        {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
                     </div>
                 </div>
             </>
@@ -295,13 +230,13 @@ export default function Expression(props){
             return <>
                 <div className={"expressionHeader"}>
                     <div className={"expressionHeaderTitle"}>
-                        <ExpressionTitle eTitle={expressionTitle(props.expression)} wform={props.expression.work[0].form}/>
-                        <Agents/>
-                        <PublicationData manifestation={props.expression.manifestations[0]}/>
-                        {!(props.expression.contentsnote === null) && <ContentsNote contents={props.expression.contentsnote}  terms={props.terms}/>}
-                        <Related/>
+                        <ExpressionTitle eTitle={expressionTitle(expression)} wform={expression.work[0].form}/>
+                        <Agents expression={expression} terms={terms}/>
+                        <PublicationData manifestation={expression.manifestations[0]}/>
+                        {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
+                        <Related expression={expression}/>
                         <PartOf/>
-                        {showUri && <Typography component="div" align="left" variant="eroles">{props.expression.uri}</Typography>}
+                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
                     </div>
                 </div>
             </>
@@ -309,10 +244,10 @@ export default function Expression(props){
     }
 
     // Return the expression component
-    return <div className={"expression"} key={props.expression.uri}>
-                <div className={relevantClass(props.expression.ranking) + " expressionLeft"}>
-                    <IconTypes type={content[0]} text={props.expression.language[0] ? props.expression.language[0].uri.split("/").at(-1) : ""}/>
-                    <RankingButtons expression={props.expression}/>
+    return <div className={"expression"} key={expression.uri}>
+                <div className={relevantClass(expression.ranking) + " expressionLeft"}>
+                    <IconTypes type={content[0]} text={expression.language[0] ? expression.language[0].uri.split("/").at(-1) : ""}/>
+                    <RankingButtons expression={expression}/>
                 </div>
                 <div className="resultitem expressionRight">
                     <ExpressionDetails/>

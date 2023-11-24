@@ -1,35 +1,37 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Popper from '@mui/material/Popper';
-import Button from '@mui/material/Button';
+import Typography from "@mui/material/Typography";
+import React from "react";
+import PropTypes from "prop-types";
+import Expression from "./Expression.jsx";
 
-export default function Related() {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
-    const handleClick = (event) => {
-        setAnchorEl(anchorEl ? null : event.currentTarget);
-    };
+export function renameRole(role, language){
+    if (role.includes('translation')){
+        return language[0].label + " translation of"
+    }else{
+        return capitalize(role.replace(/is |has | work| expression/g, ""));
+    }
+}
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popper' : undefined;
+Related.propTypes = {
+    expression: PropTypes.object,
+    terms: PropTypes.array,
+    expanded: PropTypes.bool,
+    checkboxes: PropTypes.bool
+};
+export default function Related({expression}){
 
-    return (
-        <div>
-            <Button aria-describedby={id} variant="outlined" size="small" onClick={handleClick}>
-                More
-            </Button>
-            <Popper id={id} open={open} anchorEl={anchorEl} placement={'left-start'}>
-                <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-                    <ul>
-                        <li>related 1 very long with a link</li>
-                        <li>related 2</li>
-                        <li>related 3</li>
-                        <li>related 4</li>
-                        <li>related 5</li>
-                        <li>related 6</li>
-                    </ul>
-                </Box>
-            </Popper>
-        </div>
-    );
+    const isWorkRelatedToWork = expression.work[0].relatedToConnection;
+    const isExpressionRelatedToExpression = expression.relatedToConnection;
+    //const partOfWork = expression.work[0].partOfConnection;
+    //const partOfExpression = expression.partOfConnection;
+    //const hasSubjectWork = expression.work[0].hasSubjectWorkConnection;
+    //const hasSubjectAgent = expression.work[0].hasSubjectAgentConnection;
+
+    return <>
+        {isExpressionRelatedToExpression.totalCount > 0 && isExpressionRelatedToExpression.edges.map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.label}>{renameRole(e.role, expression.language) + ": "}<a href={"?query=" + (e.node.titlepreferred ? e.node.titlepreferred : e.node.label) + " (" + e.node.id +")"}>{e.node.titlepreferred ? e.node.titlepreferred : e.node.label}</a></Typography>)}
+        {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.label}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.label}>{w.node.label}</a></Typography>)}
+    </>
 }

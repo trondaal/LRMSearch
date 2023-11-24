@@ -84,7 +84,6 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
             window.location.search = params.toString()
             sessionStorage.setItem('query', query);
             search({ variables: { query: createQuery(query), sort: createSortOrder(), limit: limit } })
-
         }else{
             setQuery(event.target.value)
         }

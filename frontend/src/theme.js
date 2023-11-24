@@ -7,6 +7,7 @@ export const theme = createTheme({
             main: '#01579b',
             light: '#4f83cc',
             dark: '#002f6c',
+            grey: '#6D6D6D',
         },
         secondary: {
             main: green[500],
@@ -40,7 +41,7 @@ export const theme = createTheme({
         taskdescription: {
             fontSize: '0.95rem',
         },
-        agentprefix: {
+        prefix: {
             fontSize: '1.00rem',
             fontWeight: 400,
             fontStyle: 'italic'

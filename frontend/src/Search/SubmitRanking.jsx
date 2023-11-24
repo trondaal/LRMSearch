@@ -79,7 +79,7 @@ export default function SubmitRanking({query, expanded, setExpanded, results}) {
             </Button>
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
                 onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(uri);}}>
-                Clear marking
+                Clear markings
             </Button>
             <Button variant="outlined" onClick={handleClickOpen} disabled={relevantVar().length === 0 && irrelevantVar().length === 0}  sx={{ mr: 2 }}>
                 Submit

@@ -22,6 +22,7 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
         uri,
         form,
         contentsnote
+        pagerank,
         language{
             label,
             uri
