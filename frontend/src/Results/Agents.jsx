@@ -4,6 +4,7 @@ import React from "react";
 import {groupBy} from "lodash";
 import PropTypes from 'prop-types';
 
+
 Agents.propTypes = {
     expression: PropTypes.object,
     terms: PropTypes.array
@@ -41,17 +42,16 @@ export default function Agents({expression, terms}) {
 
     //selecting from expression
     const contributorsmap = groupBy(expression.creatorsConnection.edges, a => a.role);
+
     const contributors = [];
     for (const r in contributorsmap){
         if (roles.includes(r)) {
             contributorsmap[r] && contributors.push([r, (contributorsmap[r].map(a => a.node.name)).join(" ; ")]);
         }
     }
-    const others = [];
-
     for (const k in creatorsmap){
         if (![...mainroles, ...roles].includes(k)){
-            contributorsmap.push([k, (creatorsmap[k].map(a => a.node.name)).join(" ; ")]);
+            contributorsmap[k] && contributors.push([k, (creatorsmap[k].map(a => a.node.name)).join(" ; ")]);
         }
     }
 

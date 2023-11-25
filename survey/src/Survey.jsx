@@ -51,7 +51,7 @@ const at_questions = [
         "Results for the search on \"Agatha Christie Miss Marple\"",
         "Agatha Christie"],*/
     ["You want to read \"Lord of the rings\" by J.R.R. Tolkien and have made a search using author's name and title.",
-        "../lrm-search/?query=Tolkien+Lord+of+the+rings&language=english",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Tolkien+Lord+of+the+rings&language=english",
         "Results for the search on \"Tolkien Lord of the rings\"",
         "J.R.R. Tolkien"],
     ["You want to read \"Murder on the links\" by Agatha Christie and have made a search using author's name and title.",
@@ -70,6 +70,7 @@ const at_questions = [
 const tasks = [
     "Inspect the results and mark the ones you find most relevant for this search. Mark up to three results.",
     "Inspect the results and mark the ones you find most relevant for this search. Mark up to three results.",
+    "Inspect the results and mark the ones you interpret as an individual work by this author. Mark as many as you like.",
     "Inspect the results and mark the ones you interpret as an individual work by this author. Mark as many as you like.",
 ]
 
@@ -127,7 +128,7 @@ const Survey = () => {
                     <strong>{tasks[index].split("--").map((text) => (<div key={text}>{text}</div>))}</strong></p>
                     <p><a href={question[1] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=" + tasks[index] + "&context=" + question[0]} target={"_blank"} rel="noreferrer">{question[2]}</a></p>
                 </div>
-            ))}
+))}
             {/*<p>The tasks listed above are tailored with specific result sets. If you want to explore searching the system on your own, use this URI <a href={"http://dijon.idi.ntnu.no/lrm-search"}>http://dijon.idi.ntnu.no/lrm-search</a></p> */}
             <footer>Participant ID: {respondent}</footer>
         </div>

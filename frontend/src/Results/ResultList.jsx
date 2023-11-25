@@ -11,7 +11,7 @@ export default function ResultList({results, checkboxes, expanded, display}) {
         return <div>No results</div>
     }else{
         return (<div className={"expressionList"}>
-            {results.map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded} terms={terms}/>))}
+            {results.map(x => (<Expression expression={x.expression} score={x.score} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded} terms={terms}/>))}
         </div>)
     }
 }

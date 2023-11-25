@@ -29,7 +29,8 @@ Expression.propTypes = {
     expression: PropTypes.object,
     terms: PropTypes.array,
     expanded: PropTypes.bool,
-    checkboxes: PropTypes.bool
+    checkboxes: PropTypes.bool,
+    score: PropTypes.number
 };
 
 function isEmpty(str) {
@@ -61,7 +62,7 @@ function expressionTitle(expression) {
     return titles[0];
 }
 
-export default function Expression({expression, expanded, terms, checkboxes}){
+export default function Expression({expression, expanded, terms, checkboxes, score}){
     const [showUri] = useRecoilState(showUriState);
     //const [selected, setSelectedState] = useRecoilState(selectedState);
     //const {uri, manifestations} = expression;
@@ -156,7 +157,7 @@ export default function Expression({expression, expanded, terms, checkboxes}){
                             <ManifestationTitle terms={terms} manifestation={expression.manifestations[0]} prefix={"In: "}/>
                             <PublicationData manifestation={expression.manifestations[0]}/>
                             {!(expression.manifestations[0].contentsnote === null) && <ContentsNote contents={expression.manifestations[0].contentsnote} terms={terms}/>}
-                            {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
+                            {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                         </div>
                     </div>
                 </>
@@ -170,7 +171,7 @@ export default function Expression({expression, expanded, terms, checkboxes}){
                             <PartOf/>
                             <PublicationData manifestation={expression.manifestations[0]}/>
                             {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote} terms={terms}/>}
-                            {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
+                            {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                         </div>
                     </div>
                 </>
@@ -185,7 +186,7 @@ export default function Expression({expression, expanded, terms, checkboxes}){
                     {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
                     <Related expression={expression}/>
                     <PartOf/>
-                    {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
+                    {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                 </div>
             </div>
             <div className={"expressionManifestationListing"}>
@@ -207,7 +208,7 @@ export default function Expression({expression, expanded, terms, checkboxes}){
                         {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
                         <Related expression={expression}/>
                         <PartOf/>
-                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
+                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                     </div>
                 </div>
             </>
@@ -222,7 +223,7 @@ export default function Expression({expression, expanded, terms, checkboxes}){
                         {!(expression.manifestations[0].contentsnote === null) && <ContentsNote contents={expression.manifestations[0].contentsnote}  terms={terms}/>}
                         <Related expression={expression}/>
                         <PartOf/>
-                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
+                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                     </div>
                 </div>
             </>
@@ -236,7 +237,7 @@ export default function Expression({expression, expanded, terms, checkboxes}){
                         {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
                         <Related expression={expression}/>
                         <PartOf/>
-                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri}</Typography>}
+                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank }</Typography>}
                     </div>
                 </div>
             </>
