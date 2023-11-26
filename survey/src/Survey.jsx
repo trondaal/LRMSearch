@@ -68,9 +68,9 @@ const at_questions = [
         "Cormac McCarthy"],
 ];
 const tasks = [
-    "Based on your initial impression, mark as relevant the result(s) that you find most interesting in the context of this search.--Mark at least one result, but not more than 3",
-    "Inspect the results and mark the ones you find most useful for identifying a possible publication suitable for this search.--Mark at least one result, but not more than 3",
-    "Inspect the results and mark the ones you find most relevant for this search.--Think in terms of what should be listed first if the results were sorted according to relevance. Mark at least one result, but not more than 5\",",
+    "Based on your initial impression, mark as relevant the result(s) that you find most interesting in the context of this title.--Mark at least one result, but not more than 3.",
+    "Inspect the results and mark the results you find most useful for identifying  available for this title.--Mark at least one result, but not more than 3.",
+    "Inspect the results and mark the results you find most relevant when exploring this author.--Think in terms of what should be listed first if the results were sorted according to relevance. Mark at least one result, but not more than 5.,",
 ]
 
 function getRandomQuestions(questions, num) {

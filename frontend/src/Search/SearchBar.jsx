@@ -128,7 +128,7 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
     //console.log("Before SUBMIT: " + defaultExpanded);
     return <Grid container spacing={3} marginTop={0} >
         {context !== "" && task !== ""?
-            <Grid item xs={12}><Typography color="primary.light" component="span" align="left" variant="taskdescription">{context.split("--").map((text) => (<div key={text}>{text}</div>))}<br/>{task.split("--").map((text) => (<div key={text}>{text}</div>))}</Typography></Grid>
+            <Grid item xs={12}><Typography color="primary.light" component="span" align="left" variant="taskdescription">{context}<br/>{task.split("--").map((text) => (<div key={text}>{text}</div>))}</Typography></Grid>
             : <></>
         }
         <Grid item xs={6}>
