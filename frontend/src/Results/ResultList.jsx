@@ -3,7 +3,7 @@ import Expression from "./Expression";
 import stopwords from "../Search/stopwords.js";
 import * as React from "react";
 
-export default function ResultList({results, checkboxes, expanded, display}) {
+export default function ResultList({results, checkboxes, defaultExpanded, display}) {
     const terms = sessionStorage.getItem('query') ? sessionStorage.getItem('query').trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())) : [];
     if (results === undefined){
         return <div>No results</div>
@@ -11,7 +11,7 @@ export default function ResultList({results, checkboxes, expanded, display}) {
         return <div>No results</div>
     }else{
         return (<div className={"expressionList"}>
-            {results.map(x => (<Expression expression={x.expression} score={x.score} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded} terms={terms}/>))}
+            {results.map(x => (<Expression expression={x.expression} score={x.score} key={x.expression.uri} checkboxes={checkboxes} defaultExpanded={defaultExpanded} terms={terms}/>))}
         </div>)
     }
 }

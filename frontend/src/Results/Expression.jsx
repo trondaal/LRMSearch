@@ -28,7 +28,7 @@ function capitalize(string) {
 Expression.propTypes = {
     expression: PropTypes.object,
     terms: PropTypes.array,
-    expanded: PropTypes.bool,
+    defaultExpanded: PropTypes.bool,
     checkboxes: PropTypes.bool,
     score: PropTypes.number
 };
@@ -62,11 +62,11 @@ function expressionTitle(expression) {
     return titles[0];
 }
 
-export default function Expression({expression, expanded, terms, checkboxes, score}){
+export default function Expression({expression, defaultExpanded, terms, checkboxes, score}){
     const [showUri] = useRecoilState(showUriState);
     //const [selected, setSelectedState] = useRecoilState(selectedState);
     //const {uri, manifestations} = expression;
-    //const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(defaultExpanded || false);
 
     /*const detailsRef = useRef(null);
 
@@ -190,7 +190,7 @@ export default function Expression({expression, expanded, terms, checkboxes, sco
                 </div>
             </div>
             <div className={"expressionManifestationListing"}>
-                    <details open={expanded}>
+                    <details open={defaultExpanded}>
                         <summary>{expression.manifestations.length} publications available</summary>
                         <ul className={"manifestationlist"}>
                             {expression && expression.manifestations.map(m => (<Manifestation manifestation={m} form= {expression.form} key={m.uri} checkboxes={checkboxes} contentsDisplayed={expression.contents === null} terms={terms}/>))}

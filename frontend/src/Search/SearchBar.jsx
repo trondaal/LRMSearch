@@ -7,6 +7,8 @@ import Grid from "@mui/material/Grid";
 import SubmitRanking from "./SubmitRanking.jsx";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
+import Expression from "../Results/Expression.jsx";
 
 function initialQuery() {
     const params = new URLSearchParams(window.location.search)
@@ -25,12 +27,16 @@ function initialQuery() {
 function createSortOrder(){
     const params = new URLSearchParams(window.location.search);
     let sort = {
-        "expression": {
-            "pagerank": "DESC"
-        }
+        "score": "DESC"
     };
     if (params.get("sort") && params.get("sort") === "random"){
         sort = {"expression": { "random": "ASC"}};
+    }
+    if (params.get("sort") && params.get("sort") === "pagerank"){
+        sort = {"expression": { "pagerank": "DESC"}};
+    }
+    if (params.get("sort") && params.get("sort") === "score"){
+        sort = {"score": "DESC"};
     }
     return sort;
 }
@@ -66,7 +72,9 @@ function createQuery(q){
     return q.trim().split(/-| +|\. */).filter((word) => !stopwords.includes(word.toLowerCase())).join(bool)  + conditions;
 }
 
-export default function SearchBar({search, expanded, setExpanded, results, display, setDisplay}) {
+
+export default function SearchBar({search, defaultExpanded, setDefaultExpanded, results, display, setDisplay}) {
+    console.log("In Searchbar: " + defaultExpanded);
     const [query, setQuery] = useState(initialQuery());
 
     const params = new URLSearchParams(window.location.search);
@@ -117,9 +125,10 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
         context = params.get("context");
     }
 
+    //console.log("Before SUBMIT: " + defaultExpanded);
     return <Grid container spacing={3} marginTop={0} >
         {context !== "" && task !== ""?
-            <Grid item xs={12}><Typography color="primary.light" component="span" align="left" variant="taskdescription">{context}<br/>{task}</Typography></Grid>
+            <Grid item xs={12}><Typography color="primary.light" component="span" align="left" variant="taskdescription">{context.split("--").map((text) => (<div key={text}>{text}</div>))}<br/>{task.split("--").map((text) => (<div key={text}>{text}</div>))}</Typography></Grid>
             : <></>
         }
         <Grid item xs={6}>
@@ -136,7 +145,7 @@ export default function SearchBar({search, expanded, setExpanded, results, displ
             />
         </Grid>
         <Grid item xs={6}>
-            <SubmitRanking query={query} expanded={expanded} setExpanded={setExpanded} results={results}/>
+            <SubmitRanking query={query} defaultExpanded={defaultExpanded} setDefaultExpanded={setDefaultExpanded} results={results}/>
         </Grid>
     </Grid>
 
