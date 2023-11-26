@@ -66,7 +66,7 @@ const at_questions = [
 const tasks = [
     "Based on your initial impression, mark as relevant the results that you find -- most interesting -- in the context of this title.",
     "Inspect the results and mark the results you find -- most useful -- for identifying what is available for this title.",
-    "Inspect the results and mark the results you find -- most relevant -- when exploring this author.",
+    "Inspect the results and mark the results you find match what you -- expect to find -- in a listing of what this author has written.",
 ]
 
 const order= ["score", "random", "pagerank"];
