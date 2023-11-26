@@ -99,7 +99,7 @@ const Survey = () => {
             Participation requires 5-15 minutes of your time. You will be presented with the results of different searches and asked to perform judgements and mark results. </p>
 
             <p>The system used is a simplified library search system where each result represents particular content.
-                If the same content is available in multiple publications, the list of publications can be expanded.</p>
+                If the same content is available in multiple publications, the list of publications can be expanded. The user interface is unfortunately not suitable for small screens such as mobile phones.</p>
             <p>A thumbs up button <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is used for marking results according to the task given.
                 Markings can be removed using the cancel button or by the clear markings button.
                 Click on the "Submit" button to send your feedback for each task. This will show a dialog where you have to give some supplemental feedback before pressing Yes to finish.
