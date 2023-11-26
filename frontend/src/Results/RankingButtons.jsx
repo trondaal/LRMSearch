@@ -5,6 +5,7 @@ import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp.js";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown.js";
 import RecommendOutlinedIcon from '@mui/icons-material/RecommendOutlined';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline.js";
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import React from "react";
@@ -18,31 +19,38 @@ RankingButtons.propTypes = {
 };
 
 export default function RankingButtons({expression}){
+
+    const params = new URLSearchParams(window.location.search)
+    let ranking = "positive";
+    if (params.get("ranking") && params.get("ranking") === "negative"){
+        ranking = "negative";
+    }
     return (
     <div className={"rankingbuttons"}>
         { expression.ranking === 0  &&
-            <><Tooltip title={"Mark this result"} placement={"bottom-end"}>
-                <IconButton sx={{ padding: 0 }} size="medium" onClick={() => {
-                    const arr = relevantVar();
-                    if (arr.indexOf(expression.uri) === -1){
-                        arr.push(expression.uri);
-                    }
-                    relevantVar([...arr]);
-                    //console.log("Relevant: " + relevantVar());
-                    //localStorage.setItem(sessionStorage.getItem('query').toLowerCase() + " : relevant", JSON.stringify(relevantVar()));
-                }}><ThumbUpOutlinedIcon color="action" fontSize="medium"/>
-                </IconButton>
-            </Tooltip>
-                {/*<Tooltip title={"Mark as irrelevant"} placement={"bottom-end"}>
+            <>  {ranking === "positive" ?
+                <Tooltip title={"Mark this result"} placement={"bottom-end"}>
+                    <IconButton sx={{ padding: 0 }} size="medium" onClick={() => {
+                        const arr = relevantVar();
+                        if (arr.indexOf(expression.uri) === -1){
+                            arr.push(expression.uri);
+                        }
+                        relevantVar([...arr]);
+                    }}><ThumbUpOutlinedIcon color="action" fontSize="medium"/>
+                    </IconButton>
+                </Tooltip>
+                :
+                <Tooltip title={"Mark as irrelevant"} placement={"bottom-end"}>
                     <IconButton sx={{ padding: 0 }} size="small" onClick={() => {
                         const arr = irrelevantVar();
                         if (arr.indexOf(expression.uri) === -1) {
                             arr.push(expression.uri);
                         }
                         irrelevantVar([...arr]);
-                    }}><ArrowCircleDownIcon color="action" fontSize="small"/>
+                    }}>
+                        <ThumbDownOutlinedIcon color="action" fontSize="medium"/>
                     </IconButton>
-                </Tooltip>*/}
+                </Tooltip>}
             </>
         }
         { expression.ranking !== 0  &&
