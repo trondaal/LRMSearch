@@ -30,7 +30,7 @@ const a_questions = [
 ];
 // Author + title questions
 const at_questions = [
-    ["You want to read the novel \"På gjengrodde stier\" by Knut Hamsun and have made a search using author and title.",
+    ["You want to read the novel \"På gjengrodde stier\" by Knut Hamsun and have made a search using author's name and title.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=knut+hamsun+på+gjengrodde+stier&language=norwegian&sort=random",
         "Results for the search on \"Knut Hamsun På gjengrodde stier\"",
         "Knut Hamsun"],
