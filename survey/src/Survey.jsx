@@ -9,22 +9,22 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 
 
 const a_questions = [
-    ["You have made a search using the author name \"Knut Hamsun\" and want to learn what is available by this author.",
+    ["You have made a search using the author name \"Knut Hamsun\" and want to learn what is available by this author. The result page shows a selection of what is available by this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Knut+Hamsun&language=norwegian&content=text&subject=surveyitem",
         "Results for the search on \"Knut Hamsun\"", "Knut Hamsun"],
-    ["You have made a search using the author name \"Agatha Christie\" and want to learn what is available by this author.",
+    ["You have made a search using the author name \"Agatha Christie\" and want to learn what is available by this author. The result page shows a selection of what is available by this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie&language=english&content=text&subject=surveyitem",
         "Results for the search on \"Agatha Christie\"", "Agatha Christie"],
-    ["You have made a search using the author name \"Mark Twain\" and want to learn what is available by this author.",
+    ["You have made a search using the author name \"Mark Twain\" and want to learn what is available by this author. The result page shows a selection of what is available by this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain&language=english&content=text&subject=surveyitem",
         "Results for the search on \"Mark Twain\"", "Mark Twain"],
-    ["You have made a search using the author name \"J.R.R. Tolkien\" and want to learn what is available by this author.",
+    ["You have made a search using the author name \"J.R.R. Tolkien\" and want to learn what is available by this author. The result page shows a selection of what is available by this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=J.R.R.+Tolkien&language=english&content=text&subject=surveyitem",
         "Results for the search on \"J.R.R. Tolkien\"", "J.R.R. Tolkien"],
     /*["You have made a search using the author name \"Cormac McCarthy\" and want to learn what is available by this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Cormac+McCarthy&language=english&content=text&subject=surveyitem",
         "Results for the search on \"Cormac McCarthy\"", "Cormac McCarthy"],*/
-    ["You have made a search using the author name \"J.G. Ballard\" and want to learn what is available by this author.",
+    ["You have made a search using the author name \"J.G. Ballard\" and want to learn what is available by this author. The result page shows a selection of what is available by this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=J.G.+Ballard&language=english&content=text&subject=surveyitem",
         "Results for the search on \"J.G. Ballard\"", "J.G. Ballard"],
 ];
@@ -70,7 +70,7 @@ const at_questions = [
 const tasks = [
     "Based on your initial impression, mark as relevant the result(s) that you find most interesting in the context of this title.--Mark at least one result, but not more than 3.",
     "Inspect the results and mark the results you find most useful for identifying  available for this title.--Mark at least one result, but not more than 3.",
-    "Inspect the results and mark the results you find most relevant when exploring this author.--Think in terms of what should be listed first if the results were sorted according to relevance. Mark at least one result, but not more than 5.,",
+    "Inspect the results and mark the results you find most relevant when exploring this author.--Think in terms of what should be listed first if the results were sorted according to relevance. Mark at least one result, but not more than 5.",
 ]
 
 function getRandomQuestions(questions, num) {
