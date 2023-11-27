@@ -16,7 +16,7 @@ import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
 
 export default function SubmitRanking({query, defaultExpanded, setDefaultExpanded, results}) {
-    console.log("In submit ranking : " + defaultExpanded);
+    //console.log("In submit ranking : " + defaultExpanded);
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
     const [open, setOpen] = React.useState(false);
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);

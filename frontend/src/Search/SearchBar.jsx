@@ -68,9 +68,9 @@ function createQuery(q){
             bool = " OR ";
         }
     }
-    let q1 = q.replace(/\W+/g, " ").trim().split(/ +/)
+    let q1 = q.replace(/[.,;()-/]+/g, " ").trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())).join(bool)  + conditions;
     //console.log(q1)
-    return q1.filter((word) => !stopwords.includes(word.toLowerCase())).join(bool)  + conditions;
+    return q1;
 }
 
 

@@ -32,11 +32,11 @@ const a_questions = [
 // Author + title questions
 const at_questions = [
     ["You want to read the novel \"På gjengrodde stier\" by Knut Hamsun and have made a search using title and author's name.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=På+gjengrodde+stier+Knut+Hamsun&language=norwegian",
-        "Go to the results for a search on \"På gjengrodde stier Knut Hamsun\"",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Mysterier+Knut+Hamsun&language=norwegian",
+        "Go to the results for a search on \"Mysterier Knut Hamsun\"",
         "Knut Hamsun"],
     ["You have been told by a friend to read the story \"Terminal Beach\" by J.G. Ballard and have made a search using title and author's name.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Terminal+beach+Ballard&boolean=or&creator=ballard",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Terminal+beach+Ballard&creator=Ballard",
         "Go to the results for a search on \"Terminal Beach Ballard\"",
         "J.G. Ballard"],
     ["You want to explore what is available by Mark Twain on the character Tom Sawyer and have made a search using author's name and name of the character.",
