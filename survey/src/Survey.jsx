@@ -98,7 +98,7 @@ const Survey = () => {
             <p>The system used is a simplified library search system where each result represents particular content.
                 If the same content is available in multiple publications, the list of publications can be expanded. The user interface is unfortunately not suitable for small screens such as mobile phones.</p>
             <p>A thumbs up button <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is used for marking of results according to the task given.
-                Markings can be removed using the cancel button or by the clear markings button.
+                Markings can be removed using the cancel button or by the clear markings button on top of the page.
                 Click on the "Submit" button to send your feedback for each task. This will show a dialog where you have to give some supplemental feedback before pressing Yes to finish.
             </p>
             <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
