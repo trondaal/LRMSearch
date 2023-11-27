@@ -4,7 +4,13 @@ import stopwords from "../Search/stopwords.js";
 import * as React from "react";
 
 export default function ResultList({results, checkboxes, defaultExpanded, display}) {
-    const terms = sessionStorage.getItem('query') ? sessionStorage.getItem('query').trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())) : [];
+    const q = sessionStorage.getItem('query') ? sessionStorage.getItem('query') : "";
+    let q1 = q.replace(/\W+/g, " ").trim().split(/ +/)
+    let terms = q1.filter((word) => !stopwords.includes(word.toLowerCase()));
+    console.log("Terms = " + terms);
+    //return q1.filter((word) => !stopwords.includes(word.toLowerCase())).join(bool)  + conditions;
+    //const terms = sessionStorage.getItem('query') ? sessionStorage.getItem('query').trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())) : [];
+
     if (results === undefined){
         return <div>No results</div>
     }else if (results.length === 0){
