@@ -14,6 +14,7 @@ import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineS
 import Tooltip from '@mui/material/Tooltip';
 import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
+import {expandedVar} from "../api/Cache.js";
 
 export default function SubmitRanking({query, defaultExpanded, setDefaultExpanded, results}) {
     //console.log("In submit ranking : " + defaultExpanded);
@@ -24,6 +25,17 @@ export default function SubmitRanking({query, defaultExpanded, setDefaultExpande
     const [taskConfidence, setTaskConfidence] = React.useState(3);
     const [tasks, setTasks] = React.useState(localStorage.getItem('lrm-survey-tasks') ? JSON.parse(localStorage.getItem('lrm-survey-tasks')) : []);
     const uri =  window.location.toString();
+    const [expanded, setExpanded] = React.useState(false);
+
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+        if (!expanded){
+            expandedVar([]);
+        }else{
+            expandedVar([...results.map(x => x.expression.uri)]);
+        }
+    }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -75,8 +87,8 @@ export default function SubmitRanking({query, defaultExpanded, setDefaultExpande
 
     return (
         <Box display="flex" justifyContent="flex-end">
-            <Button variant="outlined" onClick={() => {setDefaultExpanded(!defaultExpanded); console.log(defaultExpanded)}} sx={{ mr: 2 }}>
-                {defaultExpanded ? "Hide all" : "Expand all"}
+            <Button variant="outlined" onClick={handleExpandClick} sx={{ mr: 2 }}>
+                {expanded ? "Expand all" : "Hide all"}
             </Button>
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
                 onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(uri);}}>

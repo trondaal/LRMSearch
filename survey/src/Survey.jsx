@@ -10,24 +10,24 @@ import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 
 
 const a_questions = [
-    ["You have made a search using the author name \"Knut Hamsun\" and want to learn what is available by this author. The result page shows a selection.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Knut+Hamsun&language=norwegian&content=text&subject=surveyitem&ranking=negative",
+    ["You are compiling a list of works by \"Knut Hamsun\" for a personal reading list. The result page shows a selection of what is found for this author.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Knut+Hamsun&language=norwegian&content=text&subject=surveyitem",
         "Go to the results for a search on \"Knut Hamsun\"", "Knut Hamsun"],
-    ["You have made a search using the author name \"Agatha Christie\" and want to learn what is available by this author. The result page shows a selection.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie&language=english&content=text&subject=surveyitem&ranking=negative",
+    ["You are compiling a list of works by \"Agatha Christie\" for a personal use. The result page shows a selection of what is found for this author.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Agatha Christie\"", "Agatha Christie"],
-    ["You have made a search using the author name \"Mark Twain\" and want to learn what is available by this author. The result page shows a selection.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain&language=english&content=text&subject=surveyitem&ranking=negative",
+    ["You are compiling a list of works by \"Mark Twain\" for a personal reading list. The result page shows a selection of what is found for this author.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Mark Twain\"", "Mark Twain"],
-    ["You have made a search using the author name \"J.R.R. Tolkien\" and want to learn what is available by this author. The result page shows a selection.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=J.R.R.+Tolkien&language=english&content=text&subject=surveyitem&ranking=negative",
-        "Go to the results for a search on \"J.R.R. Tolkien\"", "J.R.R. Tolkien"],
-    /*["You have made a search using the author name \"Cormac McCarthy\" and want to learn what is available by this author. The result page shows a selection.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Cormac+McCarthy&language=english&content=text&subject=surveyitem&ranking=negative",
-        "Go to the results for a search on \"Cormac McCarthy\"", "Cormac McCarthy"],*/
-    ["You have made a search using the author name \"J.G. Ballard\" and want to learn what is available by this author. The result page shows a selection.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=J.G.+Ballard&language=english&content=text&subject=surveyitem&ranking=negative",
-        "Go to the results for a search on \"J.G. Ballard\"", "J.G. Ballard"],
+    ["You are compiling a list of works by \"J. R. R. Tolkien\" for a personal reading list. The result page shows a selection of what is found for this author.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=J. R.R.+Tolkien&language=english&content=text&subject=surveyitem",
+        "Go to the results for a search on \"J. R. R. Tolkien\"", "J.R.R. Tolkien"],
+    ["You have made a search using the author name \"Cormac McCarthy\" for a personal reading list. The result page shows a selection of what is found for this author.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Cormac+McCarthy&language=english&content=text&subject=surveyitem",
+        "Go to the results for a search on \"Cormac McCarthy\"", "Cormac McCarthy"],
+    ["You are compiling a list of works by \"J. G. Ballard\" for a personal reading list. The result page shows a selection of what is found for this author.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=J.G.+Ballard&language=english&content=text&subject=surveyitem",
+        "Go to the results for a search on \"J. G. Ballard\"", "J.G. Ballard"],
 ];
 // Author + title questions
 const at_questions = [
@@ -43,10 +43,6 @@ const at_questions = [
         "http://dijon.idi.ntnu.no/lrm-search/?query=Tom+Sawyer+Mark+Twain&language=english&content=text",
         "Go to the results for a search on \"Tom Sawyer Mark Twain \"",
         "Mark Twain"],
-    /*["You want to explore what is available by Agatha Christie on the character Miss Marple and have made a search using author's name and name of the character.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie+Miss+Marple&creator=Christie&sort=random",
-        "Results for the search on \"Agatha Christie Miss Marple\"",
-        "Agatha Christie"],*/
     ["You want to read \"Lord of the rings\" by J.R.R. Tolkien and have made a search using title and author's name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Lord+of+the+rings+Tolkien&language=english",
         "Go to the results for a search on \"Lord of the rings Tolkien \"",
@@ -65,9 +61,9 @@ const at_questions = [
         "Cormac McCarthy"],
 ];
 const tasks = [
-    "Based on your initial impression, mark the results that you find -- most interesting -- in the context of this search. Mark at least one.",
-    "Mark the results you find -- most useful -- for identifying what is available for this title. Mark at least one.",
-    "Mark the results you find -- less relevant -- in a listing of works by this author. Mark at least one.",
+    "Based on your initial impression, mark the results that you find -- most interesting -- in the context of this search. Mark at least one, but feel free to mark more.",
+    "Mark the results you find -- most useful -- for identifying what is available for this title. Mark at least one, but feel free to mark more.",
+    "Mark results you would include in your listing of works by this author. Mark at least one, but feel free to mark more",
 ]
 
 const order= ["score", "random", "pagerank"];
@@ -101,7 +97,7 @@ const Survey = () => {
 
             <p>The system used is a simplified library search system where each result represents particular content.
                 If the same content is available in multiple publications, the list of publications can be expanded. The user interface is unfortunately not suitable for small screens such as mobile phones.</p>
-            <p>A thumbs up button <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is used for positive marking of results according to the task given. For some tasks you will be asked to mark results with negative feedback using a thumbs down button <ThumbDownOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/>.
+            <p>A thumbs up button <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is used for marking of results according to the task given.
                 Markings can be removed using the cancel button or by the clear markings button.
                 Click on the "Submit" button to send your feedback for each task. This will show a dialog where you have to give some supplemental feedback before pressing Yes to finish.
             </p>

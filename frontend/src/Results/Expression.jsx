@@ -14,6 +14,7 @@ import Agents from "./Agents.jsx";
 import Related, {PartOf} from "./Related.jsx";
 import PropTypes from "prop-types";
 import ExpressionTitle from "./ExpressionTitle.jsx";
+import ManifestationExpandableList from "./ManifestationExpandableList.jsx";
 
 export function renameRole(role, language){
     if (role.includes('translation')){
@@ -35,9 +36,6 @@ Expression.propTypes = {
     score: PropTypes.number
 };
 
-function isEmpty(str) {
-    return (!str || str.length === 0 );
-}
 
 function relevantClass(ranking){
     //Check if an entry is marked as relevant or not
@@ -50,41 +48,10 @@ function relevantClass(ranking){
     }
 }
 
-/*function expressionTitle(expression) {
-    const titles = [];
-    if (expression.form !== "part" && expression.manifestations.length === 1){
-        titles.push(manifestationStatement(expression.manifestations[0]));
-        //console.log(manifestationStatement(expression.manifestations[0]));
-    }
-    if (!isEmpty(expression.titlepreferred)){
-        titles.push(expression.titlepreferred);
-    }else{
-        if (!isEmpty(expression.title)) titles.push(expression.title);
-    }
-    return titles[0];
-}*/
-
 export default function Expression({expression, defaultExpanded, terms, checkboxes, score}){
     const [showUri] = useRecoilState(showUriState);
     //const [selected, setSelectedState] = useRecoilState(selectedState);
     //const {uri, manifestations} = expression;
-    const [expanded, setExpanded] = useState(defaultExpanded || false);
-
-    /*const detailsRef = useRef(null);
-
-    useEffect(() => {
-        setExpanded(expanded);
-        detailsRef.current.addEventListener('toggle', handleToggle);
-        return () => {
-           detailsRef.current.removeEventListener('toggle', handleToggle);
-        };
-    }, []);*/
-
-    /*const handleToggle = (event) => {
-        console.log('Clicked!');
-    };*/
-
-
 
     //const language = expression.language.map(l => l.label);
     const content = expression.content.map(c => c.label);
@@ -142,14 +109,17 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
                     {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                 </div>
             </div>
-            <div className={"expressionManifestationListing"}>
-                    <details open={defaultExpanded}>
+            <ManifestationExpandableList expression={expression} defaultExpanded={defaultExpanded} terms={terms}/>
+            {/*<div className={"expressionManifestationListing"}>
+                <details open={defaultExpanded}>
                         <summary>{expression.manifestations.length} publications available</summary>
                         <ul className={"manifestationlist"}>
                             {expression && expression.manifestations.map(m => (<Manifestation manifestation={m} form= {expression.form} key={m.uri} checkboxes={checkboxes} contentsDisplayed={expression.contents === null} terms={terms}/>))}
                         </ul>
                     </details>
-            </div>
+
+            </div>*/}
+
         </>
         }else if (expression.manifestations.length === 1 && expression.form === "standalone"){
             return <>
@@ -186,6 +156,7 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
                     <div className={"expressionHeaderTitle"}>
                         <ExpressionTitle expression={expression} terms={terms}/>
                         <Agents expression={expression} terms={terms}/>
+                        <PublicationData manifestation={expression.manifestations[0]}/>
                         <PublicationData manifestation={expression.manifestations[0]}/>
                         {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
                         <Related expression={expression}/>
