@@ -75,7 +75,7 @@ function createQuery(q){
 
 
 export default function SearchBar({search, defaultExpanded, setDefaultExpanded, results, display, setDisplay}) {
-    console.log("In Searchbar: " + defaultExpanded);
+    //console.log("In Searchbar: " + defaultExpanded);
     const [query, setQuery] = useState(initialQuery());
 
     const params = new URLSearchParams(window.location.search);
@@ -109,7 +109,7 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
                 const rankings = JSON.parse(localStorage.getItem(window.location.toString()))
                 relevantVar([...rankings.relevant]);
                 irrelevantVar([...rankings.irrelevant]);
-                console.log(limit);
+                //console.log(limit);
             }
             sessionStorage.setItem('query', query.toLowerCase());
             search({ variables: { query: createQuery(query), sort: createSortOrder(), limit:limit }});
