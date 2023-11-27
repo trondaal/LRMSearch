@@ -11,8 +11,9 @@ import RankingButtons from "./RankingButtons.jsx";
 import Highlighter from "react-highlight-words";
 import {useState, useEffect, useRef} from 'react';
 import Agents from "./Agents.jsx";
-import Related from "./Related.jsx";
+import Related, {PartOf} from "./Related.jsx";
 import PropTypes from "prop-types";
+
 export function renameRole(role, language){
     if (role.includes('translation')){
         return language[0].label + " translation of"
@@ -90,8 +91,6 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
     content.reverse();
     //const workform = expression.work[0].form;
 
-    const partOfWork = expression.work[0].partOfConnection;
-    const partOfExpression = expression.partOfConnection;
 
     const ExpressionTitle = ({expression}) => {
         const eTitle= expressionTitle(expression);
@@ -131,7 +130,8 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
     }*/
 
 
-
+    /*const partOfWork = expression.work[0].partOfConnection;
+    const partOfExpression = expression.partOfConnection;
     const PartOf = () => {
         if (partOfExpression.totalCount > 0){
             return partOfExpression.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.label}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.label}>{w.node.label}</a></Typography>)
@@ -140,7 +140,7 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
         } else {
             <></>
         }
-    }
+    }*/
 
     const ExpressionDetails = () => {
         if (expression.manifestations.length === 1){
@@ -153,7 +153,7 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
                             <ExpressionTitle expression={expression} />
                             <Agents expression={expression} terms={terms}/>
                             <Related expression={expression}/>
-                            <PartOf/>
+                            <PartOf expression={expression}/>
                             <ManifestationTitle terms={terms} manifestation={expression.manifestations[0]} prefix={"In: "}/>
                             <PublicationData manifestation={expression.manifestations[0]}/>
                             {!(expression.manifestations[0].contentsnote === null) && <ContentsNote contents={expression.manifestations[0].contentsnote} terms={terms}/>}
@@ -168,7 +168,7 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
                             <ExpressionTitle expression={expression}/>
                             <Agents expression={expression} terms={terms}/>
                             <Related expression={expression}/>
-                            <PartOf/>
+                            <PartOf expression={expression}/>
                             <PublicationData manifestation={expression.manifestations[0]}/>
                             {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote} terms={terms}/>}
                             {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
@@ -185,7 +185,7 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
                     <Agents expression={expression} terms={terms}/>
                     {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
                     <Related expression={expression}/>
-                    <PartOf/>
+                    <PartOf expression={expression}/>
                     {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                 </div>
             </div>
@@ -207,7 +207,7 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
                         <PublicationData manifestation={expression.manifestations[0]}/>
                         {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
                         <Related expression={expression}/>
-                        <PartOf/>
+                        <PartOf expression={expression}/>
                         {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                     </div>
                 </div>
@@ -222,7 +222,7 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
                         <PublicationData manifestation={expression.manifestations[0]}/>
                         {!(expression.manifestations[0].contentsnote === null) && <ContentsNote contents={expression.manifestations[0].contentsnote}  terms={terms}/>}
                         <Related expression={expression}/>
-                        <PartOf/>
+                        <PartOf expression={expression}/>
                         {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                     </div>
                 </div>
@@ -236,7 +236,7 @@ export default function Expression({expression, defaultExpanded, terms, checkbox
                         <PublicationData manifestation={expression.manifestations[0]}/>
                         {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
                         <Related expression={expression}/>
-                        <PartOf/>
+                        <PartOf expression={expression}/>
                         {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank }</Typography>}
                     </div>
                 </div>

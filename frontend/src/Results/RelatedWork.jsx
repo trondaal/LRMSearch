@@ -1,5 +1,7 @@
 import Typography from "@mui/material/Typography";
 import PropTypes from 'prop-types';
+import React from "react";
+import {renameRole} from "./Expression.jsx";
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -66,3 +68,5 @@ export default function RelatedWork(props) {
         </Typography>}
     </div>)
 }
+
+
