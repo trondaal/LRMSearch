@@ -10,22 +10,22 @@ import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 
 
 const a_questions = [
-    ["You are compiling a list of titles by \"Knut Hamsun\" for a personal reading list. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"Knut Hamsun\" for a personal reading list. The result page shows a selection of what is found for this author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Knut+Hamsun&language=norwegian&content=text&subject=surveyitem",
         "Go to the results for a search on \"Knut Hamsun\"", "Knut Hamsun"],
-    ["You are compiling a list of titles by \"Agatha Christie\" for a personal use. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"Agatha Christie\" for a personal use. The result page shows a selection of what is found for this author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Agatha Christie\"", "Agatha Christie"],
-    ["You are compiling a list of titles by \"Mark Twain\" for a personal reading list. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"Mark Twain\" for a personal reading list. The result page shows a selection of what is found for this author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Mark Twain\"", "Mark Twain"],
-    ["You are compiling a list of titles by \"J. R. R. Tolkien\" for a personal reading list. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"J. R. R. Tolkien\" for a personal reading list. The result page shows a selection of what is found for this author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=J. R.R.+Tolkien&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"J. R. R. Tolkien\"", "J.R.R. Tolkien"],
-    ["You are compiling a list of titles by \"Cormac McCarthy\" for a personal reading list. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"Cormac McCarthy\" for a personal reading list. The result page shows a selection of what is found for this author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Cormac+McCarthy&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Cormac McCarthy\"", "Cormac McCarthy"],
-    ["You are compiling a list of titles by \"J. G. Ballard\" for a personal reading list. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"J. G. Ballard\" for a personal reading list. The result page shows a selection of what is found for this author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=J.G.+Ballard&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"J. G. Ballard\"", "J.G. Ballard"],
 ];
