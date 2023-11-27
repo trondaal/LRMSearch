@@ -10,22 +10,22 @@ import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 
 
 const a_questions = [
-    ["You are compiling a list of works by \"Knut Hamsun\" for a personal reading list. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"Knut Hamsun\" for a personal reading list. The result page shows a selection of what is found for this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Knut+Hamsun&language=norwegian&content=text&subject=surveyitem",
         "Go to the results for a search on \"Knut Hamsun\"", "Knut Hamsun"],
-    ["You are compiling a list of works by \"Agatha Christie\" for a personal use. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"Agatha Christie\" for a personal use. The result page shows a selection of what is found for this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Agatha+Christie&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Agatha Christie\"", "Agatha Christie"],
-    ["You are compiling a list of works by \"Mark Twain\" for a personal reading list. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"Mark Twain\" for a personal reading list. The result page shows a selection of what is found for this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Mark Twain\"", "Mark Twain"],
-    ["You are compiling a list of works by \"J. R. R. Tolkien\" for a personal reading list. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"J. R. R. Tolkien\" for a personal reading list. The result page shows a selection of what is found for this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=J. R.R.+Tolkien&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"J. R. R. Tolkien\"", "J.R.R. Tolkien"],
-    ["You have made a search using the author name \"Cormac McCarthy\" for a personal reading list. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"Cormac McCarthy\" for a personal reading list. The result page shows a selection of what is found for this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Cormac+McCarthy&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Cormac McCarthy\"", "Cormac McCarthy"],
-    ["You are compiling a list of works by \"J. G. Ballard\" for a personal reading list. The result page shows a selection of what is found for this author.",
+    ["You are compiling a list of titles by \"J. G. Ballard\" for a personal reading list. The result page shows a selection of what is found for this author.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=J.G.+Ballard&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"J. G. Ballard\"", "J.G. Ballard"],
 ];
@@ -63,7 +63,7 @@ const at_questions = [
 const tasks = [
     "Based on your initial impression, mark the results that you find -- most interesting -- in the context of this search. Mark at least one, but feel free to mark more.",
     "Mark the results you find -- most useful -- for identifying what is available for this title. Mark at least one, but feel free to mark more.",
-    "Mark results you would include in your listing of works by this author. Mark at least one, but feel free to mark more",
+    "Mark results you would include in your listing of titles by this author. Mark at least one, but feel free to mark more",
 ]
 
 const order= ["score", "random", "pagerank"];
