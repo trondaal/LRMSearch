@@ -65,9 +65,9 @@ const at_questions = [
         "Cormac McCarthy"],
 ];
 const tasks = [
-    "Based on your initial impression, mark the results that you find -- most interesting -- in the context of this search.",
-    "Mark the results you find -- most useful -- for identifying what is available for this title.",
-    "Mark the results you find -- less relevant -- in a listing of works by this author.",
+    "Based on your initial impression, mark the results that you find -- most interesting -- in the context of this search. Mark at least one.",
+    "Mark the results you find -- most useful -- for identifying what is available for this title. Mark at least one.",
+    "Mark the results you find -- less relevant -- in a listing of works by this author. Mark at least one.",
 ]
 
 const order= ["score", "random", "pagerank"];
