@@ -25,18 +25,18 @@ export default function SubmitRanking({query, results}) {
     const [taskConfidence, setTaskConfidence] = React.useState(3);
     const [tasks, setTasks] = React.useState(localStorage.getItem('lrm-survey-tasks') ? JSON.parse(localStorage.getItem('lrm-survey-tasks')) : []);
     const uri =  window.location.toString();
-    const [expanded, setExpanded] = React.useState(false);
+    //const [expanded, setExpanded] = React.useState(false);
 
 
-    const handleExpandClick = () => {
+    /*const handleExpandClick = () => {
+        setExpanded(!expanded);
         if (expanded){
             expandedVar([]);
         }else{
             expandedVar([...results.map(x => x.expression.uri)]);
         }
-        setExpanded(!expanded);
         //console.log("After clicking expand: " + expanded);
-    }
+    }*/
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -90,9 +90,9 @@ export default function SubmitRanking({query, results}) {
 
     return (
         <Box display="flex" justifyContent="flex-end">
-            <Button variant="outlined" onClick={handleExpandClick} sx={{ mr: 2 }}>
-                {expandedVar().length > 0 ? "Hide" : "Expand"}
-            </Button>
+            {/*<Button variant="outlined" onClick={handleExpandClick} sx={{ mr: 2 }}>
+                {expanded ? "Hide" : "Expand"}
+            </Button>*/}
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
                 onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(uri);}}>
                 Clear markings
