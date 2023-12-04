@@ -28,8 +28,6 @@ export default function MyApp() {
 
 
     const [search, { loading, data, error, called }] = useLazyQuery(GET_EXPRESSIONS);
-    const [defaultExpanded, setDefaultExpanded] = useState(false);
-    const [display, setDisplay] = useState(1);
 
     if (error)
         console.log(error.message);
@@ -41,10 +39,10 @@ export default function MyApp() {
             <CssBaseline/>
             <Grid container spacing={3} marginTop={0} paddingLeft={20} paddingRight={20} >
                 <Grid item xs={12}>
-                    <SearchBar search={search} defaultExpanded={defaultExpanded} setDefaultExpanded={setDefaultExpanded} results={results} display={display} setDisplay={setDisplay}/>
+                    <SearchBar search={search} results={results}/>
                 </Grid>
                 <Grid item xs={12}>
-                    {called && loading ? <Grid item xs={6}><CircularProgress /></Grid> : <ResultList results={results} defaultExpanded={defaultExpanded} display={display}/>}
+                    {called && loading ? <Grid item xs={6}><CircularProgress /></Grid> : <ResultList results={results}/>}
                 </Grid>
             </Grid>
         </>

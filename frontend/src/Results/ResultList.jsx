@@ -3,13 +3,12 @@ import Expression from "./Expression";
 import stopwords from "../Search/stopwords.js";
 import * as React from "react";
 
-export default function ResultList({results, checkboxes, defaultExpanded, display}) {
+export default function ResultList({results}) {
+
+    //should use some global storage for this, or state in App.jsx
     const q = sessionStorage.getItem('query') ? sessionStorage.getItem('query') : "";
-    let q1 = q.replace(/[.,;()-/]/g, " ").trim().split(/ +/)
-    let terms = q1.filter((word) => !stopwords.includes(word.toLowerCase())).filter(word => word.length > 1);
-    //console.log("Terms = " + terms);
-    //return q1.filter((word) => !stopwords.includes(word.toLowerCase())).join(bool)  + conditions;
-    //const terms = sessionStorage.getItem('query') ? sessionStorage.getItem('query').trim().split(/ +/).filter((word) => !stopwords.includes(word.toLowerCase())) : [];
+    let temp_q = q.replace(/[.,;()-/]/g, " ").trim().split(/ +/)
+    let terms = temp_q.filter((word) => !stopwords.includes(word.toLowerCase())).filter(word => word.length > 1);
 
     if (results === undefined){
         return <div>No results</div>
@@ -17,12 +16,7 @@ export default function ResultList({results, checkboxes, defaultExpanded, displa
         return <div>No results</div>
     }else{
         return (<div className={"expressionList"}>
-            {results.map(x => (<Expression expression={x.expression} score={x.score} key={x.expression.uri} checkboxes={checkboxes} defaultExpanded={defaultExpanded} terms={terms}/>))}
+            {results.map(x => (<Expression expression={x.expression} score={x.score} key={x.expression.uri} terms={terms}/>))}
         </div>)
     }
 }
-
-/*selectedVar().size === 0 ?
-                results ? results.map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded}/>)) : [] :
-                results ? results.filter(exp => exp.checked).map(x => (<Expression expression={x.expression} key={x.expression.uri} checkboxes={checkboxes} expanded={expanded}/>)) : []
-*/

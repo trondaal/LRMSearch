@@ -16,7 +16,7 @@ import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
 import {expandedVar} from "../api/Cache.js";
 
-export default function SubmitRanking({query, defaultExpanded, setDefaultExpanded, results}) {
+export default function SubmitRanking({query, results}) {
     //console.log("In submit ranking : " + defaultExpanded);
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
     const [open, setOpen] = React.useState(false);
@@ -29,12 +29,13 @@ export default function SubmitRanking({query, defaultExpanded, setDefaultExpande
 
 
     const handleExpandClick = () => {
-        setExpanded(!expanded);
-        if (!expanded){
+        if (expanded){
             expandedVar([]);
         }else{
             expandedVar([...results.map(x => x.expression.uri)]);
         }
+        setExpanded(!expanded);
+        //console.log("After clicking expand: " + expanded);
     }
 
     const handleClickOpen = () => {
@@ -85,10 +86,12 @@ export default function SubmitRanking({query, defaultExpanded, setDefaultExpande
         localStorage.setItem(uri, json);
     };
 
+    //console.log("Before rendering buttons: " + expanded);
+
     return (
         <Box display="flex" justifyContent="flex-end">
             <Button variant="outlined" onClick={handleExpandClick} sx={{ mr: 2 }}>
-                {expanded ? "Expand all" : "Hide all"}
+                {expandedVar().length > 0 ? "Hide" : "Expand"}
             </Button>
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
                 onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(uri);}}>

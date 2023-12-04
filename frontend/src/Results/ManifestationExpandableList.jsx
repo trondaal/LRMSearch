@@ -1,7 +1,7 @@
 import Manifestation from "./Manifestation.jsx";
-import React, {useState, useEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import PropTypes from "prop-types";
-import {expandedVar, relevantVar} from "../api/Cache.js";
+import {expandedVar} from "../api/Cache.js";
 
 ManifestationExpandableList.propTypes = {
     expression: PropTypes.object,
@@ -9,13 +9,13 @@ ManifestationExpandableList.propTypes = {
     defaultExpanded: PropTypes.bool
 };
 
-export default function ManifestationExpandableList({expression, defaultExpanded, terms}){
+export default function ManifestationExpandableList({expression, terms}){
 
     const detailsRef = useRef(null);
 
     useEffect(() => {
 
-        const handleToggle = (event) => {
+        const handleToggle = () => {
             const arr = expandedVar();
             let index = arr.indexOf(expression.uri);
             if (detailsRef.current.open) {
@@ -25,9 +25,7 @@ export default function ManifestationExpandableList({expression, defaultExpanded
             } else {
                 arr.splice(index, 1);
             }
-
             expandedVar([...arr]);
-            //console.log("Clicked : " + arr);
         };
 
         detailsRef.current.addEventListener('toggle', handleToggle);

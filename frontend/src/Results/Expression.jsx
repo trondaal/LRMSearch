@@ -1,44 +1,37 @@
-import React from 'react';
 import Typography from "@mui/material/Typography";
 import IconTypes from "./IconTypes";
 import "./ResultList.css";
-import {groupBy} from "lodash";
-import Manifestation, {manifestationStatement, PublicationData, ManifestationTitle, ContentsNote} from "./Manifestation";
+import {PublicationData, ManifestationTitle, ContentsNote} from "./Manifestation";
 import {useRecoilState} from 'recoil';
-import {showUriState, selectedState} from "../state/state";
+import {showUriState} from "../state/state";
 import "./ResultList.css";
 import RankingButtons from "./RankingButtons.jsx";
-import Highlighter from "react-highlight-words";
-import {useState, useEffect, useRef} from 'react';
 import Agents from "./Agents.jsx";
 import Related, {PartOf} from "./Related.jsx";
 import PropTypes from "prop-types";
 import ExpressionTitle from "./ExpressionTitle.jsx";
 import ManifestationExpandableList from "./ManifestationExpandableList.jsx";
 
-export function renameRole(role, language){
-    if (role.includes('translation')){
-        return language[0].label + " translation of"
-    }else{
-        return capitalize(role.replace(/is |has | work| expression/g, ""));
-    }
-}
-
-function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 Expression.propTypes = {
-    expression: PropTypes.object,
+    expression: PropTypes.shape({
+        uri: PropTypes.string,
+        language: PropTypes.array,
+        content: PropTypes.array,
+        manifestations: PropTypes.array,
+        ranking: PropTypes.number,
+        form: PropTypes.string,
+        work: PropTypes.array,
+        partOfConnection: PropTypes.object,
+        relatedToConnection: PropTypes.object,
+        contentsnote: PropTypes.string,
+        pagerank: PropTypes.number
+    }),
     terms: PropTypes.array,
-    defaultExpanded: PropTypes.bool,
-    checkboxes: PropTypes.bool,
     score: PropTypes.number
 };
 
-
 function relevantClass(ranking){
-    //Check if an entry is marked as relevant or not
+    //Check if an entry is marked as relevant or not, used for styling
     if (ranking === 1){
         return "relevant";
     }else if (ranking === -1){
@@ -48,122 +41,47 @@ function relevantClass(ranking){
     }
 }
 
-export default function Expression({expression, defaultExpanded, terms, checkboxes, score}){
+export default function Expression({expression, terms, score}){
     const [showUri] = useRecoilState(showUriState);
-    //const [selected, setSelectedState] = useRecoilState(selectedState);
-    //const {uri, manifestations} = expression;
 
-    //const language = expression.language.map(l => l.label);
+    //identify content type, want text to be first
     const content = expression.content.map(c => c.label);
     content.sort();
     content.reverse();
-    //const workform = expression.work[0].form;
-
-
-
 
     const ExpressionDetails = () => {
-        if (expression.manifestations.length === 1){
-            //Dislay expression and manifestation details in one line
-            if (expression.form === "part"){
-                // This is a part and part of is indicated with a prefix to title
-                return <>
-                    <div className={"expressionHeader"}>
+        if (expression.manifestations.length === 1) {
+            return <div className={"expressionHeader"}>
                         <div className={"expressionHeaderTitle"}>
                             <ExpressionTitle expression={expression} terms={terms}/>
                             <Agents expression={expression} terms={terms}/>
                             <Related expression={expression}/>
                             <PartOf expression={expression}/>
-                            <ManifestationTitle terms={terms} manifestation={expression.manifestations[0]} prefix={"In: "}/>
+                            {expression.form === "part" &&
+                            <ManifestationTitle terms={terms} manifestation={expression.manifestations[0]}
+                                                    prefix={"In: "}/>}
                             <PublicationData manifestation={expression.manifestations[0]}/>
-                            {!(expression.manifestations[0].contentsnote === null) && <ContentsNote contents={expression.manifestations[0].contentsnote} terms={terms}/>}
-                            {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
+                            {!(expression.manifestations[0].contentsnote === null) &&
+                            <ContentsNote contents={expression.manifestations[0].contentsnote} terms={terms}/>}
+                            {showUri && <Typography component="div" align="left"
+                                                    variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                         </div>
                     </div>
-                </>
-            }else{
-                return <>
-                    <div className={"expressionHeader"}>
-                        <div className={"expressionHeaderTitle"}>
-                            <ExpressionTitle expression={expression} terms={terms}/>
-                            <Agents expression={expression} terms={terms}/>
-                            <Related expression={expression}/>
-                            <PartOf expression={expression}/>
-                            <PublicationData manifestation={expression.manifestations[0]}/>
-                            {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote} terms={terms}/>}
-                            {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
-                        </div>
-                    </div>
-                </>
-            }
-        }
-        if (expression.manifestations.length > 1){
-        return <>
-            <div className={"expressionHeader"}>
-                <div className={"expressionHeaderTitle"}>
-                    <ExpressionTitle expression={expression} terms={terms}/>
-                    <Agents expression={expression} terms={terms}/>
-                    {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
-                    <Related expression={expression}/>
-                    <PartOf expression={expression}/>
-                    {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
-                </div>
-            </div>
-            <ManifestationExpandableList expression={expression} defaultExpanded={defaultExpanded} terms={terms}/>
-            {/*<div className={"expressionManifestationListing"}>
-                <details open={defaultExpanded}>
-                        <summary>{expression.manifestations.length} publications available</summary>
-                        <ul className={"manifestationlist"}>
-                            {expression && expression.manifestations.map(m => (<Manifestation manifestation={m} form= {expression.form} key={m.uri} checkboxes={checkboxes} contentsDisplayed={expression.contents === null} terms={terms}/>))}
-                        </ul>
-                    </details>
-
-            </div>*/}
-
-        </>
-        }else if (expression.manifestations.length === 1 && expression.form === "standalone"){
+        } else {
             return <>
                 <div className={"expressionHeader"}>
                     <div className={"expressionHeaderTitle"}>
                         <ExpressionTitle expression={expression} terms={terms}/>
                         <Agents expression={expression} terms={terms}/>
-                        <PublicationData manifestation={expression.manifestations[0]}/>
-                        {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
                         <Related expression={expression}/>
                         <PartOf expression={expression}/>
-                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
+                        {!(expression.contentsnote === null) &&
+                        <ContentsNote contents={expression.contentsnote} terms={terms}/>}
+                        {showUri && <Typography component="div" align="left"
+                                                variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
                     </div>
                 </div>
-            </>
-        }else if (expression.manifestations.length === 1 && expression.form === "part"){
-            return <>
-                <div className={"expressionHeader"}>
-                    <div className={"expressionHeaderTitle"}>
-                        <ExpressionTitle expression={expression} terms={terms}/>
-                        <Agents expression={expression} terms={terms}/>
-                        <ManifestationTitle manifestation={expression.manifestations[0]} prefix={"In: "}/>
-                        <PublicationData manifestation={expression.manifestations[0]}/>
-                        {!(expression.manifestations[0].contentsnote === null) && <ContentsNote contents={expression.manifestations[0].contentsnote}  terms={terms}/>}
-                        <Related expression={expression}/>
-                        <PartOf expression={expression}/>
-                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank}</Typography>}
-                    </div>
-                </div>
-            </>
-        }else{
-            return <>
-                <div className={"expressionHeader"}>
-                    <div className={"expressionHeaderTitle"}>
-                        <ExpressionTitle expression={expression} terms={terms}/>
-                        <Agents expression={expression} terms={terms}/>
-                        <PublicationData manifestation={expression.manifestations[0]}/>
-                        <PublicationData manifestation={expression.manifestations[0]}/>
-                        {!(expression.contentsnote === null) && <ContentsNote contents={expression.contentsnote}  terms={terms}/>}
-                        <Related expression={expression}/>
-                        <PartOf expression={expression}/>
-                        {showUri && <Typography component="div" align="left" variant="eroles">{expression.uri + " : " + score + " : " + expression.pagerank }</Typography>}
-                    </div>
-                </div>
+                <ManifestationExpandableList expression={expression} terms={terms}/>
             </>
         }
     }

@@ -7,16 +7,28 @@ function isEmpty(str) {
     return (!str || str.length === 0 );
 }
 function selectExpressionTitle(expression) {
+    let manifestationFirst = false;
     const titles = [];
     if (expression.form !== "part" && expression.manifestations.length === 1){
         titles.push(manifestationStatement(expression.manifestations[0]));
+        manifestationFirst = true;
     }
     if (!isEmpty(expression.titlepreferred)){
         titles.push(expression.titlepreferred);
-    }else{
-        if (!isEmpty(expression.title)) titles.push(expression.title);
     }
-    return titles[0];
+    if (!isEmpty(expression.title)){
+        titles.push(expression.title);
+    }
+    if (!isEmpty(expression.titlevariant)){
+        titles.push(expression.titlevariant);
+    }
+    let title = titles[0];
+    /*if (manifestationFirst && titles[1] && !(titles[0].toLowerCase().includes(titles[1].toLowerCase()))){
+        title += titles[0] + " INCLUDES (" + titles[1] + ")";
+        console.log(titles[0]);
+        console.log(titles[1]);
+    }*/
+    return title;
 }
 export default function ExpressionTitle ({expression, terms}) {
     //console.log("Terms: " + terms);

@@ -92,14 +92,17 @@ const Survey = () => {
         <div>
             <h1>Search experience survey</h1>
 
-            <p>We kindly invite you to participate in a task-based survey with the purpose of evaluating the results from a bibliographic search.
-            Participation requires 5-15 minutes of your time. You will be presented with the results of different searches and asked to perform judgements and mark results. </p>
+            <p>We kindly invite you to be part of an innovative survey aimed at enhancing bibliographic search systems.
+               The survey, which should take only 5-15 minutes of your time, involves interacting with a set of search results.
+                You'll be asked to evaluate these results, making judgments and marking them according to specific questions. </p>
 
-            <p>The system used is a simplified library search system where each result represents particular content.
-                If the same content is available in multiple publications, the list of publications can be expanded. The user interface is unfortunately not suitable for small screens such as mobile phones.</p>
-            <p>A thumbs up button <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> is used for marking of results according to the task given.
-                Markings can be removed using the cancel button or by the clear markings button on top of the page.
-                Click on the "Submit" button to send your feedback for each task. This will show a dialog where you have to give some supplemental feedback before pressing Yes to finish.
+            <p>You'll use a streamlined library search interface designed to showcase diverse content.
+                If content appears in multiple publications, you can easily view these publications.</p>
+            <p>Please note that the interface is optimized for larger screens, and may not function effectively on mobile phones.
+            </p>
+            <p>Use the 'thumbs up' <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> button to mark relevant results.
+                If you need to change your selections, the 'cancel' button and a 'clear markings' option at the top of the page are available.
+                Once you complete a task, click 'Submit' to share your feedback. A brief dialog will prompt you for additional comments before final submission.
             </p>
             <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
             <p>We do not expect any particular knowledge in advance, and if the results are unknown, simply make your best guess based on the information that is presented to you. Mark at least one for each task, but feel free to mark more if appropriate for the task.</p>

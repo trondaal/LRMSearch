@@ -1,7 +1,7 @@
 
 import {useState, useEffect} from 'react';
 import TextField from '@mui/material/TextField';
-import {selectedVar, relevantVar, irrelevantVar} from '../api/Cache';
+import {selectedVar, relevantVar, irrelevantVar, expandedVar} from '../api/Cache';
 import stopwords from './stopwords'
 import Grid from "@mui/material/Grid";
 import SubmitRanking from "./SubmitRanking.jsx";
@@ -79,26 +79,26 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
     const [query, setQuery] = useState(initialQuery());
 
     const params = new URLSearchParams(window.location.search);
-    let limit = 100;
+    let limit = 500;
     if (params.get("limit")){
-
         const lim = parseInt(params.get("limit"));
         if (!isNaN(lim) && lim > 0){
-            console.log(params.get("limit"))
+            //console.log(params.get("limit"))
             limit = lim;
         }
     }
     const changeHandler = (event) => {
-        if (event.key === 'Enter') {
-            console.log(limit);
-            selectedVar(new Set());
-            //const params = new URLSearchParams(window.location.search);
-            params.set("query", event.target.value);
-            window.location.search = params.toString()
-            sessionStorage.setItem('query', query);
-            search({ variables: { query: createQuery(query), sort: createSortOrder(), limit: limit } })
-        }else{
-            setQuery(event.target.value)
+        if (!params.get("taskid")){
+            if (event.key === 'Enter') {
+                expandedVar([]);
+                selectedVar(new Set());
+                params.set("query", event.target.value);
+                window.location.search = params.toString()
+                sessionStorage.setItem('query', query);
+                search({ variables: { query: createQuery(query), sort: createSortOrder(), limit: limit } })
+            }else{
+                setQuery(event.target.value)
+            }
         }
     };
 
@@ -137,6 +137,7 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
                 id="filled-search"
                 size="small"
                 fullWidth
+                disabled = {!params.get("taskid") ? false : true}
                 label="Search field"
                 type="search"
                 variant="filled"
@@ -146,7 +147,7 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
             />
         </Grid>
         <Grid item xs={6}>
-            <SubmitRanking query={query} defaultExpanded={defaultExpanded} setDefaultExpanded={setDefaultExpanded} results={results}/>
+            <SubmitRanking query={query} results={results}/>
         </Grid>
     </Grid>
 
