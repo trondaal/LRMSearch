@@ -28,6 +28,9 @@ const a_questions = [
     ["You are compiling a list of titles by \"J. G. Ballard\" for a personal reading list. The result page shows a selection of what is found for this author name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=J.G.+Ballard&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"J. G. Ballard\"", "J.G. Ballard"],
+    /*["You are compiling a list of titles by \"Ray Bradbury\" for a personal reading list. The result page shows a selection of what is found for this author name.",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=Ray+Bradbury&language=english&content=text&subject=surveyitem",
+        "Go to the results for a search on \"Ray Bradbury\"", "Ray Bradbury"]*/
 ];
 // Author + title questions
 const at_questions = [
