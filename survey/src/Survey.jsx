@@ -103,12 +103,12 @@ const Survey = () => {
                 If content appears in multiple publications, you can easily view these publications.</p>
             <p>Please note that the interface is optimized for larger screens, and may not function effectively on mobile phones.
             </p>
+            <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
             <p>Use the 'thumbs up' <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> button to mark relevant results.
                 If you need to change your selections, the 'cancel' button and a 'clear markings' option at the top of the page are available.
                 Once you complete a task, click 'Submit' to share your feedback. A brief dialog will prompt you for additional comments before final submission.
             </p>
             <p>We do not expect any particular knowledge in advance, and if the results are unknown, simply make your best guess based on the information that is presented to you.</p>
-            <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
 
             {selectedQuestions.map((question, index) => (
                 <div key={index}>
