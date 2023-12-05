@@ -129,7 +129,7 @@ export default function SubmitRanking({query, results}) {
                     <Button onClick={handleSave} autoFocus>Yes</Button>
                 </DialogActions>
             </Dialog>
-            <Tooltip title={tasks.includes(uri) ? "You have completed this task." : "Not submitted this task yet."} placement={"top"}>
+            <Tooltip title={tasks.includes(uri) ? "You have submitted this task." : "Not submitted this task yet."} placement={"top"}>
                 <CheckCircleOutlineSharpIcon color={tasks.includes(uri) ? "success" : "action"} sx={{fontSize: 40}}/>
             </Tooltip>
         </Box>
