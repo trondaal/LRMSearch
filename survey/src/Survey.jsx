@@ -95,7 +95,7 @@ const Survey = () => {
         <div>
             <h1>Search experience survey</h1>
 
-            <p>We kindly invite you to be part of an innovative survey aimed at enhancing bibliographic search systems.
+            <p>We kindly invite you to be part of a survey aimed at improving bibliographic search systems.
                The survey, which should take only 5-15 minutes of your time, involves interacting with a set of search results.
                 You'll be asked to evaluate these results, making judgments and marking them according to specific questions. </p>
 
