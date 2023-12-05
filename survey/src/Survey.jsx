@@ -101,7 +101,7 @@ const Survey = () => {
 
             <p>You'll use a streamlined library search interface designed to showcase diverse content.
                 If content appears in multiple publications, you can easily view these publications.</p>
-            <p>Please note that the interface is optimized for larger screens, and may not function effectively on mobile phones.
+            <p>Please note that the interface is optimized for larger screens, and will not function effectively on mobile phones.
             </p>
             <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
             <p>Use the 'thumbs up' <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> button to mark relevant results.
