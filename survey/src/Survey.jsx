@@ -107,8 +107,8 @@ const Survey = () => {
                 If you need to change your selections, the 'cancel' button and a 'clear markings' option at the top of the page are available.
                 Once you complete a task, click 'Submit' to share your feedback. A brief dialog will prompt you for additional comments before final submission.
             </p>
+            <p>We do not expect any particular knowledge in advance, and if the results are unknown, simply make your best guess based on the information that is presented to you.</p>
             <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
-            <p>We do not expect any particular knowledge in advance, and if the results are unknown, simply make your best guess based on the information that is presented to you. Mark at least one for each task, but feel free to mark more if appropriate for the task.</p>
 
             {selectedQuestions.map((question, index) => (
                 <div key={index}>
