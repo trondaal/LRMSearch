@@ -23,7 +23,7 @@ export default function SubmitRanking({query, results}) {
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
     const [searchExpertise, setSearchExpertise] = React.useState(3);
     const [taskConfidence, setTaskConfidence] = React.useState(3);
-    const [tasks, setTasks] = React.useState(localStorage.getItem('lrm-survey-tasks') ? JSON.parse(localStorage.getItem('lrm-survey-tasks')) : []);
+    const [tasks, setTasks] = React.useState(sessionStorage.getItem('lrm-survey-tasks') ? JSON.parse(sessionStorage.getItem('lrm-survey-tasks')) : []);
     const uri =  window.location.toString();
     //const [expanded, setExpanded] = React.useState(false);
 
@@ -78,12 +78,12 @@ export default function SubmitRanking({query, results}) {
         });
 
         setTasks([...tasks, window.location.toString()]);
-        let stasks = localStorage.getItem('lrm-survey-tasks') ? JSON.parse(localStorage.getItem('lrm-survey-tasks')) : []
+        let stasks = sessionStorage.getItem('lrm-survey-tasks') ? JSON.parse(sessionStorage.getItem('lrm-survey-tasks')) : []
         stasks.push(window.location.toString());
-        localStorage.setItem('lrm-survey-tasks', JSON.stringify(stasks));
+        sessionStorage.setItem('lrm-survey-tasks', JSON.stringify(stasks));
         let obj = {relevant: relevantVar(), irrelevant: irrelevantVar()};
         let json = JSON.stringify(obj);
-        localStorage.setItem(uri, json);
+        sessionStorage.setItem(uri, json);
     };
 
     //console.log("Before rendering buttons: " + expanded);
@@ -94,7 +94,7 @@ export default function SubmitRanking({query, results}) {
                 {expanded ? "Hide" : "Expand"}
             </Button>*/}
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
-                onClick={() => {relevantVar([]); irrelevantVar([]); localStorage.removeItem(uri);}}>
+                onClick={() => {relevantVar([]); irrelevantVar([]); sessionStorage.removeItem(uri);}}>
                 Clear markings
             </Button>
             <Button variant="outlined" onClick={handleClickOpen} disabled={relevantVar().length === 0 && irrelevantVar().length === 0}  sx={{ mr: 2 }}>

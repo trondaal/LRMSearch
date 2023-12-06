@@ -105,8 +105,8 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
     useEffect(() => {
             //retrieves rankings from local storage if they exist
             //console.log(window.location.search);
-            if (localStorage.getItem(window.location.toString())) {
-                const rankings = JSON.parse(localStorage.getItem(window.location.toString()))
+            if (sessionStorage.getItem(window.location.toString())) {
+                const rankings = JSON.parse(sessionStorage.getItem(window.location.toString()))
                 relevantVar([...rankings.relevant]);
                 irrelevantVar([...rankings.irrelevant]);
                 //console.log(limit);
