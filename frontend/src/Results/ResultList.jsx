@@ -2,6 +2,12 @@ import {selectedVar} from "../api/Cache";
 import Expression from "./Expression";
 import stopwords from "../Search/stopwords.js";
 import * as React from "react";
+import PropTypes from "prop-types";
+
+ResultList.propTypes = {
+    results: PropTypes.array
+};
+
 
 export default function ResultList({results}) {
 
