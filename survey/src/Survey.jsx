@@ -104,19 +104,19 @@ const Survey = () => {
 
             <p>We kindly invite you to be part of a survey aimed at improving bibliographic search systems.
                The survey, which should take only 5-15 minutes of your time, involves interacting with a set of search results.
-                You'll be asked to evaluate these results, making judgments and marking them according to specific questions. </p>
+                You&apos;ll be asked to evaluate these results, making judgments and marking them according to specific questions. </p>
 
-            <p>You'll use a streamlined library search interface designed to showcase diverse content.
+            <p>You&apos;ll use a streamlined library search interface designed to showcase diverse content.
                 If content appears in multiple publications, you can easily view these publications.</p>
             <p>Please note that the interface is optimized for larger screens, and will not function effectively on mobile phones.
             </p>
             <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
-            <p>Use the 'thumbs up' <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> button to mark relevant results.
-                If you need to change your selections, the 'cancel' button <CancelOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> and a 'clear markings' option at the top of the page are available.
-                Once you complete a task, click 'Submit' to share your feedback. A brief dialog will prompt you for additional comments before final submission.
+            <p>Use the &apos;thumbs up&apos; <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> button to mark relevant results.
+                If you need to change your selections, the &apos;cancel&apos; button <CancelOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> and a &apos;clear markings&apos; option at the top of the page are available.
+                Once you complete a task, click &apos;Submit&apos; to share your feedback. A brief dialog will prompt you for additional comments before final submission.
             </p>
             <p>We do not expect any particular knowledge in advance, and if the results are unknown to you, simply make your best guess based on the information that is presented.</p>
-            <p>The survey is fully anonymous and we do not collect any personal information. Some data about the tasks you have performed is temporarily stored in your web browser, but all is automatically deleted when the tab or the web browser is closed (we are using the HTML sessionsStorage mechanism for this). </p>
+            <p>The survey is fully anonymous and we do not collect any personal information. The tasks you have performed are temporarily stored in your web browser, but all data is deleted when the tab or the web browser is closed. </p>
             {selectedQuestions.map((question, index) => (
                 <div key={index}>
                     <h2>Task {index + 1}</h2>
