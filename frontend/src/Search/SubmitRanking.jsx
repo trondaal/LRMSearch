@@ -132,7 +132,7 @@ export default function SubmitRanking({query, results}) {
             <Tooltip title={tasks.includes(uri) ? "You have submitted this task." : "Not submitted this task yet."} placement={"top"}>
                 <CheckCircleOutlineSharpIcon color={tasks.includes(uri) ? "success" : "action"} sx={{fontSize: 40}}/>
             </Tooltip>
-            <Button variant="outlined"  sx={{ ml: 2 }}>
+            <Button variant="outlined" onClick={window.history.back()} sx={{ ml: 2 }}>
                 Back to survey
             </Button>
         </Box>
