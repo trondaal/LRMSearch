@@ -127,9 +127,8 @@ const Survey = () => {
 ))}
             {/*<p>The tasks listed above are tailored with specific result sets. If you want to explore searching the system on your own, use this URI <a href={"http://dijon.idi.ntnu.no/lrm-search"}>http://dijon.idi.ntnu.no/lrm-search</a></p> */}
             <footer>
-                <p>The tasks selected for you is randomly selected when this page is loaded. If you want a different set of tasks or want to do additional tasks, you can simply refresh the page to get a different list.</p>
                 <p>Responsible for the survey is Professor Trond Aalberg OsloMet/NTNU (<a href={"mailto:Trond.Aalberg@oslomet.no"}>Trond.Aalberg@oslomet.no</a>).</p>
-                A random participant ID is generated when you access this page. This number can be used to refer to your response in case you want to withdraw your response from the survey.
+                A random participant ID is generated when you access this page. This number can be used to refer to your response in case you want to withdraw from the survey at a later time.
 Your participant ID is {respondent}</footer>
         </div>
     );
