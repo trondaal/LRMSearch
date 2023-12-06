@@ -37,7 +37,7 @@ export const PublicationData = ({manifestation}) => {
         {extent && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}>Extent: </span>{extent}</Typography>}
         {edition && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}>Edition: </span>{edition}</Typography>}
         {published.length > 0 && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}>Published: </span>{published.join(", ")}</Typography>}
-        {series  && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}></span>{series + (seriesnumbering ? "; " + seriesnumbering : "")}</Typography>}
+        {series  && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}></span>{series + (seriesnumbering ? " ; " + seriesnumbering : "")}</Typography>}
         {identifier  && <Typography component="span" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}></span>{identifier}</Typography>}
         {partnote && <Typography component="div" align="left"  variant="description" className={"manifestationdetails"}><span className={"prefix"}>In: </span>{partnote}</Typography>}
     </>
