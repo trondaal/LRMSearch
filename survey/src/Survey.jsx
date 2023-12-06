@@ -122,7 +122,7 @@ const Survey = () => {
                     <h2>Task {index + 1}</h2>
                     <p>{question[0]}<br/>
                     <strong>{tasks[index].split("--")[0] }<u>{tasks[index].split("--")[1]}</u>{tasks[index].split("--")[2]}</strong></p>
-                    <p><a href={question[1] + "&sort=" + question[3] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=" + tasks[index] + "&context=" + question[0]} target={"_self"} rel="noreferrer">{question[2]}</a></p>
+                    <p><a href={question[1] + "&sort=" + question[3] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=" + tasks[index] + "&context=" + question[0]}>{question[2]}</a></p>
                 </div>
 ))}
             {/*<p>The tasks listed above are tailored with specific result sets. If you want to explore searching the system on your own, use this URI <a href={"http://dijon.idi.ntnu.no/lrm-search"}>http://dijon.idi.ntnu.no/lrm-search</a></p> */}
