@@ -46,6 +46,10 @@ export default function SubmitRanking({query, results}) {
         setOpen(false);
     };
 
+    const handleBackButton = () => {
+        window.history.back();
+    };
+
     const handleSave = () => {
         setOpen(false);
         const params = new URLSearchParams(window.location.search)
@@ -132,7 +136,7 @@ export default function SubmitRanking({query, results}) {
             <Tooltip title={tasks.includes(uri) ? "You have submitted this task." : "Not submitted this task yet."} placement={"top"}>
                 <CheckCircleOutlineSharpIcon color={tasks.includes(uri) ? "success" : "action"} sx={{fontSize: 40}}/>
             </Tooltip>
-            <Button variant="outlined" sx={{ ml: 2 }}>
+            <Button variant="outlined" onClick={handleBackButton} sx={{ ml: 2 }}>
                 Back to survey
             </Button>
         </Box>
