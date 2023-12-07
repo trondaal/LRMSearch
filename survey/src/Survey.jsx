@@ -35,7 +35,7 @@ const a_questions = [
 ];
 // Author + title questions
 const at_questions = [
-    ["You want to read the novel \"På gjengrodde stier\" by Knut Hamsun and have made a search using title and author's name.",
+    ["You want to read the novel \"Mysterier\" by Knut Hamsun and have made a search using title and author's name.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Mysterier+Knut+Hamsun&language=norwegian&content=text",
         "Go to the results for a search on \"Mysterier Knut Hamsun\"",
         order[Math.floor(Math.random() * (3))]],
