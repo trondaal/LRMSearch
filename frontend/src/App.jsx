@@ -20,10 +20,10 @@ export default function MyApp() {
    // const setSelected = useSetRecoilState(selectedState);
     //const params = new URLSearchParams(window.location.search)
 
-    const handleClearFilters = (event) => {
+    /*const handleClearFilters = (event) => {
         setChecked([]);
         selectedVar(new Set([]));
-    }
+    }*/
 
 
 
