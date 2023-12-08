@@ -21,7 +21,7 @@ const a_questions = [
         "http://dijon.idi.ntnu.no/lrm-search/?query=Mark+Twain&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Mark Twain\"", order[Math.floor(Math.random() * (3))]],
     ["You are compiling a list of titles by \"J. R. R. Tolkien\" for a personal reading list. The result page shows a selection of what can be found.",
-        "http://dijon.idi.ntnu.no/lrm-search/?query=J. R.R.+Tolkien&language=english&content=text&subject=surveyitem",
+        "http://dijon.idi.ntnu.no/lrm-search/?query=J.R.R.+Tolkien&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"J. R. R. Tolkien\"", order[Math.floor(Math.random() * (3))]],
     ["You are compiling a list of titles by \"Cormac McCarthy\" for a personal reading list. The result page shows a selection of what can be found.",
         "http://dijon.idi.ntnu.no/lrm-search/?query=Cormac+McCarthy&language=english&content=text&subject=surveyitem",
