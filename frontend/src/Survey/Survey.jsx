@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom'
 import './Survey.css';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 
 const order= ["score", "random", "pagerank"];
 
@@ -100,46 +103,48 @@ const Survey = () => {
     }, []);
 
     return (
-        <div className={"survey"}>
-            <h1>Search experience survey</h1>
+        <Paper className={"survey"} sx={{ mx: 10, my: 5 }}>
+            <Typography variant="h2" sx={{ mb: 2 }}>Search experience survey</Typography>
 
-            <p>We kindly invite you to be part of a survey aimed at improving bibliographic search systems.
+            <Typography variant="body1" sx={{ my: 1 }}>We kindly invite you to be part of a survey aimed at improving bibliographic search systems.
                The survey, which should take only 5-15 minutes of your time, involves interacting with a set of search results.
-                You&apos;ll be asked to evaluate these results, making judgments and marking them according to specific questions. </p>
+                You&apos;ll be asked to evaluate these results, making judgments and marking them according to specific questions. </Typography>
 
-            <p>You&apos;ll use a streamlined library search interface designed to showcase diverse content.
-                If content appears in multiple publications, you can easily view these publications.</p>
-            <p>Please note that the interface is optimized for larger screens, and will not function effectively on mobile phones.
-            </p>
+            <Typography variant="body1"  sx={{ my: 1 }}>You&apos;ll use a streamlined library search interface designed to showcase diverse content.
+                If content appears in multiple publications, you can easily view these publications.</Typography>
+            <Typography variant="body1" sx={{ my: 1 }}>Please note that the interface is optimized for larger screens, and will not function effectively on mobile phones.
+            </Typography>
+            <Box sx={{ my: 5 }}>
             <img src={screenshots} alt={"Screenshot of resultlisting and submission dialogue"} style={{ width: '80%'}} align="middle"/>
-            <p>Use the &apos;thumbs up&apos; <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> button to mark relevant results.
+            </Box>
+            <Typography variant="body1"  sx={{ my: 2 }}>Use the &apos;thumbs up&apos; <ThumbUpOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> button to mark relevant results.
                 If you need to change your selections, the &apos;cancel&apos; button <CancelOutlinedIcon color="action" fontSize="small" style={{ verticalAlign: 'middle' }}/> and a &apos;clear markings&apos; option at the top of the page are available.
                 Once you complete a task, click &apos;Submit&apos; to share your feedback. A brief dialog will prompt you for additional comments before final submission.
-            </p>
-            <p>We do not expect any particular knowledge in advance, and if the results are unknown to you, simply make your best guess based on the information that is presented.</p>
-            <p>The survey is fully anonymous and we do not collect any personal information. The tasks you have performed are temporarily stored in your web browser, but all data is deleted when the tab or the web browser is closed. </p>
+            </Typography>
+            <Typography variant="body1" sx={{ my: 1 }}>We do not expect any particular knowledge in advance, and if the results are unknown to you, simply make your best guess based on the information that is presented.</Typography>
+            <Typography variant="body1" sx={{ mt: 1, mb: 5 }}>The survey is fully anonymous and we do not collect any personal information. The tasks you have performed are temporarily stored in your web browser, but all data is deleted when the tab or the web browser is closed. </Typography>
             {selectedQuestions.map((question, index) => {
                 let tasksPerformed = sessionStorage.getItem('lrm-survey-tasks') ? JSON.parse(sessionStorage.getItem('lrm-survey-tasks')) : []
                 const query = question[1] + "&sort=" + question[3] + "&respondent=" + respondent + "&taskid=" + (index+1);
                 console.log("Query = " + query);
                 return <div key={index}>
-                            <h2>Task {index + 1}
+                            <Typography variant="h4" >Task {index + 1}
                                 <Tooltip title={tasksPerformed.find(el => el.includes(query)) ? "You have submitted this task" : "Task not submitted yet."} placement={"top"}>
-                                    <CheckCircleOutlineSharpIcon color={tasksPerformed .find(el => el.includes(query)) ? "success" : "action"} sx={{fontSize: 20}}/>
+                                    <CheckCircleOutlineSharpIcon color={tasksPerformed .find(el => el.includes(query)) ? "success" : "action"} sx={{fontSize: 30}}/>
                                 </Tooltip>
-                            </h2>
-                            <p>{question[0]}<br/>
-                            <strong>{tasks[index].split("--")[0] }<u>{tasks[index].split("--")[1]}</u>{tasks[index].split("--")[2]}</strong></p>
-                            <p><Link to={"/search" + question[1] + "&sort=" + question[3] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=" + tasks[index] + "&context=" + question[0]}>{question[2]}</Link></p>
+                            </Typography>
+                            <Typography variant="body1" sx={{ my: 1 }}>{question[0]}<br/>
+                                <strong>{tasks[index].split("--")[0] }<u>{tasks[index].split("--")[1]}</u>{tasks[index].split("--")[2]}</strong></Typography>
+                    <Typography variant="body1" sx={{ my: 1 }}><Link to={"/search" + question[1] + "&sort=" + question[3] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=" + tasks[index] + "&context=" + question[0]}>{question[2]}</Link></Typography>
                         </div>
             }
 )}
             {/*<p>The tasks listed above are tailored with specific result sets. If you want to explore searching the system on your own, use this URI <a href={"/search"}>/search</a></p> */}
-            <footer>
+            <Typography variant="body1" sx={{ mt: 5 }} component={"footer"}>
                 <p>Responsible for the survey is Professor Trond Aalberg OsloMet/NTNU (<a href={"mailto:Trond.Aalberg@oslomet.no"}>Trond.Aalberg@oslomet.no</a>).</p>
                 A random participant ID is generated when you access this page. This number can be used to refer to your response in case you want to withdraw from the survey at a later time.
-Your participant ID is {respondent}</footer>
-        </div>
+                Your participant ID is {respondent}</Typography>
+        </Paper>
     );
 }
 

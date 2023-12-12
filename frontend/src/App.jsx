@@ -6,7 +6,7 @@ import Survey from "./Survey/Survey.jsx";
 export default function App() {
     return (
         <Routes>
-            <Route path="/" element={<Search />} />
+            <Route path="/" element={<Survey />} />
             <Route path="search" element={<Search />} />
             <Route path="survey" element={<Survey />} />
         </Routes>
