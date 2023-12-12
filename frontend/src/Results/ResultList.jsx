@@ -11,7 +11,7 @@ ResultList.propTypes = {
 
 export default function ResultList({results}) {
 
-    //should use some global storage for this, or state in App.jsx
+    //should use some global storage for this, or state in Search.jsx
     const q = sessionStorage.getItem('query') ? sessionStorage.getItem('query') : "";
     let temp_q = q.replace(/[.,;()-/]/g, " ").trim().split(/ +/)
     let terms = temp_q.filter((word) => !stopwords.includes(word.toLowerCase())).filter(word => word.length > 1);

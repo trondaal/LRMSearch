@@ -15,6 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
 import {expandedVar} from "../api/Cache.js";
+import { Link } from 'react-router-dom'
 
 export default function SubmitRanking({query, results}) {
     //console.log("In submit ranking : " + defaultExpanded);
@@ -25,6 +26,7 @@ export default function SubmitRanking({query, results}) {
     const [taskConfidence, setTaskConfidence] = React.useState(3);
     const [tasks, setTasks] = React.useState(sessionStorage.getItem('lrm-survey-tasks') ? JSON.parse(sessionStorage.getItem('lrm-survey-tasks')) : []);
     const uri =  window.location.toString();
+    console.log("URI = " + window.location.origin+window.location.pathname);
     //const [expanded, setExpanded] = React.useState(false);
 
 
@@ -136,8 +138,11 @@ export default function SubmitRanking({query, results}) {
             <Tooltip title={tasks.includes(uri) ? "You have submitted this task." : "Not submitted this task yet."} placement={"top"}>
                 <CheckCircleOutlineSharpIcon color={tasks.includes(uri) ? "success" : "action"} sx={{fontSize: 40}}/>
             </Tooltip>
-            <Button variant="outlined" onClick={handleBackButton} sx={{ ml: 2 }}>
+            {/*<Button variant="outlined" onClick={handleBackButton} sx={{ ml: 2 }}>
                 Back to survey
+            </Button>*/}
+            <Button variant="outlined" sx={{ ml: 2 }} component={Link} to="/survey">
+                Back to Survey
             </Button>
         </Box>
     );
