@@ -26,7 +26,7 @@ export default function SubmitRanking({query, results}) {
     const [taskConfidence, setTaskConfidence] = React.useState(3);
     const [tasks, setTasks] = React.useState(sessionStorage.getItem('lrm-survey-tasks') ? JSON.parse(sessionStorage.getItem('lrm-survey-tasks')) : []);
     const uri =  window.location.toString();
-    console.log("URI = " + window.location.origin+window.location.pathname);
+    //console.log("URI = " + window.location.origin+window.location.pathname);
     //const [expanded, setExpanded] = React.useState(false);
 
 

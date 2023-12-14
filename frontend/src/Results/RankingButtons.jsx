@@ -25,6 +25,8 @@ export default function RankingButtons({expression}){
     if (params.get("ranking") && params.get("ranking") === "negative"){
         ranking = "negative";
     }
+
+    //console.log(relevantVar());
     return (
     <div className={"rankingbuttons"}>
         { expression.ranking === 0  &&

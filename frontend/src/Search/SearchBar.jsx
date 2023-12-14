@@ -104,15 +104,15 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
 
     useEffect(() => {
             //retrieves rankings from local storage if they exist
-            //console.log(window.location.search);
-            if (sessionStorage.getItem(window.location.toString())) {
+            //console.log(window.location.toString());
+            /*if (sessionStorage.getItem(window.location.toString())) {
                 const rankings = JSON.parse(sessionStorage.getItem(window.location.toString()))
                 relevantVar([...rankings.relevant]);
                 irrelevantVar([...rankings.irrelevant]);
-                //console.log(limit);
-            }
+            }*/
             sessionStorage.setItem('query', query.toLowerCase());
             search({ variables: { query: createQuery(query), sort: createSortOrder(), limit:limit }});
+            console.log(relevantVar());
         }, []
     );
 
