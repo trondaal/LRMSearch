@@ -41,31 +41,38 @@ const at_questions = [
     ["You want to read the novel \"Mysterier\" by Knut Hamsun and have made a search using title and author's name.",
         "?query=Mysterier+Knut+Hamsun&language=norwegian&content=text",
         "Go to the results for a search on \"Mysterier Knut Hamsun\"",
-        order[Math.floor(Math.random() * (3))]],
+        order[Math.floor(Math.random() * (3))],
+        "Mysterier AND Knut AND Hamsun AND (content: text) AND (language: norwegian)"],
     ["You have been told by a friend to read the story \"Terminal beach\" by J.G. Ballard and have made a search using title and author's name.",
         "?query=Terminal+beach+Ballard&creator=Ballard&content=text",
         "Go to the results for a search on \"Terminal beach Ballard\"",
-        order[Math.floor(Math.random() * (3))]],
+        order[Math.floor(Math.random() * (3))],
+        "Terminal AND Beach AND Ballard AND (content: text) AND (language: english)"],
     ["You want to explore what is available by Mark Twain on the character Tom Sawyer and have made a search using author's name and name of the character.",
         "?query=Tom+Sawyer+Mark+Twain&language=english&content=text",
         "Go to the results for a search on \"Tom Sawyer Mark Twain \"",
-        order[Math.floor(Math.random() * (3))]],
+        order[Math.floor(Math.random() * (3))],
+        "Tom AND Sawyer AND Mark AND Twain AND (content: text) AND (language: english)"],
     ["You want to read \"Lord of the rings\" by J.R.R. Tolkien and have made a search using title and author's name.",
         "?query=Lord+of+the+rings+Tolkien&language=english&content=text",
         "Go to the results for a search on \"Lord of the rings Tolkien \"",
-        order[Math.floor(Math.random() * (3))]],
+        order[Math.floor(Math.random() * (3))],
+        "Lord AND Rings AND Tolkien AND (content: text) AND (language: english)"],
     ["You want to read \"Murder on the links\" by Agatha Christie and have made a search using title and author's name.",
         "?query=Murder+on+the+links+Agatha+Christie&language=english&content=text",
         "Go to the results for a search on \"Murder on the links Agatha Christie\"",
-        order[Math.floor(Math.random() * (3))]],
+        order[Math.floor(Math.random() * (3))],
+        "Murder AND Links AND Agatha AND Christie AND (content: text) AND (language: english)"],
     ["You want to read \"Murder on the Orient Express\" by Agatha Christie and have made a search using title and author's name.",
         "?query=Agatha+Christie+Murder+on+the+Orient+Express&language=english&content=text&name=christie",
         "Go to the results for a search on \"Murder on the Orient Express Agatha Christie\"",
-        order[Math.floor(Math.random() * (3))]],
+        order[Math.floor(Math.random() * (3))],
+        "Murder AND Orient AND Express AND Agatha AND Christie AND (content: text) AND (language: english)"],
     ["You want to read \"All the pretty horses\" by Cormac McCarthy and have made a search using title and author's name.",
         "?query=All+the+pretty+horses+Cormac+McCarthy&language=english&content=text",
         "Go to the results for a search on \"All the pretty horses Cormac McCarthy \"",
-        order[Math.floor(Math.random() * (3))]],
+        order[Math.floor(Math.random() * (3))],
+        "All AND Pretty AND Horses AND Cormac AND McCarthy AND (content: text) AND (language: english)"],
 ];
 const tasks = [
     "Based on your initial impression, mark the results that you find -- most interesting -- in the context of this search. Mark at least one, but feel free to mark more.",
@@ -81,8 +88,8 @@ function getRandomQuestions(questions, num) {
 const Survey = () => {
     const [selectedQuestions, setSelectedQuestions] = useState([]);
     const [respondent, setRespondent] = useState('');
-    const base_uri =  (window.location.origin+window.location.pathname).replace("survey", "search");
-    console.log("Base URI = " + base_uri);
+    //const base_uri =  (window.location.origin+window.location.pathname).replace("survey", "search");
+    //console.log("Base URI = " + base_uri);
     useEffect(() => {
         let existingId = sessionStorage.getItem('respondent');
         let savedQuestions = sessionStorage.getItem('selectedQuestions');
@@ -126,7 +133,7 @@ const Survey = () => {
             {selectedQuestions.map((question, index) => {
                 let tasksPerformed = sessionStorage.getItem('lrm-survey-tasks') ? JSON.parse(sessionStorage.getItem('lrm-survey-tasks')) : []
                 const query = question[1] + "&sort=" + question[3] + "&respondent=" + respondent + "&taskid=" + (index+1);
-                console.log("Query = " + query);
+                //console.log("Query = " + query);
                 return <div key={index}>
                             <Typography variant="h4" >Task {index + 1}
                                 <Tooltip title={tasksPerformed.find(el => el.includes(query)) ? "You have submitted this task" : "Task not submitted yet."} placement={"top"}>
