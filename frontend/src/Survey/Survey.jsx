@@ -78,6 +78,7 @@ const tasks = [
     "Based on your initial impression, mark the results that you find -- most interesting -- in the context of this search. Mark at least one, but feel free to mark more.",
     "Mark the results you find -- most useful -- for identifying what is available for this title. Mark at least one, but feel free to mark more.",
     "Mark results you would include in your list of titles by this author. Mark at least one, but feel free to mark more",
+    "Mark results you would include in your list of titles by this author. Mark at least one, but feel free to mark more",
 ]
 
 function getRandomQuestions(questions, num) {
@@ -100,7 +101,7 @@ const Survey = () => {
         }
         setRespondent(existingId);
         if (!savedQuestions) {
-            savedQuestions = [...getRandomQuestions(at_questions, 2), ...getRandomQuestions(a_questions, 1)]
+            savedQuestions = [...getRandomQuestions(at_questions, 2), ...getRandomQuestions(a_questions, 2)]
             sessionStorage.setItem('selectedQuestions', JSON.stringify(savedQuestions));
         } else {
             savedQuestions = JSON.parse(savedQuestions);
@@ -142,7 +143,7 @@ const Survey = () => {
                             </Typography>
                             <Typography variant="body1" sx={{ my: 1 }}>{question[0]}<br/>
                                 <strong>{tasks[index].split("--")[0] }<u>{tasks[index].split("--")[1]}</u>{tasks[index].split("--")[2]}</strong></Typography>
-                    <Typography variant="body1" sx={{ my: 1 }}><Link to={"/search" + question[1] + "&sort=" + question[3] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=" + tasks[index] + "&context=" + question[0]}>{question[2]}</Link></Typography>
+                            <Typography variant="body1" sx={{ my: 1 }}><Link to={"/search" + question[1] + "&sort=" + question[3] + "&respondent=" + respondent + "&taskid=" + (index+1) + "&task=" + tasks[index] + "&context=" + question[0]}>{question[2]}</Link></Typography>
                         </div>
             }
 )}
