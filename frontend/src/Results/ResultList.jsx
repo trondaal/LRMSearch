@@ -9,17 +9,17 @@ ResultList.propTypes = {
     results: PropTypes.array
 };
 
-
 export default function ResultList({results}) {
 
     useEffect(() => {
             //retrieves rankings from local storage if they exist
-            console.log(window.location.toString());
+            //console.log(window.location.toString());
             if (sessionStorage.getItem(window.location.toString())) {
                 const rankings = JSON.parse(sessionStorage.getItem(window.location.toString()))
                 relevantVar([...rankings.relevant]);
                 irrelevantVar([...rankings.irrelevant]);
             }else{
+                //make sure we start with empty rankings
                 relevantVar([]);
                 irrelevantVar([]);
             }
