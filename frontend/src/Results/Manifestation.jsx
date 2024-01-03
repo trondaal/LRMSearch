@@ -129,8 +129,7 @@ export default function Manifestation(props){
             {others.map(creator => <Typography color="primary.main" component="span" align="left" variant="body2" className={"role"} key={creator[0] + creator[1]}>{creator[0] + plurals(creator[1]) + ": " + creator[1]}</Typography>) }
             <div className={"manifestationdetails"}>
             <PublicationData manifestation={props.manifestation}/>
-            {!props.contentsDisplayed && props.manifestation.contentsnote ? <ContentsNote contents={props.manifestation.contentsnote} terms={props.terms}/> : <></>}
-
+            {props.contentsDisplayed && props.manifestation.contentsnote ? <ContentsNote contents={props.manifestation.contentsnote} terms={props.terms}/> : <></>}
             {/*(expressions.length) > 1 && parentform === "part" && <Typography component="div" variant="body2" className={"contents"}>
                 {contentsnote === null ? "" : <>
                     <span className={"prefix"}>Includes: </span>

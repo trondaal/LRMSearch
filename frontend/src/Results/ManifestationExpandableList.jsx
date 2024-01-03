@@ -40,7 +40,7 @@ export default function ManifestationExpandableList({expression, terms}){
         <details open={expression.expanded} ref={detailsRef}>
             <summary>{expression.manifestations.length} publications available</summary>
             <ul className={"manifestationlist"}>
-                {expression && expression.manifestations.map(m => (<Manifestation manifestation={m} form= {expression.form} key={m.uri} checkboxes={false} contentsDisplayed={expression.contents === null} terms={terms}/>))}
+                {expression && expression.manifestations.map(m => (<Manifestation manifestation={m} form= {expression.form} key={m.uri} checkboxes={false} contentsDisplayed={expression.contentsnote === null} terms={terms}/>))}
             </ul>
         </details>
     </div>

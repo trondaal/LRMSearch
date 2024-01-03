@@ -32,7 +32,7 @@ export default function ResultList({results}) {
     let temp_q = q.replace(/[.,;()-/]/g, " ").trim().split(/ +/)
     let terms = temp_q.filter((word) => !stopwords.includes(word.toLowerCase())).filter(word => word.length > 1);
 
-    console.log(relevantVar());
+    //console.log(relevantVar());
 
     if (results === undefined){
         return <div>No results</div>
