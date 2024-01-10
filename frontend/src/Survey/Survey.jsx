@@ -20,21 +20,20 @@ const a_questions = [
     ["You are compiling a list of titles by \"Agatha Christie\" for a personal use. The result page shows a selection of what can be found.",
         "?query=Agatha+Christie&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Agatha Christie\"", order[Math.floor(Math.random() * (3))]],
-    /*["You are compiling a list of titles by \"Mark Twain\" for a personal reading list. The result page shows a selection of what can be found.",
-        "?query=Mark+Twain&language=english&content=text&subject=surveyitem",
-        "Go to the results for a search on \"Mark Twain\"", order[Math.floor(Math.random() * (3))]],
     ["You are compiling a list of titles by \"J. R. R. Tolkien\" for a personal reading list. The result page shows a selection of what can be found.",
         "?query=J.R.R.+Tolkien&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"J. R. R. Tolkien\"", order[Math.floor(Math.random() * (3))]],
+    /*["You are compiling a list of titles by \"Mark Twain\" for a personal reading list. The result page shows a selection of what can be found.",
+        "?query=Mark+Twain&language=english&content=text&subject=surveyitem",
+        "Go to the results for a search on \"Mark Twain\"", order[Math.floor(Math.random() * (3))]],
+
     ["You are compiling a list of titles by \"Cormac McCarthy\" for a personal reading list. The result page shows a selection of what can be found.",
         "?query=Cormac+McCarthy&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Cormac McCarthy\"", order[Math.floor(Math.random() * (3))]],
     ["You are compiling a list of titles by \"J. G. Ballard\" for a personal reading list. The result page shows a selection of what can be found.",
         "?query=J.G.+Ballard&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"J. G. Ballard\"", order[Math.floor(Math.random() * (3))]],
-    ["You are compiling a list of titles by \"Ray Bradbury\" for a personal reading list. The result page shows a selection of what is found for this author name.",
-        "/search/?query=Ray+Bradbury&language=english&content=text&subject=surveyitem",
-        "Go to the results for a search on \"Ray Bradbury\"", "Ray Bradbury"]*/
+    */
 ];
 // Author + title questions
 const at_questions = [
