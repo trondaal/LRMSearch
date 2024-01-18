@@ -2,6 +2,9 @@ import Manifestation from "./Manifestation.jsx";
 import React, {useEffect, useRef} from "react";
 import PropTypes from "prop-types";
 import {expandedVar} from "../api/Cache.js";
+import {expandHistoryState} from "../state/state.js";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+
 
 ManifestationExpandableList.propTypes = {
     expression: PropTypes.object,
@@ -11,6 +14,9 @@ ManifestationExpandableList.propTypes = {
 
 export default function ManifestationExpandableList({expression, terms}){
 
+    const expandedHistory = useRecoilValue(expandHistoryState);
+    const setExpandedHistory = useSetRecoilState(expandHistoryState);
+
     const detailsRef = useRef(null);
 
     useEffect(() => {
@@ -19,6 +25,10 @@ export default function ManifestationExpandableList({expression, terms}){
             const arr = expandedVar();
             let index = arr.indexOf(expression.uri);
             if (detailsRef.current.open) {
+                if (!expandedHistory.includes(expression.uri)) {
+                    setExpandedHistory([...expandedHistory, expression.uri]);
+                }
+                //console.log("Expanded : " + expandedHistory);
                 if (index === -1) {
                     arr.push(expression.uri);
                 }

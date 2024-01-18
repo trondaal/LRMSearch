@@ -14,19 +14,19 @@ import Paper from '@mui/material/Paper';
 const order= ["score", "random", "pagerank"];
 
 const a_questions = [
-    ["You are compiling a list of titles by \"Knut Hamsun\" for a personal reading list. The result page shows a selection of what can be found.",
+    /*["You are compiling a list of titles by \"Knut Hamsun\" for a personal reading list. The result page shows a selection of what can be found.",
         "?query=Knut+Hamsun&language=norwegian&content=text&subject=surveyitem",
         "Go to the results for a search on \"Knut Hamsun\"", order[Math.floor(Math.random() * (3))]],
     ["You are compiling a list of titles by \"Agatha Christie\" for a personal use. The result page shows a selection of what can be found.",
         "?query=Agatha+Christie&language=english&content=text&subject=surveyitem",
-        "Go to the results for a search on \"Agatha Christie\"", order[Math.floor(Math.random() * (3))]],
+        "Go to the results for a search on \"Agatha Christie\"", order[Math.floor(Math.random() * (3))]],*/
     ["You are compiling a list of titles by \"J. R. R. Tolkien\" for a personal reading list. The result page shows a selection of what can be found.",
         "?query=J.R.R.+Tolkien&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"J. R. R. Tolkien\"", order[Math.floor(Math.random() * (3))]],
-    /*["You are compiling a list of titles by \"Mark Twain\" for a personal reading list. The result page shows a selection of what can be found.",
+    ["You are compiling a list of titles by \"Mark Twain\" for a personal reading list. The result page shows a selection of what can be found.",
         "?query=Mark+Twain&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Mark Twain\"", order[Math.floor(Math.random() * (3))]],
-
+/*
     ["You are compiling a list of titles by \"Cormac McCarthy\" for a personal reading list. The result page shows a selection of what can be found.",
         "?query=Cormac+McCarthy&language=english&content=text&subject=surveyitem",
         "Go to the results for a search on \"Cormac McCarthy\"", order[Math.floor(Math.random() * (3))]],

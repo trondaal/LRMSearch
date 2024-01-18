@@ -9,6 +9,8 @@ import * as React from "react";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import Expression from "../Results/Expression.jsx";
+import {expandHistoryState} from "../state/state.js";
+import {useSetRecoilState} from "recoil";
 
 function initialQuery() {
     const params = new URLSearchParams(window.location.search)
@@ -77,7 +79,7 @@ function createQuery(q){
 export default function SearchBar({search, defaultExpanded, setDefaultExpanded, results, display, setDisplay}) {
     //console.log("In Searchbar: " + defaultExpanded);
     const [query, setQuery] = useState(initialQuery());
-
+    const setExpandedHistory = useSetRecoilState(expandHistoryState);
     const params = new URLSearchParams(window.location.search);
     let limit = 500;
     if (params.get("limit")){
@@ -96,6 +98,7 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
                 window.location.search = params.toString()
                 sessionStorage.setItem('query', query);
                 search({ variables: { query: createQuery(query), sort: createSortOrder(), limit: limit } })
+                setExpandedHistory([]);
             }else{
                 setQuery(event.target.value)
             }
@@ -110,9 +113,10 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
                 relevantVar([...rankings.relevant]);
                 irrelevantVar([...rankings.irrelevant]);
             }*/
+            setExpandedHistory([]);
             sessionStorage.setItem('query', query.toLowerCase());
             search({ variables: { query: createQuery(query), sort: createSortOrder(), limit:limit }});
-            console.log(relevantVar());
+            //console.log(relevantVar());
         }, []
     );
 

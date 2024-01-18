@@ -4,7 +4,6 @@ import {InMemoryCache, makeVar} from "@apollo/client";
 export const selectedVar = makeVar(new Set());
 export const relevantVar = makeVar([]);
 export const irrelevantVar = makeVar([]);
-
 export const expandedVar = makeVar([]);
 
 export const Cache = new InMemoryCache({
