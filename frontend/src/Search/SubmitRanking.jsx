@@ -14,10 +14,13 @@ import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineS
 import Tooltip from '@mui/material/Tooltip';
 import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
-import {expandedVar} from "../api/Cache.js";
+import { Link } from 'react-router-dom'
+import {useRecoilValue} from "recoil";
+import {expandHistoryState} from "../state/state.js";
 
 export default function SubmitRanking({query, results}) {
     //console.log("In submit ranking : " + defaultExpanded);
+
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
     const [open, setOpen] = React.useState(false);
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
@@ -25,6 +28,7 @@ export default function SubmitRanking({query, results}) {
     const [taskConfidence, setTaskConfidence] = React.useState(3);
     const [tasks, setTasks] = React.useState(sessionStorage.getItem('lrm-survey-tasks') ? JSON.parse(sessionStorage.getItem('lrm-survey-tasks')) : []);
     const uri =  window.location.toString();
+    const expandedHistory = useRecoilValue(expandHistoryState);
     //const [expanded, setExpanded] = React.useState(false);
 
 
@@ -44,6 +48,7 @@ export default function SubmitRanking({query, results}) {
 
     const handleClose = () => {
         setOpen(false);
+        console.log("Expanded : " + expandedHistory);
     };
 
     const handleBackButton = () => {
@@ -51,6 +56,8 @@ export default function SubmitRanking({query, results}) {
     };
 
     const handleSave = () => {
+
+        console.log("Expanded: " + expandedHistory);
         setOpen(false);
         const params = new URLSearchParams(window.location.search)
         let respondent = "";
@@ -77,7 +84,8 @@ export default function SubmitRanking({query, results}) {
                 results: results.map(x => x.expression.uri),
                 bibliographicExpertise: bibliographicExpertise,
                 searchExpertise: searchExpertise,
-                taskConfidence: taskConfidence
+                taskConfidence: taskConfidence,
+                expandedHistory: expandHistoryState
             }
         });
 
@@ -113,7 +121,7 @@ export default function SubmitRanking({query, results}) {
                 <DialogTitle id="alert-dialog-title">
                     {"Rate your ..."}
                 </DialogTitle>
-                <ExpertiseRating title={"Knowledge of this author or work"} value={searchExpertise} setValue={setSearchExpertise}/>
+                <ExpertiseRating title={"Knowledge of this author or title"} value={searchExpertise} setValue={setSearchExpertise}/>
                 <ExpertiseRating title={"Knowledge of library data in general"} value={bibliographicExpertise} setValue={setBibliographicExpertise}/>
                 <ExpertiseRating title={"Confidence in solving the task"} value={taskConfidence} setValue={setTaskConfidence}/>
                 <DialogTitle id="alert-dialog-title">
@@ -136,8 +144,11 @@ export default function SubmitRanking({query, results}) {
             <Tooltip title={tasks.includes(uri) ? "You have submitted this task." : "Not submitted this task yet."} placement={"top"}>
                 <CheckCircleOutlineSharpIcon color={tasks.includes(uri) ? "success" : "action"} sx={{fontSize: 40}}/>
             </Tooltip>
-            <Button variant="outlined" onClick={handleBackButton} sx={{ ml: 2 }}>
+            {/*<Button variant="outlined" onClick={handleBackButton} sx={{ ml: 2 }}>
                 Back to survey
+            </Button>*/}
+            <Button variant="outlined" sx={{ ml: 2 }} component={Link} to="/survey">
+                Back to Survey
             </Button>
         </Box>
     );

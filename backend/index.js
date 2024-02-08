@@ -123,6 +123,7 @@ const typeDefs = `
         relevant: [String]
         irrelevant: [String]
         results: [String]
+        expandedHistory: [String]
         bibliographicExpertise: Int
         searchExpertise: Int
         taskConfidence: Int
