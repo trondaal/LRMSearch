@@ -111,7 +111,7 @@ const typeDefs = `
         name: String
         uri: String
     }
-    interface roleType @relationshipProperties {
+    type roleType @relationshipProperties {
         role: String
     }
     type RankingResult{

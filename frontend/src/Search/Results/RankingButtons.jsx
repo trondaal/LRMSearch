@@ -1,6 +1,6 @@
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import {irrelevantVar, relevantVar} from "../api/Cache.js";
+import {irrelevantVar, relevantVar} from "../../api/Cache.js";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp.js";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown.js";
 import RecommendOutlinedIcon from '@mui/icons-material/RecommendOutlined';

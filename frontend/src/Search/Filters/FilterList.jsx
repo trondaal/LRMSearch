@@ -1,10 +1,10 @@
 import React, {useMemo} from 'react';
 import List from '@mui/material/List';
 import ListSubheader from '@mui/material/ListSubheader';
-import FilterGroup from './FilterGroup';
-import {selectedVar} from '../api/Cache';
+import FilterGroup from './FilterGroup.jsx';
+import {selectedVar} from '../../api/Cache.js';
 import { intersection } from 'lodash';
-import {filterState} from '../state/state';
+import {filterState} from '../../state/state.js';
 import {useRecoilState} from 'recoil';
 
 function createFilterList(expressions){

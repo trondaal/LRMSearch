@@ -6,7 +6,7 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { intersection } from 'lodash';
-import Filter from './Filter';
+import Filter from './Filter.jsx';
 import "./FilterGroup.css";
 
 export default function FilterGroup(props) {

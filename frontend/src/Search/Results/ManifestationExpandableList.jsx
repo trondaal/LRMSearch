@@ -1,8 +1,8 @@
 import Manifestation from "./Manifestation.jsx";
 import React, {useEffect, useRef} from "react";
 import PropTypes from "prop-types";
-import {expandedVar} from "../api/Cache.js";
-import {expandHistoryState} from "../state/state.js";
+import {expandedVar} from "../../api/Cache.js";
+import {expandHistoryState} from "../../state/state.js";
 import {useRecoilValue, useSetRecoilState} from "recoil";
 
 

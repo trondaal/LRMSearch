@@ -1,6 +1,6 @@
-import {relevantVar, irrelevantVar} from "../api/Cache";
-import Expression from "./Expression";
-import stopwords from "../Search/stopwords.js";
+import {relevantVar, irrelevantVar} from "../../api/Cache.js";
+import Expression from "./Expression.jsx";
+import stopwords from "../stopwords.js";
 import * as React from "react";
 import PropTypes from "prop-types";
 import {useEffect} from "react";

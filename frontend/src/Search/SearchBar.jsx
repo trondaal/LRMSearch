@@ -8,7 +8,7 @@ import SubmitRanking from "./SubmitRanking.jsx";
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
-import Expression from "../Results/Expression.jsx";
+import Expression from "./Results/Expression.jsx";
 import {expandHistoryState} from "../state/state.js";
 import {useSetRecoilState} from "recoil";
 

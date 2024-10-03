@@ -147,9 +147,11 @@ export default function SubmitRanking({query, results}) {
             {/*<Button variant="outlined" onClick={handleBackButton} sx={{ ml: 2 }}>
                 Back to survey
             </Button>*/}
-            <Button variant="outlined" sx={{ ml: 2 }} component={Link} to="/survey">
+
+            {/* Uncomment this button if you want to go back to the survey */
+                /*<Button variant="outlined" sx={{ ml: 2 }} component={Link} to="/survey">
                 Back to Survey
-            </Button>
+            </Button>*/}
         </Box>
     );
 }

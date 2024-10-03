@@ -1,9 +1,9 @@
 import Typography from "@mui/material/Typography";
-import IconTypes from "./IconTypes";
+import IconTypes from "./IconTypes.jsx";
 import "./ResultList.css";
-import {PublicationData, ManifestationTitle, ContentsNote} from "./Manifestation";
+import {PublicationData, ManifestationTitle, ContentsNote} from "./Manifestation.jsx";
 import {useRecoilState} from 'recoil';
-import {showUriState} from "../state/state";
+import {showUriState} from "../../state/state.js";
 import "./ResultList.css";
 import RankingButtons from "./RankingButtons.jsx";
 import Agents from "./Agents.jsx";

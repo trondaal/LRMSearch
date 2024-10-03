@@ -4,7 +4,7 @@ import ListItemText from "@mui/material/ListItemText";
 import "./ResultList.css";
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItem from '@mui/material/ListItem';
-import {selectedState, clickableState} from '../state/state';
+import {selectedState, clickableState} from '../../state/state.js';
 import {useRecoilState} from 'recoil';
 import TruncateText from "./TruncateText.jsx";
 import {groupBy} from "lodash";

@@ -1,11 +1,11 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import ResultList from "./Results/ResultList";
+import ResultList from "./Search/Results/ResultList";
 import { useLazyQuery} from '@apollo/client';
 import {GET_EXPRESSIONS} from "./api/Queries";
 import SearchBar from "./Search/SearchBar";
 import CircularProgress from '@mui/material/CircularProgress';
-import FilterList from "./Filters/FilterList";
+import FilterList from "./Search/Filters/FilterList";
 import Button from '@mui/material/Button';
 import {filterState, showFiltersState, selectedState, configState} from './state/state';
 import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';

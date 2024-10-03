@@ -37,17 +37,21 @@ export default function ExpressionTitle ({expression, terms}) {
     const contentType=expression.content;
     const language=expression.language;
     let extraText = [];
-    if (wTitle !== eTitle){
+    if (!eTitle.replace(/\W/ig, "").toLowerCase().includes(wTitle.replace(/\W/ig, "").toLowerCase())){
+        //console.log(eTitle.replace(/\W/ig, "") + " : " + wTitle.replace(/\W/ig, ""));
         extraText.push(wTitle);
     }else{
-        extraText.push(wTitle);
+        //extraText.push(wTitle);
     }
-    if (language.length !== 0){
+    if (expression.work[0].form){
+        extraText.push(expression.work[0].form)
+    }
+    /*if (language.length !== 0){
         extraText.push(language[0].label);
     }
     if (contentType.length !== 0){
         extraText.push(contentType[0].label);
-    }
+    }*/
     return (
         <Typography color="primary.main" component="div" variant="etitle" align="left">
             <Typography color="primary.main" component="span" variant="fieldname" align="left"><Typography color="primary.main" component="span" align="left" variant="prefix">Title: </Typography></Typography>
@@ -57,6 +61,6 @@ export default function ExpressionTitle ({expression, terms}) {
                 autoEscape={true}
                 textToHighlight={eTitle}
             />
-            {/*wTitle && <Typography color='grey.700' variant="wtitle" component="span"> ({extraText.join(" / ")})</Typography>*/}
+            {extraText.length > 0 && <Typography color='grey.700' variant="wtitle" component="span"> ({extraText.join(" / ")})</Typography>}
         </Typography>)
 }
