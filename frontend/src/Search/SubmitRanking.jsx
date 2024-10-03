@@ -85,7 +85,8 @@ export default function SubmitRanking({query, results}) {
                 bibliographicExpertise: bibliographicExpertise,
                 searchExpertise: searchExpertise,
                 taskConfidence: taskConfidence,
-                expandedHistory: expandHistoryState
+                expandedHistory: []
+                //expandedHistory: expandHistoryState
             }
         });
 
