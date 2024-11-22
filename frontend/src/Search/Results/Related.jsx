@@ -49,7 +49,7 @@ export default function Related({expression}){
 
     return <>
         {isExpressionRelatedToExpression.totalCount > 0 && isExpressionRelatedToExpression.edges.map(e => <Typography color="primary.main" component="div" variant="body2" align="left" key={e.role + e.node.label}>{renameRole(e.role, expression.language) + ": "}<a href={"?query=" + (e.node.titlepreferred ? e.node.titlepreferred : e.node.label) + " (" + e.node.id +")"}>{bestLabel(e.node)}</a></Typography>)}
-        {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.label}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.label}>{bestLabel(w.node)}</a></Typography>)}
+        {isWorkRelatedToWork.totalCount > 0 && isWorkRelatedToWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.label}>{renameRole(w.properties.role) + ": "}<a href={"?query=" + w.node.label}>{bestLabel(w.node)}</a></Typography>)}
     </>
 }
 
@@ -57,9 +57,9 @@ export function PartOf({expression}){
     const partOfWork = expression.work[0].partOfConnection;
     const partOfExpression = expression.partOfConnection;
     if (partOfExpression.totalCount > 0){
-        return partOfExpression.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.label}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.label}>{w.node.label}</a></Typography>)
+        return partOfExpression.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.properties.role + w.node.label}>{renameRole(w.properties.role) + ": "}<a href={"?query=" + w.node.label}>{w.node.label}</a></Typography>)
     } else if (partOfWork.totalCount > 0){
-        return partOfWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.role + w.node.label}>{renameRole(w.role) + ": "}<a href={"?query=" + w.node.label}>{w.node.label}</a></Typography>)
+        return partOfWork.edges.map(w => <Typography color="primary.main" component="div" variant="body2" align="left" key={w.properties.role + w.node.label}>{renameRole(w.properties.role) + ": "}<a href={"?query=" + w.node.label}>{w.node.label}</a></Typography>)
     } else {
         <></>
     }

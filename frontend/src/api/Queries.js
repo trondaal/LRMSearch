@@ -39,7 +39,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
                     name,
                     uri
                 },
-                role
+                properties{
+                    role
+                }
             }
         }
         work{
@@ -59,7 +61,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
                         name,
                         uri
                     },
-                    role
+                    properties{
+                        role
+                    }
                 }
             },
             hasSubjectAgentConnection{
@@ -96,7 +100,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
             relatedToConnection{
                 totalCount,
                 edges{
-                    role,
+                    properties{
+                        role
+                    },
                     node{
                         id,
                         label,
@@ -109,7 +115,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
             relatedFromConnection{
                 totalCount,
                 edges{
-                    role,
+                    properties{
+                        role
+                    },
                     node{
                         id,
                         label,
@@ -122,7 +130,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
             hasPartConnection{
                 totalCount,
                 edges{
-                    role,
+                    properties{
+                        role
+                    },
                     node{
                         id,
                         label,
@@ -135,7 +145,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
             partOfConnection{
                 totalCount,
                 edges{
-                    role,
+                    properties{
+                        role
+                    },
                     node{
                         id,
                         label,
@@ -149,7 +161,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
         hasPartConnection{
             totalCount,
             edges{
-                role,
+                properties{
+                    role
+                },
                 node{
                     id,
                     label,
@@ -162,7 +176,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
         partOfConnection{
             totalCount,
             edges{
-                role,
+                properties{
+                    role
+                },
                 node{
                     id,
                     label,
@@ -175,7 +191,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
         relatedToConnection{
             totalCount,
             edges{
-                role,
+                properties{
+                    role
+                },
                 node{
                     id,
                     label,
@@ -188,7 +206,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
         relatedFromConnection{
             totalCount,
             edges{
-                role,
+                properties{
+                    role
+                },
                 node{
                     id,
                     label,
@@ -236,7 +256,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
                         name,
                         uri
                     },
-                    role
+                    properties{
+                        role
+                    }
                 }
             },
             expressions{
@@ -254,7 +276,9 @@ query($query: String!, $sort: [ExpressionFulltextSort!], $limit: Int!) {
                 hasPartConnection{
                     totalCount,
                     edges{
-                        role,
+                        properties{
+                            role
+                        },
                         node{
                             id,
                             label,

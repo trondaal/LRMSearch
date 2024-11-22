@@ -26,7 +26,7 @@ export default function Agents({expression, terms}) {
     const roles   = ['Director', 'Producer', 'Composer', 'Lyricist', 'Interviewer', 'Interviewee', 'Honouree', 'Compiler', 'Translator', 'Narrator', 'Abridger', 'Editor', 'Instrumentalist', 'Performer'];
     const mainroles = ['Author', 'Creator', 'Artist'];
     //selecting from work, typical main entries first
-    const creatorsmap = groupBy(expression.work[0].creatorsConnection.edges, a => a.role);
+    const creatorsmap = groupBy(expression.work[0].creatorsConnection.edges, a => a.properties.role);
 
     const creators = [];
     for (const r in creatorsmap){
@@ -41,7 +41,7 @@ export default function Agents({expression, terms}) {
     }
 
     //selecting from expression
-    const contributorsmap = groupBy(expression.creatorsConnection.edges, a => a.role);
+    const contributorsmap = groupBy(expression.creatorsConnection.edges, a => a.properties.role);
 
     const contributors = [];
     for (const r in contributorsmap){
