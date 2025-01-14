@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Highlighter from "react-highlight-words";
+import Highlighter from "react-highlighter-words";
 
 const TruncateText = ({ text, maxLength, terms }) => {
     const [isTruncated, setIsTruncated] = useState(true);

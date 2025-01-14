@@ -26,6 +26,7 @@ export const configState = atom({
     key: 'configState',
     default: ["Filters", "Clickable", "Formatting", "ShowURIs"]
 });
+
 // State to manage the history of expressions that have been expanded
 export const expandHistoryState = atom({
         key: 'expandHistoryState',

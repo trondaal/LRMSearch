@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
-import Highlighter from "react-highlight-words";
+import Highlighter from "react-highlighter-words";
 import React from "react";
 import {manifestationStatement} from "./Manifestation.jsx";
 

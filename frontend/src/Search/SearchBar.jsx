@@ -151,7 +151,7 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
             />
         </Grid>
         <Grid item xs={6}>
-            <SubmitRanking query={query} results={results}/>
+            {/*<SubmitRanking query={query} results={results}/>*/}
         </Grid>
     </Grid>
 

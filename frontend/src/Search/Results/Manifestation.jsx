@@ -9,7 +9,7 @@ import {useRecoilState} from 'recoil';
 import TruncateText from "./TruncateText.jsx";
 import {groupBy} from "lodash";
 import {TrendingUp} from "@mui/icons-material";
-import Highlighter from "react-highlight-words";
+import Highlighter from "react-highlighter-words";
 
 function isEmpty(str) {
     return (!str || str.length === 0 );

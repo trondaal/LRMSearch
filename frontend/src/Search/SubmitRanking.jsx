@@ -14,7 +14,7 @@ import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineS
 import Tooltip from '@mui/material/Tooltip';
 import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import {useRecoilValue} from "recoil";
 import {expandHistoryState} from "../state/state.js";
 
@@ -51,9 +51,9 @@ export default function SubmitRanking({query, results}) {
         console.log("Expanded : " + expandedHistory);
     };
 
-    const handleBackButton = () => {
+    /*const handleBackButton = () => {
         window.history.back();
-    };
+    };*/
 
     const handleSave = () => {
 

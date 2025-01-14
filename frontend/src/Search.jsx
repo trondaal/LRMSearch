@@ -15,8 +15,8 @@ import {useState} from 'react';
 
 export default function Search() {
     //const [config, setConfig] = useRecoilState(configState);
-    const showFilters = useRecoilValue(showFiltersState);
-    const setChecked = useSetRecoilState(filterState);
+    //const showFilters = useRecoilValue(showFiltersState);
+    //const setChecked = useSetRecoilState(filterState);
    // const setSelected = useSetRecoilState(selectedState);
     //const params = new URLSearchParams(window.location.search)
 
@@ -25,14 +25,14 @@ export default function Search() {
         selectedVar(new Set([]));
     }*/
 
-
-
     const [search, { loading, data, error, called }] = useLazyQuery(GET_EXPRESSIONS);
 
     if (error)
         console.log(error.message);
 
     let results = data ? data.expressionsFulltextExpressions : [];
+
+    //let results = [];
 
     return (
         <>
