@@ -12,10 +12,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import {theme} from "./theme";
 import { BrowserRouter } from 'react-router-dom';
 
-import {
-    RecoilRoot,
-} from 'recoil';
-
 
 //console.log("URI = " + import.meta.env.VITE_NEO4J_BACKEND);
 
@@ -30,13 +26,11 @@ const root = createRoot(container);
 
 root.render(
   <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <RecoilRoot>
-          <ApolloProvider client={client}>
-              <ThemeProvider theme={theme}>
-                  <App/>
-              </ThemeProvider>
-          </ApolloProvider>
-      </RecoilRoot>
+      <ApolloProvider client={client}>
+          <ThemeProvider theme={theme}>
+              <App/>
+          </ThemeProvider>
+      </ApolloProvider>
   </BrowserRouter>
 );
 

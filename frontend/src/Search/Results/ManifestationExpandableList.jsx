@@ -2,8 +2,9 @@ import Manifestation from "./Manifestation.jsx";
 import React, {useEffect, useRef} from "react";
 import PropTypes from "prop-types";
 import {expandedVar} from "../../api/Cache.js";
-import {expandHistoryState} from "../../state/state.js";
-import {useRecoilValue, useSetRecoilState} from "recoil";
+import {expandedHistoryAtom} from "../../state/Atoms.js";
+import { useAtom } from 'jotai'
+//import {useRecoilValue, useSetRecoilState} from "recoil";
 
 
 ManifestationExpandableList.propTypes = {
@@ -14,8 +15,9 @@ ManifestationExpandableList.propTypes = {
 
 export default function ManifestationExpandableList({expression, terms}){
 
-    const expandedHistory = useRecoilValue(expandHistoryState);
-    const setExpandedHistory = useSetRecoilState(expandHistoryState);
+    const [expandedHistory, setExpandedHistory] = useAtom(expandedHistoryAtom)
+    //const expandedHistory = useRecoilValue(expandHistoryState);
+    //const setExpandedHistory = useSetRecoilState(expandHistoryState);
 
     const detailsRef = useRef(null);
 

@@ -4,8 +4,8 @@ import ListSubheader from '@mui/material/ListSubheader';
 import FilterGroup from './FilterGroup.jsx';
 import {selectedVar} from '../../api/Cache.js';
 import { intersection } from 'lodash';
-import {filterState} from '../../state/state.js';
-import {useRecoilState} from 'recoil';
+//import {filterState} from '../../state/state.js';
+//import {useRecoilState} from 'recoil';
 
 function createFilterList(expressions){
     const filters = new Map();

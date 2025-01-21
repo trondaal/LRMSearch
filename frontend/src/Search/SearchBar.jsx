@@ -9,8 +9,11 @@ import * as React from "react";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import Expression from "./Results/Expression.jsx";
-import {expandHistoryState} from "../state/state.js";
-import {useSetRecoilState} from "recoil";
+//import {expandHistoryState} from "../state/state.js";
+//import {useSetRecoilState} from "recoil";
+
+import { useSetAtom  } from 'jotai';
+import { expandedHistoryAtom } from '../state/atoms.js'
 
 function initialQuery() {
     const params = new URLSearchParams(window.location.search)
@@ -79,7 +82,7 @@ function createQuery(q){
 export default function SearchBar({search, defaultExpanded, setDefaultExpanded, results, display, setDisplay}) {
     //console.log("In Searchbar: " + defaultExpanded);
     const [query, setQuery] = useState(initialQuery());
-    const setExpandedHistory = useSetRecoilState(expandHistoryState);
+    const setExpandedHistory = useSetAtom(expandedHistoryAtom);
     const params = new URLSearchParams(window.location.search);
     let limit = 500;
     if (params.get("limit")){
@@ -151,7 +154,7 @@ export default function SearchBar({search, defaultExpanded, setDefaultExpanded, 
             />
         </Grid>
         <Grid item xs={6}>
-            {/*<SubmitRanking query={query} results={results}/>*/}
+            {<SubmitRanking query={query} results={results}/>}
         </Grid>
     </Grid>
 

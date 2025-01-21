@@ -1,9 +1,10 @@
 import {atom} from 'jotai';
-
-const selectedState = atom([]);
-const filterState = atom([]);
-const configState = atom(["Filters", "Clickable", "Formatting", "ShowURIs"]);
-const expandHistoryState = atom([]);
+export const showUriAtom = atom(false);
+export const isClickableAtom = atom(true);
+export const selectedAtom = atom([]);
+//export const filterState = atom([]);
+//export const configState = atom(["Filters", "Clickable", "Formatting", "ShowURIs"]);
+export const expandedHistoryAtom = atom([]);
 
 
 

@@ -15,12 +15,12 @@ import Tooltip from '@mui/material/Tooltip';
 import ExpertiseRating from "./ExpertiseRating.jsx";
 import { v4 as uuidv4 } from 'uuid';
 //import { Link } from 'react-router-dom'
-import {useRecoilValue} from "recoil";
-import {expandHistoryState} from "../state/state.js";
+//import {useRecoilValue} from "recoil";
+
+import { useAtomValue  } from 'jotai';
+import { expandedHistoryAtom } from '../state/atoms.js'
 
 export default function SubmitRanking({query, results}) {
-    //console.log("In submit ranking : " + defaultExpanded);
-
     const [mutateFunction, { data, loading, error }] = useMutation(CREATE_RANKING);
     const [open, setOpen] = React.useState(false);
     const [bibliographicExpertise, setBibliographicExpertise] = React.useState(3);
@@ -28,19 +28,8 @@ export default function SubmitRanking({query, results}) {
     const [taskConfidence, setTaskConfidence] = React.useState(3);
     const [tasks, setTasks] = React.useState(sessionStorage.getItem('lrm-survey-tasks') ? JSON.parse(sessionStorage.getItem('lrm-survey-tasks')) : []);
     const uri =  window.location.toString();
-    const expandedHistory = useRecoilValue(expandHistoryState);
-    //const [expanded, setExpanded] = React.useState(false);
+    const expandedHistory = useAtomValue(expandedHistoryAtom);
 
-
-    /*const handleExpandClick = () => {
-        setExpanded(!expanded);
-        if (expanded){
-            expandedVar([]);
-        }else{
-            expandedVar([...results.map(x => x.expression.uri)]);
-        }
-        //console.log("After clicking expand: " + expanded);
-    }*/
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -51,13 +40,7 @@ export default function SubmitRanking({query, results}) {
         console.log("Expanded : " + expandedHistory);
     };
 
-    /*const handleBackButton = () => {
-        window.history.back();
-    };*/
-
     const handleSave = () => {
-
-        console.log("Expanded: " + expandedHistory);
         setOpen(false);
         const params = new URLSearchParams(window.location.search)
         let respondent = "";
@@ -85,8 +68,8 @@ export default function SubmitRanking({query, results}) {
                 bibliographicExpertise: bibliographicExpertise,
                 searchExpertise: searchExpertise,
                 taskConfidence: taskConfidence,
-                expandedHistory: []
-                //expandedHistory: expandHistoryState
+                //expandedHistory: []
+                expandedHistory: expandedHistory
             }
         });
 
@@ -99,13 +82,8 @@ export default function SubmitRanking({query, results}) {
         sessionStorage.setItem(uri, json);
     };
 
-    //console.log("Before rendering buttons: " + expanded);
-
     return (
         <Box display="flex" justifyContent="flex-end">
-            {/*<Button variant="outlined" onClick={handleExpandClick} sx={{ mr: 2 }}>
-                {expanded ? "Hide" : "Expand"}
-            </Button>*/}
             <Button variant="outlined"  disabled={relevantVar().length === 0 && irrelevantVar().length === 0} sx={{ mr: 2 }}
                 onClick={() => {relevantVar([]); irrelevantVar([]); sessionStorage.removeItem(uri);}}>
                 Clear markings
@@ -145,14 +123,6 @@ export default function SubmitRanking({query, results}) {
             <Tooltip title={tasks.includes(uri) ? "You have submitted this task." : "Not submitted this task yet."} placement={"top"}>
                 <CheckCircleOutlineSharpIcon color={tasks.includes(uri) ? "success" : "action"} sx={{fontSize: 40}}/>
             </Tooltip>
-            {/*<Button variant="outlined" onClick={handleBackButton} sx={{ ml: 2 }}>
-                Back to survey
-            </Button>*/}
-
-            {/* Uncomment this button if you want to go back to the survey */
-                /*<Button variant="outlined" sx={{ ml: 2 }} component={Link} to="/survey">
-                Back to Survey
-            </Button>*/}
         </Box>
     );
 }

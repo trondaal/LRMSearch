@@ -7,8 +7,8 @@ import SearchBar from "./Search/SearchBar";
 import CircularProgress from '@mui/material/CircularProgress';
 import FilterList from "./Search/Filters/FilterList";
 import Button from '@mui/material/Button';
-import {filterState, showFiltersState, selectedState, configState} from './state/state';
-import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
+//import {filterState, showFiltersState, selectedState, configState} from './state/state';
+//import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
 import {selectedVar} from "./api/Cache";
 import {useState} from 'react';
 
@@ -17,7 +17,7 @@ export default function Search() {
     //const [config, setConfig] = useRecoilState(configState);
     //const showFilters = useRecoilValue(showFiltersState);
     //const setChecked = useSetRecoilState(filterState);
-   // const setSelected = useSetRecoilState(selectedState);
+    // const setSelected = useSetRecoilState(selectedState);
     //const params = new URLSearchParams(window.location.search)
 
     /*const handleClearFilters = (event) => {
@@ -31,8 +31,6 @@ export default function Search() {
         console.log(error.message);
 
     let results = data ? data.expressionsFulltextExpressions : [];
-
-    //let results = [];
 
     return (
         <>

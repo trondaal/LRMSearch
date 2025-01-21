@@ -4,8 +4,8 @@ import ListItemText from "@mui/material/ListItemText";
 import "./ResultList.css";
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItem from '@mui/material/ListItem';
-import {selectedState, clickableState} from '../../state/state.js';
-import {useRecoilState} from 'recoil';
+import {selectedAtom, isClickableAtom} from '../../state/atoms.js';
+import {useAtom, useAtomValue} from 'jotai';
 import TruncateText from "./TruncateText.jsx";
 import {groupBy} from "lodash";
 import {TrendingUp} from "@mui/icons-material";
@@ -79,8 +79,8 @@ export function ContentsNote({contents, prefix = "Includes: ", terms = []}){
 
 export default function Manifestation(props){
     //console.log(props.terms);
-    const [selected, setSelected] = useRecoilState(selectedState)
-    const [clickable] = useRecoilState(clickableState)
+    const [selected, setSelected] = useAtom(selectedAtom)
+    const clickable = useAtomValue(isClickableAtom);
     //const {title, subtitle, numbering, part, responsibility, extent, edition, uri, partnote} = props.manifestation;
     const {distribution, production, publication, manufacture, expressions, uri, terms} = props.manifestation;
     const parentform = props.form;

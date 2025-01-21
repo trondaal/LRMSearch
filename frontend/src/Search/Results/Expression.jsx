@@ -2,8 +2,8 @@ import Typography from "@mui/material/Typography";
 import IconTypes from "./IconTypes.jsx";
 import "./ResultList.css";
 import {PublicationData, ManifestationTitle, ContentsNote} from "./Manifestation.jsx";
-import {useRecoilState} from 'recoil';
-import {showUriState} from "../../state/state.js";
+import {useAtomValue} from 'jotai';
+import {showUriAtom} from "../../state/atoms.js";
 import "./ResultList.css";
 import RankingButtons from "./RankingButtons.jsx";
 import Agents from "./Agents.jsx";
@@ -42,7 +42,7 @@ function relevantClass(ranking){
 }
 
 export default function Expression({expression, terms, score}){
-    const [showUri] = useRecoilState(showUriState);
+    const showUri = useAtomValue(showUriAtom);
 
     //identify content type, want text to be first
     const content = expression.content.map(c => c.label);
