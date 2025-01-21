@@ -1,6 +1,6 @@
 import {atom} from 'jotai';
 export const showUriAtom = atom(false);
-export const isClickableAtom = atom(true);
+export const isClickableAtom = atom(false);
 export const selectedAtom = atom([]);
 //export const filterState = atom([]);
 //export const configState = atom(["Filters", "Clickable", "Formatting", "ShowURIs"]);
