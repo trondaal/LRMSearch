@@ -2,7 +2,7 @@ import Manifestation from "./Manifestation.jsx";
 import React, {useEffect, useRef} from "react";
 import PropTypes from "prop-types";
 import {expandedVar} from "../../api/Cache.js";
-import {expandedHistoryAtom} from "../../state/Atoms.js";
+import {expandedHistoryAtom} from "../../state/atoms.js";
 import { useAtom } from 'jotai'
 //import {useRecoilValue, useSetRecoilState} from "recoil";
 
